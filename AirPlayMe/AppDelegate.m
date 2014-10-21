@@ -16,13 +16,25 @@
 
 @implementation AppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
+-(void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{
 }
 
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
+-(void)applicationWillTerminate:(NSNotification *)aNotification {
+    
 }
+
+-(BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
+{
+    return YES;
+}
+
+-(void)play:(NSString *)fileUrl
+{
+    NSLog(@"%@", fileUrl);
+    [[NSWorkspace sharedWorkspace] openFile:fileUrl withApplication:@"Beamer"];
+}
+
 
 #pragma mark - Core Data stack
 
@@ -73,10 +85,15 @@
     
     if (!shouldFail && !error) {
         NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-        NSURL *url = [applicationDocumentsDirectory URLByAppendingPathComponent:@"OSXCoreDataObjC.storedata"];
+        NSURL *url = [applicationDocumentsDirectory URLByAppendingPathComponent:@"Database.storedata"];
+        
+//        [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
+        
         if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {
             coordinator = nil;
         }
+//        NSLog(@"NSPersistentStoreCoordinator: %@", url);
+        
         _persistentStoreCoordinator = coordinator;
     }
     

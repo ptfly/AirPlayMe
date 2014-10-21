@@ -1,4 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="untitled.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A388b" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Movie" representedClassName="Movie" syncable="YES">
+        <attribute name="adult" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="backdrop" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="backdrop_path" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="original_title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="overview" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parsed" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="path" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="popularity" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="poster" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="poster_path" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="release_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tmdbID" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="vote_average" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="vote_count" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="watched" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TVEpisode" representedClassName="TVEpisode" syncable="YES">
+        <attribute name="air_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="episode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="original_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="overview" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parsed" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="path" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="season" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="still" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="still_path" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tmdbID" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="vote_average" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="vote_count" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="watched" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="show" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TVShow" inverseName="episodes" inverseEntity="TVShow" syncable="YES"/>
+    </entity>
+    <entity name="TVShow" representedClassName="TVShow" syncable="YES">
+        <attribute name="backdrop" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="backdrop_path" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="first_air_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="original_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="overview" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="popularity" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="poster" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="poster_path" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tmdbID" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="vote_average" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="vote_count" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="episodes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TVEpisode" inverseName="show" inverseEntity="TVEpisode" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Movie" positionX="-666" positionY="-243" width="128" height="298"/>
+        <element name="TVEpisode" positionX="-495" positionY="-243" width="128" height="268"/>
+        <element name="TVShow" positionX="-497" positionY="62" width="128" height="238"/>
+    </elements>
 </model>

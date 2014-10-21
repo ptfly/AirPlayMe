@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6249" systemVersion="14A388b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6249"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="BrowserViewItem">
+            <connections>
+                <outlet property="imageView" destination="RSG-WG-TPa" id="umj-fk-OcH"/>
+                <outlet property="nameField" destination="qgQ-t5-4UQ" id="Z1C-HX-NPo"/>
+                <outlet property="view" destination="c22-O7-iKe" id="j0m-pv-Vty"/>
+                <outlet property="yearField" destination="SIR-Eo-gjd" id="7aJ-8q-L7s"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="180" height="305"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Cl-bX-hyd" customClass="ShadowView">
+                    <rect key="frame" x="10" y="60" width="160" height="235"/>
+                </customView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RSG-WG-TPa" customClass="PosterView">
+                    <rect key="frame" x="10" y="60" width="160" height="235"/>
+                    <gestureRecognizers>
+                        <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" numberOfClicksRequired="2" id="w3E-L3-KOb" userLabel="Double Click">
+                            <connections>
+                                <action selector="doubleClick:" target="-2" id="KCb-er-iD2"/>
+                            </connections>
+                        </clickGestureRecognizer>
+                        <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" id="xro-ub-AUt" userLabel="Single Click">
+                            <connections>
+                                <action selector="singleClick:" target="-2" id="vt9-jC-E9F"/>
+                            </connections>
+                        </clickGestureRecognizer>
+                    </gestureRecognizers>
+                    <imageCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="NSFlowViewTemplate" id="Wvv-AI-ulf"/>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qgQ-t5-4UQ">
+                    <rect key="frame" x="10" y="30" width="160" height="21"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="left" title="Label" id="dOP-G9-Xuf">
+                        <font key="font" size="15" name="HelveticaNeue"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SIR-Eo-gjd">
+                    <rect key="frame" x="10" y="13" width="160" height="17"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="left" title="Label" id="ej5-5e-YDS">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" white="1" alpha="0.28999999999999998" colorSpace="deviceWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="187" y="291"/>
+        </customView>
+        <userDefaultsController representsSharedInstance="YES" id="aOQ-1o-sjT"/>
+    </objects>
+    <resources>
+        <image name="NSFlowViewTemplate" width="18" height="10"/>
+    </resources>
+</document>
