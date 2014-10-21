@@ -20,6 +20,8 @@
 
 @property (weak) IBOutlet NSView *masterView;
 @property (weak) IBOutlet NSView *headerView;
+@property (weak) IBOutlet NSProgressIndicator *progressIndicator;
+@property (weak) IBOutlet NSPopUpButton *scanLibraryButton;
 
 @property (strong, nonatomic) IBOutlet NSViewController *currentViewController;
 
@@ -85,12 +87,19 @@
     [self layoutCurrentViewController];
 }
 
--(IBAction)scanDirectory:(id)sender
+-(IBAction)scanDirectory:(NSPopUpButton *)sender
 {
-//    NSThread *thread = [[NSThread alloc] initWithTarget:[Library sharedInstance] selector:@selector(scanMoviesLibrary) object:nil];
-//    [thread start];
-    NSThread *thread = [[NSThread alloc] initWithTarget:[Library sharedInstance] selector:@selector(scanTVShowsLibrary) object:nil];
-    [thread start];
+    if(sender.selectedTag == 1){
+        NSThread *thread = [[NSThread alloc] initWithTarget:[Library sharedInstance] selector:@selector(scanMoviesLibrary) object:nil];
+        [thread start];
+    }
+    else if(sender.selectedTag == 2){
+        NSThread *thread = [[NSThread alloc] initWithTarget:[Library sharedInstance] selector:@selector(scanTVShowsLibrary) object:nil];
+        [thread start];
+    }
+    else {
+        [Utils showError:@"Invalid library"];
+    }
 }
 
 -(IBAction)toggleViewController:(NSButton *)sender

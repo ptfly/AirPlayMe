@@ -151,30 +151,46 @@
                                             <action selector="toggleViewController:" target="Jvr-Z4-KH8" id="BbL-wM-I18"/>
                                         </connections>
                                     </button>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="nsY-R5-QhB">
-                                        <rect key="frame" x="1154" y="13" width="30" height="30"/>
+                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UY1-Cf-Cli">
+                                        <rect key="frame" x="1060" y="14" width="127" height="26"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="AqJ-CD-uA4"/>
-                                            <constraint firstAttribute="height" constant="30" id="d2d-qR-Pu6"/>
+                                            <constraint firstAttribute="width" constant="122" id="2Ze-lY-Flw"/>
+                                            <constraint firstAttribute="height" constant="21" id="SV8-sk-2Be"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSNetwork" imagePosition="left" alignment="left" state="on" inset="2" id="x1I-kI-BIh">
-                                            <behavior key="behavior" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
+                                        <popUpButtonCell key="cell" type="push" title="Scan Library" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" autoenablesItems="NO" selectedItem="mhv-8x-tU5" id="0wa-bi-8JS">
+                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="menu"/>
+                                            <menu key="menu" autoenablesItems="NO" id="xnc-S3-Wee">
+                                                <items>
+                                                    <menuItem title="Scan Library" state="on" enabled="NO" id="mhv-8x-tU5">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Movies" tag="1" id="EQN-3h-SWu">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="TV Shows" tag="2" id="Wke-wu-blc">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </popUpButtonCell>
                                         <connections>
-                                            <action selector="scanDirectory:" target="Jvr-Z4-KH8" id="SkT-JI-2ev"/>
+                                            <action selector="scanDirectory:" target="Jvr-Z4-KH8" id="IHA-1B-Ump"/>
                                         </connections>
-                                    </button>
+                                    </popUpButton>
+                                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="JKh-ck-D4x">
+                                        <rect key="frame" x="1032" y="19" width="16" height="16"/>
+                                    </progressIndicator>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="STh-Y5-feG" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="00E-Xs-RH6"/>
                                     <constraint firstAttribute="trailing" secondItem="cd6-xs-Qcj" secondAttribute="trailing" constant="4" id="4Le-ze-pwK"/>
                                     <constraint firstAttribute="height" constant="56" id="F7E-67-0qb"/>
                                     <constraint firstItem="1Gs-sB-xc6" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="Fjd-0Q-D1P"/>
+                                    <constraint firstItem="UY1-Cf-Cli" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="TcQ-qK-aF1"/>
                                     <constraint firstItem="STh-Y5-feG" firstAttribute="leading" secondItem="pT7-QB-sXU" secondAttribute="leading" constant="20" id="WAf-rO-yer"/>
                                     <constraint firstItem="cd6-xs-Qcj" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="YZE-IK-tPf"/>
-                                    <constraint firstItem="nsY-R5-QhB" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="13" id="ebn-ec-X5T"/>
-                                    <constraint firstItem="cd6-xs-Qcj" firstAttribute="leading" secondItem="nsY-R5-QhB" secondAttribute="trailing" constant="8" id="ecD-UF-7b9"/>
+                                    <constraint firstItem="cd6-xs-Qcj" firstAttribute="leading" secondItem="UY1-Cf-Cli" secondAttribute="trailing" constant="8" id="edU-Hz-1SA"/>
                                     <constraint firstItem="1Gs-sB-xc6" firstAttribute="leading" secondItem="STh-Y5-feG" secondAttribute="trailing" constant="8" id="pun-u2-dBL"/>
                                 </constraints>
                             </customView>
@@ -195,6 +211,8 @@
                     <connections>
                         <outlet property="headerView" destination="pT7-QB-sXU" id="NSu-Vr-aGN"/>
                         <outlet property="masterView" destination="dvH-oH-bu2" id="Pbe-3i-Si9"/>
+                        <outlet property="progressIndicator" destination="JKh-ck-D4x" id="vYo-qY-FTb"/>
+                        <outlet property="scanLibraryButton" destination="UY1-Cf-Cli" id="0tu-7R-RyT"/>
                     </connections>
                 </viewController>
                 <customObject id="mf1-pg-Zc0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -352,7 +370,4 @@
             <point key="canvasLocation" x="826" y="1457"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="NSNetwork" width="32" height="32"/>
-    </resources>
 </document>
