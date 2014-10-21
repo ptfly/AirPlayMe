@@ -12,6 +12,7 @@
 
 @interface Utils : NSObject
 
++(CGFloat)heightForString:(NSString *)myString font:(NSFont *)myFont containerWidth:(CGFloat)myWidth;
 +(NSString *)uuid;
 +(NSString *)timeIntervalFromDate:(NSDate *)dateStart toDate:(NSDate *)dateEnd;
 +(NSString *)formatDistance:(double)distance;

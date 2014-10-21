@@ -85,9 +85,9 @@
                 <windowController id="B8D-0N-5wS" customClass="WindowController" sceneMemberID="viewController">
                     <window key="window" title="AirPlayMe" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES" unifiedTitleAndToolbar="YES"/>
-                        <rect key="contentRect" x="400" y="327" width="1280" height="700"/>
+                        <rect key="contentRect" x="400" y="327" width="1280" height="645"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="960" height="520"/>
+                        <value key="minSize" type="size" width="1280" height="645"/>
                     </window>
                     <connections>
                         <outlet property="window" destination="IQv-IB-iLA" id="i0P-UY-pj9"/>
@@ -103,31 +103,17 @@
             <objects>
                 <viewController id="Jvr-Z4-KH8" customClass="MasterViewController" sceneMemberID="viewController">
                     <view key="view" id="Mxe-Pf-dyJ">
-                        <rect key="frame" x="0.0" y="0.0" width="1286" height="642"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1286" height="635"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="pT7-QB-sXU" userLabel="Header View">
-                                <rect key="frame" x="0.0" y="586" width="1286" height="56"/>
+                                <rect key="frame" x="0.0" y="579" width="1286" height="56"/>
                                 <subviews>
-                                    <button focusRingType="none" verticalHuggingPriority="750" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="cd6-xs-Qcj" customClass="MainButton">
-                                        <rect key="frame" x="1192" y="20" width="90" height="18"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="18" id="E4y-OH-h7O"/>
-                                            <constraint firstAttribute="width" constant="90" id="KOf-Bj-PQP"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="inline" title="Settings" bezelStyle="inline" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Ut5-vM-Ah2">
-                                            <behavior key="behavior" lightByContents="YES"/>
-                                            <font key="font" metaFont="systemBold" size="14"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="toggleViewController:" target="Jvr-Z4-KH8" id="BbL-wM-I18"/>
-                                        </connections>
-                                    </button>
                                     <button focusRingType="none" verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="STh-Y5-feG" customClass="MainButton">
                                         <rect key="frame" x="20" y="20" width="90" height="18"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="90" id="OAu-Wu-wF6"/>
-                                            <constraint firstAttribute="height" constant="18" id="wTq-u8-vAM"/>
+                                            <constraint firstAttribute="width" constant="90" id="hHJ-I5-LoO"/>
+                                            <constraint firstAttribute="height" constant="18" id="hVr-We-tUl"/>
                                         </constraints>
                                         <buttonCell key="cell" type="inline" title="Movies" bezelStyle="inline" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Om8-lO-4Tp">
                                             <behavior key="behavior" lightByContents="YES"/>
@@ -140,8 +126,8 @@
                                     <button focusRingType="none" verticalHuggingPriority="750" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="1Gs-sB-xc6" customClass="MainButton">
                                         <rect key="frame" x="118" y="20" width="90" height="18"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="90" id="7RA-VV-Bmm"/>
-                                            <constraint firstAttribute="height" constant="18" id="uOX-VW-gb2"/>
+                                            <constraint firstAttribute="width" constant="90" id="Hj7-mR-Fyy"/>
+                                            <constraint firstAttribute="height" constant="18" id="zlk-os-whY"/>
                                         </constraints>
                                         <buttonCell key="cell" type="inline" title="TV Shows" bezelStyle="inline" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="7dx-k6-dJs">
                                             <behavior key="behavior" lightByContents="YES"/>
@@ -151,29 +137,59 @@
                                             <action selector="toggleViewController:" target="Jvr-Z4-KH8" id="Xt4-Mi-WBM"/>
                                         </connections>
                                     </button>
+                                    <button focusRingType="none" verticalHuggingPriority="750" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="cd6-xs-Qcj" customClass="MainButton">
+                                        <rect key="frame" x="1192" y="20" width="90" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="GSn-KB-Pxp"/>
+                                            <constraint firstAttribute="height" constant="18" id="NUB-l4-med"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="inline" title="Settings" bezelStyle="inline" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Ut5-vM-Ah2">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="systemBold" size="14"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="toggleViewController:" target="Jvr-Z4-KH8" id="BbL-wM-I18"/>
+                                        </connections>
+                                    </button>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="nsY-R5-QhB">
+                                        <rect key="frame" x="1154" y="13" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="AqJ-CD-uA4"/>
+                                            <constraint firstAttribute="height" constant="30" id="d2d-qR-Pu6"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSNetwork" imagePosition="left" alignment="left" state="on" inset="2" id="x1I-kI-BIh">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="scanDirectory:" target="Jvr-Z4-KH8" id="SkT-JI-2ev"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="cd6-xs-Qcj" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="DfY-T0-Azd"/>
-                                    <constraint firstItem="1Gs-sB-xc6" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="WQo-e4-0ed"/>
-                                    <constraint firstAttribute="trailing" secondItem="cd6-xs-Qcj" secondAttribute="trailing" constant="4" id="WXm-Oa-IbG"/>
-                                    <constraint firstItem="STh-Y5-feG" firstAttribute="leading" secondItem="pT7-QB-sXU" secondAttribute="leading" constant="20" id="WbE-Zc-AiC"/>
-                                    <constraint firstItem="1Gs-sB-xc6" firstAttribute="leading" secondItem="STh-Y5-feG" secondAttribute="trailing" constant="8" id="WmD-nl-S6x"/>
-                                    <constraint firstItem="STh-Y5-feG" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="XSX-lA-GvJ"/>
-                                    <constraint firstAttribute="height" constant="56" id="uDY-di-4K3"/>
+                                    <constraint firstItem="STh-Y5-feG" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="00E-Xs-RH6"/>
+                                    <constraint firstAttribute="trailing" secondItem="cd6-xs-Qcj" secondAttribute="trailing" constant="4" id="4Le-ze-pwK"/>
+                                    <constraint firstAttribute="height" constant="56" id="F7E-67-0qb"/>
+                                    <constraint firstItem="1Gs-sB-xc6" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="Fjd-0Q-D1P"/>
+                                    <constraint firstItem="STh-Y5-feG" firstAttribute="leading" secondItem="pT7-QB-sXU" secondAttribute="leading" constant="20" id="WAf-rO-yer"/>
+                                    <constraint firstItem="cd6-xs-Qcj" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="YZE-IK-tPf"/>
+                                    <constraint firstItem="nsY-R5-QhB" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="13" id="ebn-ec-X5T"/>
+                                    <constraint firstItem="cd6-xs-Qcj" firstAttribute="leading" secondItem="nsY-R5-QhB" secondAttribute="trailing" constant="8" id="ecD-UF-7b9"/>
+                                    <constraint firstItem="1Gs-sB-xc6" firstAttribute="leading" secondItem="STh-Y5-feG" secondAttribute="trailing" constant="8" id="pun-u2-dBL"/>
                                 </constraints>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="dvH-oH-bu2" userLabel="Main View">
-                                <rect key="frame" x="0.0" y="0.0" width="1286" height="582"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1286" height="581"/>
                             </customView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="dvH-oH-bu2" secondAttribute="trailing" id="0Pl-aU-WhA"/>
-                            <constraint firstItem="pT7-QB-sXU" firstAttribute="top" secondItem="Mxe-Pf-dyJ" secondAttribute="top" id="5Ai-2S-IcL"/>
-                            <constraint firstAttribute="trailing" secondItem="pT7-QB-sXU" secondAttribute="trailing" id="ALU-E7-UFf"/>
-                            <constraint firstItem="pT7-QB-sXU" firstAttribute="leading" secondItem="Mxe-Pf-dyJ" secondAttribute="leading" id="TQE-3I-29r"/>
-                            <constraint firstItem="dvH-oH-bu2" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="bottom" constant="4" id="VA2-Fh-8VE"/>
-                            <constraint firstAttribute="bottom" secondItem="dvH-oH-bu2" secondAttribute="bottom" id="gXW-7W-7NE"/>
-                            <constraint firstItem="dvH-oH-bu2" firstAttribute="leading" secondItem="Mxe-Pf-dyJ" secondAttribute="leading" id="yFG-PS-XhO"/>
+                            <constraint firstAttribute="bottom" secondItem="dvH-oH-bu2" secondAttribute="bottom" id="QBn-Ek-Bxu"/>
+                            <constraint firstAttribute="trailing" secondItem="pT7-QB-sXU" secondAttribute="trailing" id="Rd9-z4-sXY"/>
+                            <constraint firstItem="pT7-QB-sXU" firstAttribute="leading" secondItem="Mxe-Pf-dyJ" secondAttribute="leading" id="WPd-Rf-FXF"/>
+                            <constraint firstAttribute="trailing" secondItem="dvH-oH-bu2" secondAttribute="trailing" id="bMZ-Zm-hCF"/>
+                            <constraint firstItem="dvH-oH-bu2" firstAttribute="leading" secondItem="Mxe-Pf-dyJ" secondAttribute="leading" id="brF-az-KQI"/>
+                            <constraint firstItem="dvH-oH-bu2" firstAttribute="top" secondItem="Mxe-Pf-dyJ" secondAttribute="top" constant="54" id="oGG-iE-jXK"/>
+                            <constraint firstItem="pT7-QB-sXU" firstAttribute="top" secondItem="Mxe-Pf-dyJ" secondAttribute="top" id="y7z-yY-Ony"/>
                         </constraints>
                     </view>
                     <connections>
@@ -183,7 +199,7 @@
                 </viewController>
                 <customObject id="mf1-pg-Zc0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="371" y="658"/>
+            <point key="canvasLocation" x="389" y="665.5"/>
         </scene>
         <!--Browser View Controller-->
         <scene sceneID="fb8-Sl-i85">
@@ -240,7 +256,7 @@
                     </connections>
                 </arrayController>
             </objects>
-            <point key="canvasLocation" x="-1" y="1193"/>
+            <point key="canvasLocation" x="81" y="1421"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="FDo-G4-iIE">
@@ -333,7 +349,10 @@
                 </viewController>
                 <customObject id="DZf-Ba-enK" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="576" y="1193"/>
+            <point key="canvasLocation" x="826" y="1457"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="NSNetwork" width="32" height="32"/>
+    </resources>
 </document>

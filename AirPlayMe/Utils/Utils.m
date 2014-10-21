@@ -10,6 +10,21 @@
 
 @implementation Utils
 
++(CGFloat)heightForString:(NSString *)myString font:(NSFont *)myFont containerWidth:(CGFloat)myWidth
+{
+    NSTextStorage *textStorage = [[NSTextStorage alloc] initWithString:myString];
+    NSTextContainer *textContainer = [[NSTextContainer alloc] initWithContainerSize:NSMakeSize(myWidth, FLT_MAX)];
+    NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
+    
+    [layoutManager addTextContainer:textContainer];
+    [textStorage addLayoutManager:layoutManager];
+    [textStorage addAttribute:NSFontAttributeName value:myFont range:NSMakeRange(0, [textStorage length])];
+    [textContainer setLineFragmentPadding:0.0];
+    
+    (void) [layoutManager glyphRangeForTextContainer:textContainer];
+    return [layoutManager usedRectForTextContainer:textContainer].size.height;
+}
+
 +(NSString *)uuid
 {
     return [[NSUUID UUID] UUIDString];

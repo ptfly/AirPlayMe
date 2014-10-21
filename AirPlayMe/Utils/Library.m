@@ -237,8 +237,26 @@
         {
             [self tmdbSearchMovie:movie.title year:movie.year standardSearch:movie.parsed callback:^(NSDictionary *response, BOOL success)
             {
-                if(success){
-                    [self updateMovieItem:response forMovie:movie];
+                if(success)
+                {
+                    Movie *updated = [self updateMovieItem:response forMovie:movie];
+                    
+                    if(updated)
+                    {
+                        [self tmdbGetMovieInfo:updated.tmdbID callback:^(NSDictionary *response, BOOL success)
+                        {
+                            if(success)
+                            {
+                                updated.budget   = response[@"budget"];
+                                updated.status   = response[@"status"];
+                                updated.runtime  = response[@"runtime"];
+                                updated.tagline  = response[@"tagline"];
+                                updated.overview = response[@"overview"];
+                                
+                                [self.context save:nil];
+                            }
+                        }];
+                    }
                 }
             }];
         }];
@@ -352,6 +370,38 @@
              
              if(data){
                  data[@"poster"] = [NSString stringWithFormat:@"%@w500%@", self.tmdbConfig[@"base_url"], data[@"poster_path"]];
+                 callbackBlock(data, success);
+             }
+             else {
+                 callbackBlock(data, NO);
+             }
+         }
+         else {
+             callbackBlock(nil, success);
+         }
+     }];
+}
+
+-(void)tmdbGetMovieInfo:(NSNumber *)movieId callback:(void (^)(NSDictionary *response, BOOL success))callbackBlock
+{
+    if(!self.tmdbConfig)
+    {
+        [self getTMDBConfig:^(BOOL success){
+            if(success)[self tmdbGetMovieInfo:movieId callback:callbackBlock];
+        }];
+        
+        return;
+    }
+    
+    NSString *url = [NSString stringWithFormat:@"http://api.themoviedb.org/3/movie/%d", movieId.intValue];
+    
+    [Utils makeGetRequest:url parameters:@{@"api_key":TMDB_API_KEY} callback:^(id response, BOOL success)
+     {
+         if(success)
+         {
+             NSMutableDictionary *data = [response mutableCopy];
+             
+             if(data){
                  callbackBlock(data, success);
              }
              else {

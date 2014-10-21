@@ -28,14 +28,21 @@
 
 -(IBAction)singleClick:(id)sender
 {
-    NSLog(@"%@", self.representedObject);
+    if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"TVShow"])
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOpenTVShowDetails object:self.representedObject];
+    }
+    else if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"Movie"])
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOpenMovieDetails object:self.representedObject];
+    }
 }
 
 -(IBAction)doubleClick:(id)sender
 {
     if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"TVShow"])
     {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationBrowseTVShow object:self.representedObject];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOpenTVShowDetails object:self.representedObject];
     }
     else if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"TVEpisode"])
     {

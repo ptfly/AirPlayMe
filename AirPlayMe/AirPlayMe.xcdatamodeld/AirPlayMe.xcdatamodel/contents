@@ -4,6 +4,7 @@
         <attribute name="adult" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="backdrop" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="backdrop_path" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="budget" optional="YES" attributeType="Integer 32" defaultValueString="0.0" syncable="YES"/>
         <attribute name="original_title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="overview" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="parsed" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -12,6 +13,9 @@
         <attribute name="poster" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="poster_path" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="release_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="runtime" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tagline" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tmdbID" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="vote_average" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
@@ -52,7 +56,7 @@
         <relationship name="episodes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TVEpisode" inverseName="show" inverseEntity="TVEpisode" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Movie" positionX="-666" positionY="-243" width="128" height="298"/>
+        <element name="Movie" positionX="-666" positionY="-243" width="128" height="358"/>
         <element name="TVEpisode" positionX="-495" positionY="-243" width="128" height="268"/>
         <element name="TVShow" positionX="-497" positionY="62" width="128" height="238"/>
     </elements>

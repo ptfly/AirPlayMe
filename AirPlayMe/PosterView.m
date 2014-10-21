@@ -8,16 +8,18 @@
 
 #import "PosterView.h"
 #import "Config.h"
-#import "NSImage+RoundCorner.h"
 
 @interface PosterView ()
 {
     NSTrackingArea *trackingArea;
 }
 
+@property (assign) BOOL largeView;
+
 @end
 
 @implementation PosterView
+@synthesize largeView;
 
 -(id)initWithCoder:(NSCoder *)coder
 {
@@ -31,80 +33,40 @@
         self.wantsLayer = YES;
         self.layer.masksToBounds = YES;
         self.layer.cornerRadius = CORNER_RADIUS;
-        self.layer.borderColor = [NSColor clearColor].CGColor;
         self.layer.borderWidth = 2;
+        
+        [self setNeedsDisplay];
     }
     
     return self;
 }
 
--(CGPathRef)CGPath:(NSBezierPath *)sourcePath
+-(void)viewWillDraw
 {
-    long i, numElements;
+    [super viewWillDraw];
     
-    // Need to begin a path here.
-    CGPathRef           immutablePath = NULL;
-    
-    // Then draw the path elements.
-    numElements = [sourcePath elementCount];
-    if (numElements > 0)
-    {
-        CGMutablePathRef    path = CGPathCreateMutable();
-        NSPoint             points[3];
-        BOOL                didClosePath = YES;
-        
-        for (i = 0; i < numElements; i++)
-        {
-            switch ([sourcePath elementAtIndex:i associatedPoints:points])
-            {
-                case NSMoveToBezierPathElement:
-                    CGPathMoveToPoint(path, NULL, points[0].x, points[0].y);
-                    break;
-                    
-                case NSLineToBezierPathElement:
-                    CGPathAddLineToPoint(path, NULL, points[0].x, points[0].y);
-                    didClosePath = NO;
-                    break;
-                    
-                case NSCurveToBezierPathElement:
-                    CGPathAddCurveToPoint(path, NULL, points[0].x, points[0].y,
-                                          points[1].x, points[1].y,
-                                          points[2].x, points[2].y);
-                    didClosePath = NO;
-                    break;
-                    
-                case NSClosePathBezierPathElement:
-                    CGPathCloseSubpath(path);
-                    didClosePath = YES;
-                    break;
-            }
-        }
-        
-        // Be sure the path is closed or Quartz may not do valid hit detection.
-        if (!didClosePath)
-            CGPathCloseSubpath(path);
-        
-        immutablePath = CGPathCreateCopy(path);
-        CGPathRelease(path);
-    }
-    
-    return immutablePath;
+    if(!largeView) return;
+    self.layer.borderColor = rgba(255, 255, 255, 0.5).CGColor;
 }
 
 -(void)mouseEntered:(NSEvent *)theEvent
 {
+    if(largeView) return;
     self.layer.borderColor = rgba(45,117,223,1).CGColor;
     [self setNeedsDisplay];
 }
 
 -(void)mouseExited:(NSEvent *)theEvent
 {
+    if(largeView) return;
     self.layer.borderColor = [NSColor clearColor].CGColor;
     [self setNeedsDisplay];
 }
 
 -(void)updateTrackingAreas
 {
+    if(largeView) return;
+    
     if(trackingArea != nil) {
         [self removeTrackingArea:trackingArea];
     }

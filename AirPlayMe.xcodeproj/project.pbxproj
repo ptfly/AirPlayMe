@@ -14,13 +14,15 @@
 		BB0F1F5119F64FDF00AB06FA /* Library.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F1F5019F64FDF00AB06FA /* Library.m */; };
 		BB0F1F6619F689F700AB06FA /* TVEpisode.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F1F6519F689F700AB06FA /* TVEpisode.m */; };
 		BB0F1F6919F689F800AB06FA /* TVShow.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F1F6819F689F800AB06FA /* TVShow.m */; };
-		BB0F1F6C19F689F800AB06FA /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F1F6B19F689F800AB06FA /* Movie.m */; };
 		BB0F1F6F19F69CB600AB06FA /* PosterView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F1F6E19F69CB600AB06FA /* PosterView.m */; };
-		BB0F1F7219F6B59000AB06FA /* NSImage+RoundCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F1F7119F6B59000AB06FA /* NSImage+RoundCorner.m */; };
 		BB0F1F7519F6BB5D00AB06FA /* ShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F1F7419F6BB5D00AB06FA /* ShadowView.m */; };
 		BB0F1F7819F6C0CD00AB06FA /* MainButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F1F7719F6C0CD00AB06FA /* MainButton.m */; };
 		BB0F1F7C19F6D7BA00AB06FA /* MovieDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F1F7A19F6D7BA00AB06FA /* MovieDetailsViewController.m */; };
 		BB0F1F7D19F6D7BA00AB06FA /* MovieDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB0F1F7B19F6D7BA00AB06FA /* MovieDetailsViewController.xib */; };
+		BB0F1F8419F6DB0F00AB06FA /* TVShowDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F1F8219F6DB0F00AB06FA /* TVShowDetailsViewController.m */; };
+		BB0F1F8519F6DB0F00AB06FA /* TVShowDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB0F1F8319F6DB0F00AB06FA /* TVShowDetailsViewController.xib */; };
+		BB0F1F8819F6E9DB00AB06FA /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F1F8719F6E9DB00AB06FA /* Movie.m */; };
+		BB0F1F8B19F6ED5D00AB06FA /* AutoHeightField.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0F1F8A19F6ED5D00AB06FA /* AutoHeightField.m */; };
 		BB3898C019F27BC900FDC1BA /* RegExCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3898BF19F27BC900FDC1BA /* RegExCategories.m */; };
 		BB8989C619EFF2B500C04857 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8989C519EFF2B500C04857 /* AppDelegate.m */; };
 		BB8989C819EFF2B500C04857 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8989C719EFF2B500C04857 /* main.m */; };
@@ -30,7 +32,6 @@
 		BB8989DF19EFF2B500C04857 /* AirPlayMeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8989DE19EFF2B500C04857 /* AirPlayMeTests.m */; };
 		BB8989EA19EFF6C000C04857 /* WindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8989E919EFF6C000C04857 /* WindowController.m */; };
 		BBABAD0519F3B0820029B0F2 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BBABAD0419F3B0820029B0F2 /* Utils.m */; };
-		BBABAD2C19F3F2700029B0F2 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBABAD2B19F3F2700029B0F2 /* AppController.m */; };
 		BBABAD2F19F405660029B0F2 /* BrowserViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BBABAD2E19F405660029B0F2 /* BrowserViewItem.m */; };
 		BBABAD3119F409150029B0F2 /* BrowserViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBABAD3019F409150029B0F2 /* BrowserViewItem.xib */; };
 		BBABAD4119F42ECC0029B0F2 /* YLMomentRelativeTimeLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBABAD3519F42ECC0029B0F2 /* YLMomentRelativeTimeLocalizable.strings */; };
@@ -62,12 +63,8 @@
 		BB0F1F6519F689F700AB06FA /* TVEpisode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVEpisode.m; sourceTree = "<group>"; };
 		BB0F1F6719F689F800AB06FA /* TVShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVShow.h; sourceTree = "<group>"; };
 		BB0F1F6819F689F800AB06FA /* TVShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVShow.m; sourceTree = "<group>"; };
-		BB0F1F6A19F689F800AB06FA /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
-		BB0F1F6B19F689F800AB06FA /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
 		BB0F1F6D19F69CB600AB06FA /* PosterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PosterView.h; sourceTree = "<group>"; };
 		BB0F1F6E19F69CB600AB06FA /* PosterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PosterView.m; sourceTree = "<group>"; };
-		BB0F1F7019F6B59000AB06FA /* NSImage+RoundCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+RoundCorner.h"; sourceTree = "<group>"; };
-		BB0F1F7119F6B59000AB06FA /* NSImage+RoundCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+RoundCorner.m"; sourceTree = "<group>"; };
 		BB0F1F7319F6BB5D00AB06FA /* ShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowView.h; sourceTree = "<group>"; };
 		BB0F1F7419F6BB5D00AB06FA /* ShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowView.m; sourceTree = "<group>"; };
 		BB0F1F7619F6C0CD00AB06FA /* MainButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainButton.h; sourceTree = "<group>"; };
@@ -75,6 +72,13 @@
 		BB0F1F7919F6D7BA00AB06FA /* MovieDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieDetailsViewController.h; sourceTree = "<group>"; };
 		BB0F1F7A19F6D7BA00AB06FA /* MovieDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieDetailsViewController.m; sourceTree = "<group>"; };
 		BB0F1F7B19F6D7BA00AB06FA /* MovieDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieDetailsViewController.xib; sourceTree = "<group>"; };
+		BB0F1F8119F6DB0F00AB06FA /* TVShowDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVShowDetailsViewController.h; sourceTree = "<group>"; };
+		BB0F1F8219F6DB0F00AB06FA /* TVShowDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVShowDetailsViewController.m; sourceTree = "<group>"; };
+		BB0F1F8319F6DB0F00AB06FA /* TVShowDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TVShowDetailsViewController.xib; sourceTree = "<group>"; };
+		BB0F1F8619F6E9DB00AB06FA /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
+		BB0F1F8719F6E9DB00AB06FA /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
+		BB0F1F8919F6ED5D00AB06FA /* AutoHeightField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoHeightField.h; sourceTree = "<group>"; };
+		BB0F1F8A19F6ED5D00AB06FA /* AutoHeightField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoHeightField.m; sourceTree = "<group>"; };
 		BB3898BE19F27BC900FDC1BA /* RegExCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegExCategories.h; sourceTree = "<group>"; };
 		BB3898BF19F27BC900FDC1BA /* RegExCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegExCategories.m; sourceTree = "<group>"; };
 		BB8989BF19EFF2B500C04857 /* AirPlayMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirPlayMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,8 +96,6 @@
 		BB8989E919EFF6C000C04857 /* WindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindowController.m; sourceTree = "<group>"; };
 		BBABAD0319F3B0820029B0F2 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		BBABAD0419F3B0820029B0F2 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
-		BBABAD2A19F3F2700029B0F2 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
-		BBABAD2B19F3F2700029B0F2 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
 		BBABAD2D19F405660029B0F2 /* BrowserViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserViewItem.h; sourceTree = "<group>"; };
 		BBABAD2E19F405660029B0F2 /* BrowserViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserViewItem.m; sourceTree = "<group>"; };
 		BBABAD3019F409150029B0F2 /* BrowserViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserViewItem.xib; sourceTree = "<group>"; };
@@ -146,8 +148,8 @@
 			isa = PBXGroup;
 			children = (
 				BB8989CC19EFF2B500C04857 /* AirPlayMe.xcdatamodeld */,
-				BB0F1F6A19F689F800AB06FA /* Movie.h */,
-				BB0F1F6B19F689F800AB06FA /* Movie.m */,
+				BB0F1F8619F6E9DB00AB06FA /* Movie.h */,
+				BB0F1F8719F6E9DB00AB06FA /* Movie.m */,
 				BB0F1F6719F689F800AB06FA /* TVShow.h */,
 				BB0F1F6819F689F800AB06FA /* TVShow.m */,
 				BB0F1F6419F689F700AB06FA /* TVEpisode.h */,
@@ -181,6 +183,8 @@
 				BB0F1F7419F6BB5D00AB06FA /* ShadowView.m */,
 				BB0F1F7619F6C0CD00AB06FA /* MainButton.h */,
 				BB0F1F7719F6C0CD00AB06FA /* MainButton.m */,
+				BB0F1F8919F6ED5D00AB06FA /* AutoHeightField.h */,
+				BB0F1F8A19F6ED5D00AB06FA /* AutoHeightField.m */,
 			);
 			name = Elements;
 			sourceTree = "<group>";
@@ -196,6 +200,9 @@
 				BB0F1F7919F6D7BA00AB06FA /* MovieDetailsViewController.h */,
 				BB0F1F7A19F6D7BA00AB06FA /* MovieDetailsViewController.m */,
 				BB0F1F7B19F6D7BA00AB06FA /* MovieDetailsViewController.xib */,
+				BB0F1F8119F6DB0F00AB06FA /* TVShowDetailsViewController.h */,
+				BB0F1F8219F6DB0F00AB06FA /* TVShowDetailsViewController.m */,
+				BB0F1F8319F6DB0F00AB06FA /* TVShowDetailsViewController.xib */,
 			);
 			name = Browse;
 			sourceTree = "<group>";
@@ -203,8 +210,6 @@
 		BB3898BA19F27BA000FDC1BA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				BB0F1F7019F6B59000AB06FA /* NSImage+RoundCorner.h */,
-				BB0F1F7119F6B59000AB06FA /* NSImage+RoundCorner.m */,
 				BBABAD0319F3B0820029B0F2 /* Utils.h */,
 				BBABAD0419F3B0820029B0F2 /* Utils.m */,
 				BB0F1F4F19F64FDF00AB06FA /* Library.h */,
@@ -242,8 +247,6 @@
 				BBABAD3219F426900029B0F2 /* Config.h */,
 				BB8989C419EFF2B500C04857 /* AppDelegate.h */,
 				BB8989C519EFF2B500C04857 /* AppDelegate.m */,
-				BBABAD2A19F3F2700029B0F2 /* AppController.h */,
-				BBABAD2B19F3F2700029B0F2 /* AppController.m */,
 				BB3898BA19F27BA000FDC1BA /* Utils */,
 				BB0F1F7E19F6D7C100AB06FA /* Interface */,
 				BB065ABB19F12D4600A39CBF /* Database */,
@@ -387,6 +390,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB0F1F8519F6DB0F00AB06FA /* TVShowDetailsViewController.xib in Resources */,
 				BB8989D019EFF2B500C04857 /* Images.xcassets in Resources */,
 				BBABAD4119F42ECC0029B0F2 /* YLMomentRelativeTimeLocalizable.strings in Resources */,
 				BB8989D319EFF2B500C04857 /* Main.storyboard in Resources */,
@@ -443,10 +447,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB0F1F7819F6C0CD00AB06FA /* MainButton.m in Sources */,
-				BBABAD2C19F3F2700029B0F2 /* AppController.m in Sources */,
 				BBABAD2F19F405660029B0F2 /* BrowserViewItem.m in Sources */,
-				BB0F1F6C19F689F800AB06FA /* Movie.m in Sources */,
+				BB0F1F8819F6E9DB00AB06FA /* Movie.m in Sources */,
 				BB8989EA19EFF6C000C04857 /* WindowController.m in Sources */,
+				BB0F1F8419F6DB0F00AB06FA /* TVShowDetailsViewController.m in Sources */,
 				BB8989C819EFF2B500C04857 /* main.m in Sources */,
 				BBABAD4219F42ECC0029B0F2 /* YLMoment.m in Sources */,
 				BBABAD0519F3B0820029B0F2 /* Utils.m in Sources */,
@@ -454,7 +458,7 @@
 				BB8989C619EFF2B500C04857 /* AppDelegate.m in Sources */,
 				BB0F1F7C19F6D7BA00AB06FA /* MovieDetailsViewController.m in Sources */,
 				BB0F1F5119F64FDF00AB06FA /* Library.m in Sources */,
-				BB0F1F7219F6B59000AB06FA /* NSImage+RoundCorner.m in Sources */,
+				BB0F1F8B19F6ED5D00AB06FA /* AutoHeightField.m in Sources */,
 				BB0F1F6919F689F800AB06FA /* TVShow.m in Sources */,
 				BB3898C019F27BC900FDC1BA /* RegExCategories.m in Sources */,
 				BB0F1F7519F6BB5D00AB06FA /* ShadowView.m in Sources */,

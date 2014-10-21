@@ -32,6 +32,7 @@
 -(void)tmdbSearchMovie:(NSString *)name year:(NSString *)year standardSearch:(BOOL)standardSearch callback:(void (^)(NSDictionary *response, BOOL success))callbackBlock;
 -(void)tmdbSearchTVShow:(NSString *)name standardSearch:(BOOL)standardSearch callback:(void (^)(NSDictionary *response, BOOL success))callbackBlock;
 
+-(void)tmdbGetMovieInfo:(NSNumber *)movieId callback:(void (^)(NSDictionary *response, BOOL success))callbackBlock;
 -(void)tmdbGetTVShowInfo:(NSNumber *)seriesId callback:(void (^)(NSDictionary *response, BOOL success))callbackBlock;
 -(void)tmdbGetTVSeasonInfo:(NSNumber *)seriesId season:(NSNumber *)season callback:(void (^)(NSDictionary *response, BOOL success))callbackBlock;
 -(void)tmdbGetEpisodeInfo:(NSNumber *)seriesId season:(NSNumber *)season episode:(NSNumber *)episode callback:(void (^)(NSDictionary *response, BOOL success))callbackBlock;

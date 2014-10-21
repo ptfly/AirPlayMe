@@ -11,6 +11,10 @@
 #import "BrowserViewController.h"
 #import "Config.h"
 #import "MainButton.h"
+#import "Library.h"
+
+#import "MovieDetailsViewController.h"
+#import "TVShowDetailsViewController.h"
 
 @interface MasterViewController ()
 
@@ -41,6 +45,52 @@
     
     [(MainButton*)[self.view viewWithTag:1] setActive];
     [self toggleViewController:[self.view viewWithTag:1]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playVideoItem:) name:kNotificationPlayItem object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openMovieDetails:) name:kNotificationOpenMovieDetails object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openTVShowDetails:) name:kNotificationOpenTVShowDetails object:nil];
+}
+
+-(void)playVideoItem:(NSNotification *)notification
+{
+    NSString *path = notification.object[@"path"];
+    NSLog(@"PLAY: %@", path);
+}
+
+-(void)openMovieDetails:(NSNotification *)notification
+{
+    MovieDetailsViewController *dc = [[MovieDetailsViewController alloc] initWithNibName:@"MovieDetailsViewController" bundle:nil];
+    [dc setMovie:(Movie *)notification.object];
+    
+    if(self.currentViewController){
+        [self.currentViewController.view removeFromSuperview];
+        self.currentViewController = nil;
+    }
+    
+    self.currentViewController = dc;
+    [self layoutCurrentViewController];
+}
+
+-(void)openTVShowDetails:(NSNotification *)notification
+{
+    TVShowDetailsViewController *dc = [[TVShowDetailsViewController alloc] initWithNibName:@"TVShowDetailsViewController" bundle:nil];
+    [dc setShow:(TVShow *)notification.object];
+    
+    if(self.currentViewController){
+        [self.currentViewController.view removeFromSuperview];
+        self.currentViewController = nil;
+    }
+    
+    self.currentViewController = dc;
+    [self layoutCurrentViewController];
+}
+
+-(IBAction)scanDirectory:(id)sender
+{
+//    NSThread *thread = [[NSThread alloc] initWithTarget:[Library sharedInstance] selector:@selector(scanMoviesLibrary) object:nil];
+//    [thread start];
+    NSThread *thread = [[NSThread alloc] initWithTarget:[Library sharedInstance] selector:@selector(scanTVShowsLibrary) object:nil];
+    [thread start];
 }
 
 -(IBAction)toggleViewController:(NSButton *)sender
@@ -75,10 +125,20 @@
         self.currentViewController = vc;
     }
     
+    [self layoutCurrentViewController];
+}
+
+-(void)layoutCurrentViewController
+{
     [self.masterView addSubview:self.currentViewController.view];
     [self.currentViewController.view setFrame:self.masterView.bounds];
     [self.currentViewController.view setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
     [self.currentViewController.view setTranslatesAutoresizingMaskIntoConstraints:YES];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

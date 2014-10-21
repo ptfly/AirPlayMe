@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6249" systemVersion="14A388b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6249"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TVShowDetailsViewController">
+            <connections>
+                <outlet property="backdropImageView" destination="nqg-ba-gCw" id="17j-Sw-WBO"/>
+                <outlet property="descriptionHeight" destination="TFx-fI-VBT" id="DXY-J1-FSs"/>
+                <outlet property="posterImageView" destination="kjF-Ek-ENK" id="NMp-xo-asd"/>
+                <outlet property="showDescriptionLabel" destination="XQ1-ZS-8gN" id="VEA-c7-3nl"/>
+                <outlet property="showTitleLabel" destination="gYj-pz-hYP" id="rs3-YG-Etr"/>
+                <outlet property="titleHeight" destination="Noh-fK-CYa" id="S1R-8z-glX"/>
+                <outlet property="view" destination="TVq-Wc-e3S" id="qQ4-2k-rmT"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="TVq-Wc-e3S">
+            <rect key="frame" x="0.0" y="0.0" width="1017" height="580"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nqg-ba-gCw" userLabel="Backdrop">
+                    <rect key="frame" x="0.0" y="0.0" width="1017" height="580"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="STT-Z0-5Yi" userLabel="BackdropImageView"/>
+                </imageView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ixf-cB-6Tr" userLabel="Shadow" customClass="ShadowView">
+                    <rect key="frame" x="30" y="30" width="350" height="520"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="350" id="JuZ-QG-aAD"/>
+                        <constraint firstAttribute="height" constant="520" id="uvq-DR-5G5"/>
+                    </constraints>
+                </customView>
+                <imageView focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kjF-Ek-ENK" userLabel="Poster" customClass="PosterView">
+                    <rect key="frame" x="30" y="30" width="350" height="520"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="520" id="8sX-wt-23b"/>
+                        <constraint firstAttribute="width" constant="350" id="Pga-b7-dwp"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" focusRingType="none" alignment="left" imageScaling="axesIndependently" image="NSBluetoothTemplate" id="AUP-kh-6h6" userLabel="PosterImageView"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="largeView" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gYj-pz-hYP" userLabel="Title" customClass="AutoHeightField">
+                    <rect key="frame" x="416" y="516" width="505" height="34"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="34" id="Noh-fK-CYa"/>
+                    </constraints>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Movie Title" id="gen-vV-bYy">
+                        <font key="font" size="30" name="HelveticaNeue-Bold"/>
+                        <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XQ1-ZS-8gN" userLabel="Overview" customClass="AutoHeightField">
+                    <rect key="frame" x="416" y="456" width="583" height="34"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="34" id="TFx-fI-VBT"/>
+                    </constraints>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="Ffl-Pe-WJl">
+                        <font key="font" metaFont="system" size="20"/>
+                        <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kbX-xp-cn8" userLabel="Close">
+                    <rect key="frame" x="954" y="516" width="49" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="37" id="41Q-Ub-L7h"/>
+                        <constraint firstAttribute="height" constant="21" id="Cc7-7k-VhT"/>
+                    </constraints>
+                    <buttonCell key="cell" type="push" title="X" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sQ1-Qu-s5I">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="close:" target="-2" id="wrM-9j-gKn"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="nqg-ba-gCw" firstAttribute="leading" secondItem="TVq-Wc-e3S" secondAttribute="leading" id="18p-CA-MSr"/>
+                <constraint firstItem="Ixf-cB-6Tr" firstAttribute="top" secondItem="TVq-Wc-e3S" secondAttribute="top" constant="30" id="7MT-6I-1tJ"/>
+                <constraint firstAttribute="bottom" secondItem="nqg-ba-gCw" secondAttribute="bottom" id="7lm-05-iBB"/>
+                <constraint firstItem="gYj-pz-hYP" firstAttribute="leading" secondItem="kjF-Ek-ENK" secondAttribute="trailing" constant="38" id="A0A-xV-S2E"/>
+                <constraint firstItem="nqg-ba-gCw" firstAttribute="top" secondItem="TVq-Wc-e3S" secondAttribute="top" id="BSW-Ma-fCV"/>
+                <constraint firstAttribute="trailing" secondItem="kbX-xp-cn8" secondAttribute="trailing" constant="20" id="Cs5-FY-eIO"/>
+                <constraint firstItem="kjF-Ek-ENK" firstAttribute="leading" secondItem="TVq-Wc-e3S" secondAttribute="leading" constant="30" id="QW7-IA-K0f"/>
+                <constraint firstAttribute="trailing" secondItem="nqg-ba-gCw" secondAttribute="trailing" id="QXm-w2-gfI"/>
+                <constraint firstItem="kbX-xp-cn8" firstAttribute="leading" secondItem="gYj-pz-hYP" secondAttribute="trailing" constant="41" id="aV3-gF-sOA"/>
+                <constraint firstItem="kjF-Ek-ENK" firstAttribute="top" secondItem="TVq-Wc-e3S" secondAttribute="top" constant="30" id="beb-Nj-Xee"/>
+                <constraint firstAttribute="trailing" secondItem="XQ1-ZS-8gN" secondAttribute="trailing" constant="20" id="cab-Gh-1Mc"/>
+                <constraint firstItem="XQ1-ZS-8gN" firstAttribute="top" secondItem="gYj-pz-hYP" secondAttribute="bottom" constant="26" id="iGj-wp-O2B"/>
+                <constraint firstItem="XQ1-ZS-8gN" firstAttribute="leading" secondItem="kjF-Ek-ENK" secondAttribute="trailing" constant="38" id="jkP-bi-aNL"/>
+                <constraint firstItem="kbX-xp-cn8" firstAttribute="top" secondItem="TVq-Wc-e3S" secondAttribute="top" constant="36" id="mQ9-G3-h0Y"/>
+                <constraint firstItem="Ixf-cB-6Tr" firstAttribute="leading" secondItem="TVq-Wc-e3S" secondAttribute="leading" constant="30" id="vyc-W1-xxR"/>
+                <constraint firstItem="nqg-ba-gCw" firstAttribute="top" secondItem="gYj-pz-hYP" secondAttribute="bottom" constant="-64" id="zYv-hS-ct1"/>
+            </constraints>
+            <point key="canvasLocation" x="296.5" y="227"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="NSBluetoothTemplate" width="7" height="14"/>
+    </resources>
+</document>

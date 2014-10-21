@@ -7,7 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "Config.h"
+#import "Movie.h"
 
 @interface MovieDetailsViewController : NSViewController
+
+@property (strong, nonatomic) Movie *movie;
 
 @end

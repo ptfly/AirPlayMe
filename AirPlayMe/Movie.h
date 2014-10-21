@@ -29,5 +29,9 @@
 @property (nonatomic, retain) NSNumber * vote_count;
 @property (nonatomic, retain) NSString * backdrop_path;
 @property (nonatomic, retain) NSData * backdrop;
+@property (nonatomic, retain) NSNumber * budget;
+@property (nonatomic, retain) NSString * tagline;
+@property (nonatomic, retain) NSNumber * runtime;
+@property (nonatomic, retain) NSString * status;
 
 @end

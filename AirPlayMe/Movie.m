@@ -28,5 +28,9 @@
 @dynamic vote_count;
 @dynamic backdrop_path;
 @dynamic backdrop;
+@dynamic budget;
+@dynamic tagline;
+@dynamic runtime;
+@dynamic status;
 
 @end

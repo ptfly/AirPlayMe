@@ -23,4 +23,5 @@
 #define kTVShowsLibraryPathKey @"TVShowsLibraryPath"
 
 #define kNotificationPlayItem @"NotificationPlayItem"
-#define kNotificationBrowseTVShow @"NotificationOpenListEpisodes"
+#define kNotificationOpenMovieDetails @"NotificationOpenMovieDetails"
+#define kNotificationOpenTVShowDetails @"NotificationOpenTVShowDetails"
