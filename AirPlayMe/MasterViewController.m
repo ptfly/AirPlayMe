@@ -56,8 +56,14 @@
 
 -(void)playVideoItem:(NSNotification *)notification
 {
-    NSString *path = notification.object[@"path"];
+    NSString *path = notification.object;
     NSLog(@"PLAY: %@", path);
+    
+    if([Utils isNilOrEmpty:path] == NO)
+    {
+        NSURL *url = [NSURL URLWithString:path];
+        [[NSWorkspace sharedWorkspace] openFile:url.path withApplication:@"Beamer"];
+    }
 }
 
 -(void)openMovieDetails:(NSNotification *)notification

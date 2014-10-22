@@ -8,11 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
+#import "PosterView.h"
 
 @interface BrowserViewItem : NSCollectionViewItem
 
 @property (weak) IBOutlet NSTextField *nameField;
-@property (weak) IBOutlet NSImageView *imageView;
+@property (weak) IBOutlet PosterView *imageView;
 @property (weak) IBOutlet NSTextField *yearField;
 
 @end

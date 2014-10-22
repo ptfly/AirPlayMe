@@ -45,14 +45,15 @@
 {
     [super viewWillDraw];
     
-    if(!largeView) return;
-    self.layer.borderWidth = 15;
-    self.layer.borderColor = rgba(255, 255, 255, 0.15).CGColor;
+    if(!largeView)return;
+    self.layer.borderWidth = 1;
+    self.layer.borderColor = rgba(255, 255, 255, 0.2).CGColor;
 }
 
 -(void)mouseEntered:(NSEvent *)theEvent
 {
     if(largeView) return;
+    
     self.layer.borderColor = rgba(45,117,223,1).CGColor;
     [self setNeedsDisplay];
 }
@@ -60,6 +61,7 @@
 -(void)mouseExited:(NSEvent *)theEvent
 {
     if(largeView) return;
+    
     self.layer.borderColor = [NSColor clearColor].CGColor;
     [self setNeedsDisplay];
 }

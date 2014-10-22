@@ -38,22 +38,6 @@
     }
 }
 
--(IBAction)doubleClick:(id)sender
-{
-    if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"TVShow"])
-    {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOpenTVShowDetails object:self.representedObject];
-    }
-    else if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"TVEpisode"])
-    {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPlayItem object:self.representedObject];
-    }
-    else if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"Movie"])
-    {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPlayItem object:self.representedObject];
-    }
-}
-
 -(void)setRepresentedObject:(id)representedObject
 {
     [super setRepresentedObject:representedObject];
@@ -68,17 +52,6 @@
         self.nameField.stringValue = show.original_name;
         self.yearField.stringValue = [[YLMoment momentWithDate:show.first_air_date] format:@"YYYY"];
     }
-    else if([[[representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"TVEpisode"])
-    {
-        TVEpisode *episode = (TVEpisode *)representedObject;
-        self.nameField.stringValue = [NSString stringWithFormat:@"%@ S%02dE%02d", episode.name, episode.season.intValue, episode.episode.intValue];
-        
-        if([episode.tmdbID intValue] > 0){
-            self.imageView.image = [[NSImage alloc] initWithData:episode.still];
-            self.nameField.stringValue = [NSString stringWithFormat:@"%@ S%02dE%02d", episode.original_name, episode.season.intValue, episode.episode.intValue];
-            self.yearField.stringValue = [[YLMoment momentWithDate:episode.air_date] format:@"dd MMM YYYY"];
-        }
-    }
     else if([[[representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"Movie"])
     {
         Movie *movie = (Movie *)representedObject;
@@ -92,6 +65,17 @@
         }
     }
 }
+
+-(void)mouseEntered:(NSEvent *)theEvent
+{
+    NSLog(@"MOUSE IN");
+}
+
+-(void)mouseExited:(NSEvent *)theEvent
+{
+    NSLog(@"MOUSE OUT");
+}
+
 
 
 @end

@@ -91,8 +91,7 @@
 
 -(IBAction)playMovie:(id)sender
 {
-    NSURL *url = [NSURL URLWithString:self.movie.path];
-    [[NSWorkspace sharedWorkspace] openFile:url.path withApplication:@"Beamer"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPlayItem object:self.movie.path];
 }
 
 -(IBAction)close:(id)sender

@@ -24,11 +24,6 @@
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RSG-WG-TPa" customClass="PosterView">
                     <rect key="frame" x="10" y="60" width="160" height="235"/>
                     <gestureRecognizers>
-                        <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" numberOfClicksRequired="2" id="w3E-L3-KOb" userLabel="Double Click">
-                            <connections>
-                                <action selector="doubleClick:" target="-2" id="KCb-er-iD2"/>
-                            </connections>
-                        </clickGestureRecognizer>
                         <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" id="xro-ub-AUt" userLabel="Single Click">
                             <connections>
                                 <action selector="singleClick:" target="-2" id="vt9-jC-E9F"/>
