@@ -7,17 +7,26 @@
 //
 
 #import "MovieDetailsViewController.h"
-#import "AutoHeightField.h"
+#import "EDStarRating.h"
 
 @interface MovieDetailsViewController ()
 
+@property (weak) IBOutlet EDStarRating *ratingIndicator;
 @property (weak) IBOutlet NSImageView *posterImageView;
 @property (weak) IBOutlet NSImageView *backdropImageView;
 @property (weak) IBOutlet NSTextField *movieTitleLabel;
 @property (weak) IBOutlet NSTextField *movieDescriptionLabel;
+@property (weak) IBOutlet NSTextField *tagLine;
 
 @property (weak) IBOutlet NSLayoutConstraint *titleHeight;
 @property (weak) IBOutlet NSLayoutConstraint *descriptionHeight;
+@property (weak) IBOutlet NSLayoutConstraint *tagLineHeight;
+@property (weak) IBOutlet NSLayoutConstraint *tagLineTopSpace;
+
+@property (weak) IBOutlet NSTextField *infoBox1;
+@property (weak) IBOutlet NSTextField *infoBox2;
+@property (weak) IBOutlet NSTextField *infoBox3;
+@property (weak) IBOutlet NSTextField *infoBox4;
 @end
 
 @implementation MovieDetailsViewController
@@ -27,23 +36,47 @@
 {
     [super viewDidLoad];
     
-    NSShadow *shadow = [[NSShadow alloc] init];
-    [shadow setShadowBlurRadius:3.0];
-    [shadow setShadowColor:SHADOW_COLOR];
-    [shadow setShadowOffset:CGSizeMake(0, 1)];
-    
-    [self.movieTitleLabel setShadow:shadow];
-    [self.movieDescriptionLabel setShadow:shadow];
-    
     NSString *title = [Utils isNilOrEmpty:movie.original_title] == NO ? movie.original_title : movie.title;
     NSString *overview = [Utils isNilOrEmpty:movie.overview] == NO ? movie.overview : @"N/A";
     
     self.movieTitleLabel.stringValue = title;
     self.movieDescriptionLabel.stringValue = overview;
-
     self.posterImageView.image = [[NSImage alloc] initWithData:movie.poster];
     self.backdropImageView.image = [[NSImage alloc] initWithData:movie.backdrop];
     self.backdropImageView.alphaValue = 0.3;
+    
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+    [numberFormatter setCurrencySymbol:@""];
+    
+    self.tagLine.stringValue  = movie.tagline;
+    
+    if([Utils isNilOrEmpty:movie.tagline]){
+        self.tagLineHeight.constant = 0;
+        self.tagLineTopSpace.constant = 0;
+    }
+    
+    self.infoBox1.stringValue = [NSString stringWithFormat:@"Votes: %d\nRating: %.02f/10", movie.vote_count.intValue, movie.vote_average.floatValue];
+    self.infoBox2.stringValue = [NSString stringWithFormat:@"Status: %@\nReleased: %@", movie.status, [[YLMoment momentWithDate:movie.release_date] format:@"dd MMMM YYYY"]];
+    self.infoBox3.stringValue = [NSString stringWithFormat:@"Runtime: %@\nPopularity: %.02f", [self timeFormatted:movie.runtime.intValue*60], movie.popularity.floatValue];
+    self.infoBox4.stringValue = [NSString stringWithFormat:@"Adult: %@\nBudget: %@", (movie.adult.boolValue == YES ? @"Yes" : @"No"), (movie.budget.intValue == 0 ? @"N/A" : [numberFormatter stringFromNumber:movie.budget])];
+    
+    self.ratingIndicator.backgroundColor  = [NSColor clearColor];
+    self.ratingIndicator.starImage = [NSImage imageNamed:@"Star-Empty"];
+    self.ratingIndicator.starHighlightedImage = [NSImage imageNamed:@"Star-Full"];
+    self.ratingIndicator.maxRating = 5;
+    self.ratingIndicator.horizontalMargin = 0;
+    self.ratingIndicator.rating= movie.vote_average.floatValue/2;
+    self.ratingIndicator.displayMode=EDStarRatingDisplayAccurate;
+    [self.ratingIndicator setNeedsDisplay];
+}
+
+-(NSString *)timeFormatted:(int)totalSeconds
+{
+    int minutes = (totalSeconds / 60) % 60;
+    int hours = totalSeconds / 3600;
+    
+    return [NSString stringWithFormat:@"%dh %02dm",hours, minutes];
 }
 
 -(void)viewWillLayout

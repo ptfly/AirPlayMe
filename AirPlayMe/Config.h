@@ -17,11 +17,13 @@
 #define SHADOW_COLOR rgba(0,0,0,1)
 #define CORNER_RADIUS 5.0
 
+#define TMDB_API_URL @"http://api.themoviedb.org/3"
 #define TMDB_API_KEY @"b8f652f4b231d6653c9146910628e547"
 
 #define kMoviesLibraryPathKey  @"MoviesLibraryPath"
 #define kTVShowsLibraryPathKey @"TVShowsLibraryPath"
 
+#define kNotificationScanComplete @"NotificationScanComplete"
 #define kNotificationPlayItem @"NotificationPlayItem"
 #define kNotificationOpenMovieDetails @"NotificationOpenMovieDetails"
 #define kNotificationOpenTVShowDetails @"NotificationOpenTVShowDetails"

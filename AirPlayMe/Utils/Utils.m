@@ -98,6 +98,8 @@
 
 +(void)makeGetRequest:(NSString *)url parameters:(NSDictionary *)params callback:(void (^)(id response, BOOL success))callbackBlock
 {
+    NSLog(@"%@ - %@", url, params);
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -109,8 +111,6 @@
         callbackBlock(error, NO);
     }];
 }
-
-
 
 +(NSImage*)roundCorners:(NSImage *)image
 {

@@ -39,6 +39,11 @@
     return sharedTmdbInstance;
 }
 
+-(void)notifyScanComplete
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationScanComplete object:nil];
+}
+
 #pragma mark - Scanner
 
 -(void)scanMoviesLibrary
@@ -172,7 +177,7 @@
     
     // Name parser
     NSString *name = [file stringByReplacingOccurrencesOfString:year withString:@""];
-    name = [name replace:[Rx rx:@"(brrip|xvid|ac3|blueray|divx|pdtv|bdrip|uncut|sample|720p|1080p|1080i|x264|dvdrip|dvd|h264)" ignoreCase:YES] with:@""];
+    name = [name replace:[Rx rx:@"(brrip|xvid|ac3|blueray|divx|pdtv|bdrip|uncut|sample|720p|1080p|1080i|x264|dvdrip|dvd|h264|\\-war)" ignoreCase:YES] with:@""];
     name = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     return @{@"title":name, @"year":year, @"parsed":@(!parseFailed)};
@@ -213,7 +218,7 @@
     
     // Name parser
     NSString *name = [file stringByReplacingOccurrencesOfString:seasonId withString:@""];
-    name = [name replace:[Rx rx:@"(brrip|xvid|ac3|blueray|divx|pdtv|bdrip|uncut|sample|720p|1080p|1080i|x264|dvdrip|dvd|h264)" ignoreCase:YES] with:@""];
+    name = [name replace:[Rx rx:@"(brrip|xvid|ac3|blueray|divx|pdtv|bdrip|uncut|sample|720p|1080p|1080i|x264|dvdrip|dvd|h264\\-war)" ignoreCase:YES] with:@""];
     name = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     return @{@"name":name, @"season":season, @"episode":episode, @"parsed":@(!parseFailed)};
@@ -233,6 +238,8 @@
     
     if(!error && records.count > 0)
     {
+        __block int scanned = 0;
+        
         [records enumerateObjectsUsingBlock:^(Movie *movie, NSUInteger idx, BOOL *stop)
         {
             [self tmdbSearchMovie:movie.title year:movie.year standardSearch:movie.parsed callback:^(NSDictionary *response, BOOL success)
@@ -258,8 +265,17 @@
                         }];
                     }
                 }
+                
+                scanned++;
+                
+                if(scanned >= records.count){
+                    [self performSelectorOnMainThread:@selector(notifyScanComplete) withObject:nil waitUntilDone:NO];
+                }
             }];
         }];
+    }
+    else {
+        [self performSelectorOnMainThread:@selector(notifyScanComplete) withObject:nil waitUntilDone:NO];
     }
 }
 
@@ -275,6 +291,8 @@
     
     if(!error && records.count > 0)
     {
+        __block int scanned = 0;
+        
         [records enumerateObjectsUsingBlock:^(TVEpisode *episode, NSUInteger idx, BOOL *stop)
          {
              [self tmdbSearchTVShow:episode.name standardSearch:episode.parsed callback:^(NSDictionary *response, BOOL success)
@@ -283,18 +301,41 @@
                   {
                       TVShow *series = [self addTVShowItem:response forEpisode:episode];
                       
+                      if(series && [Utils isNilOrEmpty:series.overview])
+                      {
+                          [self tmdbGetTVShowInfo:series.tmdbID callback:^(NSDictionary *response, BOOL success){
+                              if(success){
+                                  series.overview = response[@"overview"];
+                                  [self.context save:nil];
+                              }
+                          }];
+                      }
+                      
                       [self tmdbGetEpisodeInfo:series.tmdbID season:episode.season episode:episode.episode callback:^(NSDictionary *response, BOOL success){
                           [self updateTVEpisodeItem:response forEpisode:episode];
                       }];
+                      
+                      scanned++;
+                      
+                      if(scanned >= records.count){
+                          [self performSelectorOnMainThread:@selector(notifyScanComplete) withObject:nil waitUntilDone:NO];
+                      }
                   }
               }];
          }];
+    }
+    else {
+        [self performSelectorOnMainThread:@selector(notifyScanComplete) withObject:nil waitUntilDone:NO];
     }
 }
 
 -(void)getTMDBConfig:(void (^)(BOOL success))callbackBlock
 {
-    [Utils makeGetRequest:@"http://api.themoviedb.org/3/configuration" parameters:@{@"api_key":TMDB_API_KEY} callback:^(id response, BOOL success){
+    if(self.tmdbConfig != nil){
+        callbackBlock(YES);
+    }
+    
+    [Utils makeGetRequest:[NSString stringWithFormat:@"%@/configuration", TMDB_API_URL] parameters:@{@"api_key":TMDB_API_KEY} callback:^(id response, BOOL success){
         if(success){
             self.tmdbConfig = response[@"images"];
         }
@@ -324,7 +365,7 @@
         params[@"year"] = year;
     }
     
-    [Utils makeGetRequest:@"http://api.themoviedb.org/3/search/movie" parameters:params callback:^(id response, BOOL success)
+    [Utils makeGetRequest:[NSString stringWithFormat:@"%@/search/movie", TMDB_API_URL] parameters:params callback:^(id response, BOOL success)
     {
          if(success)
          {
@@ -362,7 +403,7 @@
     params[@"query"]            = name;
     params[@"search_type"]      = standardSearch ? @"phrase" : @"ngram";
     
-    [Utils makeGetRequest:@"http://api.themoviedb.org/3/search/tv" parameters:params callback:^(id response, BOOL success)
+    [Utils makeGetRequest:[NSString stringWithFormat:@"%@/search/tv", TMDB_API_URL] parameters:params callback:^(id response, BOOL success)
      {
          if(success)
          {
@@ -393,7 +434,7 @@
         return;
     }
     
-    NSString *url = [NSString stringWithFormat:@"http://api.themoviedb.org/3/movie/%d", movieId.intValue];
+    NSString *url = [NSString stringWithFormat:@"%@/movie/%d", TMDB_API_URL, movieId.intValue];
     
     [Utils makeGetRequest:url parameters:@{@"api_key":TMDB_API_KEY} callback:^(id response, BOOL success)
      {
@@ -425,7 +466,7 @@
         return;
     }
     
-    NSString *url = [NSString stringWithFormat:@"http://api.themoviedb.org/3/tv/%d", seriesId.intValue];
+    NSString *url = [NSString stringWithFormat:@"%@/tv/%d", TMDB_API_URL, seriesId.intValue];
     
     [Utils makeGetRequest:url parameters:@{@"api_key":TMDB_API_KEY} callback:^(id response, BOOL success)
      {
@@ -453,13 +494,13 @@
     if(!self.tmdbConfig)
     {
         [self getTMDBConfig:^(BOOL success){
-            if(success)[self tmdbGetTVShowInfo:seriesId callback:callbackBlock];
+            if(success)[self tmdbGetTVSeasonInfo:seriesId season:season callback:callbackBlock];
         }];
         
         return;
     }
     
-    NSString *url = [NSString stringWithFormat:@"http://api.themoviedb.org/3/tv/%d/season/%d", seriesId.intValue, season.intValue];
+    NSString *url = [NSString stringWithFormat:@"%@/tv/%d/season/%d", TMDB_API_URL, seriesId.intValue, season.intValue];
     
     [Utils makeGetRequest:url parameters:@{@"api_key":TMDB_API_KEY} callback:^(id response, BOOL success)
      {
@@ -492,7 +533,7 @@
         return;
     }
     
-    NSString *url = [NSString stringWithFormat:@"http://api.themoviedb.org/3/tv/%d/season/%d/episode/%d", seriesId.intValue, season.intValue, episode.intValue];
+    NSString *url = [NSString stringWithFormat:@"%@/tv/%d/season/%d/episode/%d", TMDB_API_URL, seriesId.intValue, season.intValue, episode.intValue];
     
     [Utils makeGetRequest:url parameters:@{@"api_key":TMDB_API_KEY} callback:^(id response, BOOL success)
      {

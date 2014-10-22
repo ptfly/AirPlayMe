@@ -15,20 +15,36 @@
 {
     self = [super initWithCoder:coder];
     
-    if(self)
-    {
-        self.wantsLayer = YES;
-        self.layer.cornerRadius = CORNER_RADIUS;
-        self.layer.backgroundColor = BACKGROUND_COLOR.CGColor;
-        
-        NSShadow *dropShadow = [[NSShadow alloc] init];
-        [dropShadow setShadowColor:SHADOW_COLOR];
-        [dropShadow setShadowOffset:NSMakeSize(0, 0)];
-        [dropShadow setShadowBlurRadius:3.0];
-        [self setShadow: dropShadow];
+    if(self){
+        [self setup];
     }
     
     return self;
 }
 
+-(id)initWithFrame:(NSRect)frameRect
+{
+    self = [super initWithFrame:frameRect];
+    
+    if(self){
+        [self setup];
+    }
+    
+    return self;
+}
+
+-(void)setup
+{
+    self.wantsLayer = YES;
+    self.layer.cornerRadius = CORNER_RADIUS;
+    self.layer.backgroundColor = BACKGROUND_COLOR.CGColor;
+    
+    NSShadow *dropShadow = [[NSShadow alloc] init];
+    [dropShadow setShadowColor:SHADOW_COLOR];
+    [dropShadow setShadowOffset:NSMakeSize(0, 0)];
+    [dropShadow setShadowBlurRadius:3.0];
+    
+    [self setShadow: dropShadow];
+
+}
 @end

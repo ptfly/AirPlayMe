@@ -151,18 +151,25 @@
                                             <action selector="toggleViewController:" target="Jvr-Z4-KH8" id="BbL-wM-I18"/>
                                         </connections>
                                     </button>
-                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UY1-Cf-Cli">
-                                        <rect key="frame" x="1060" y="14" width="127" height="26"/>
+                                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="JKh-ck-D4x">
+                                        <rect key="frame" x="1031" y="19" width="16" height="16"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="122" id="2Ze-lY-Flw"/>
-                                            <constraint firstAttribute="height" constant="21" id="SV8-sk-2Be"/>
+                                            <constraint firstAttribute="height" constant="16" id="S4W-xz-lGW"/>
+                                            <constraint firstAttribute="width" constant="16" id="o2U-9E-9Jq"/>
                                         </constraints>
-                                        <popUpButtonCell key="cell" type="push" title="Scan Library" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" autoenablesItems="NO" selectedItem="mhv-8x-tU5" id="0wa-bi-8JS">
+                                    </progressIndicator>
+                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UY1-Cf-Cli">
+                                        <rect key="frame" x="1052" y="14" width="135" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="130" id="7lN-UJ-P1u"/>
+                                            <constraint firstAttribute="height" constant="21" id="x9J-nD-LBj"/>
+                                        </constraints>
+                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" arrowPosition="noArrow" autoenablesItems="NO" id="0wa-bi-8JS">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="menu"/>
                                             <menu key="menu" autoenablesItems="NO" id="xnc-S3-Wee">
                                                 <items>
-                                                    <menuItem title="Scan Library" state="on" enabled="NO" id="mhv-8x-tU5">
+                                                    <menuItem title="Update Library" enabled="NO" id="mhv-8x-tU5">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                     </menuItem>
                                                     <menuItem title="Movies" tag="1" id="EQN-3h-SWu">
@@ -178,20 +185,19 @@
                                             <action selector="scanDirectory:" target="Jvr-Z4-KH8" id="IHA-1B-Ump"/>
                                         </connections>
                                     </popUpButton>
-                                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="JKh-ck-D4x">
-                                        <rect key="frame" x="1032" y="19" width="16" height="16"/>
-                                    </progressIndicator>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="STh-Y5-feG" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="00E-Xs-RH6"/>
                                     <constraint firstAttribute="trailing" secondItem="cd6-xs-Qcj" secondAttribute="trailing" constant="4" id="4Le-ze-pwK"/>
+                                    <constraint firstItem="JKh-ck-D4x" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="21" id="4wt-3C-i5J"/>
                                     <constraint firstAttribute="height" constant="56" id="F7E-67-0qb"/>
                                     <constraint firstItem="1Gs-sB-xc6" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="Fjd-0Q-D1P"/>
-                                    <constraint firstItem="UY1-Cf-Cli" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="TcQ-qK-aF1"/>
                                     <constraint firstItem="STh-Y5-feG" firstAttribute="leading" secondItem="pT7-QB-sXU" secondAttribute="leading" constant="20" id="WAf-rO-yer"/>
+                                    <constraint firstItem="cd6-xs-Qcj" firstAttribute="leading" secondItem="UY1-Cf-Cli" secondAttribute="trailing" constant="8" id="XMg-l8-7g0"/>
                                     <constraint firstItem="cd6-xs-Qcj" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="YZE-IK-tPf"/>
-                                    <constraint firstItem="cd6-xs-Qcj" firstAttribute="leading" secondItem="UY1-Cf-Cli" secondAttribute="trailing" constant="8" id="edU-Hz-1SA"/>
+                                    <constraint firstItem="UY1-Cf-Cli" firstAttribute="leading" secondItem="JKh-ck-D4x" secondAttribute="trailing" constant="7" id="chl-rt-voY"/>
                                     <constraint firstItem="1Gs-sB-xc6" firstAttribute="leading" secondItem="STh-Y5-feG" secondAttribute="trailing" constant="8" id="pun-u2-dBL"/>
+                                    <constraint firstItem="UY1-Cf-Cli" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="tOE-DO-hUj"/>
                                 </constraints>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="dvH-oH-bu2" userLabel="Main View">

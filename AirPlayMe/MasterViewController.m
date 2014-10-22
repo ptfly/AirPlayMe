@@ -51,6 +51,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playVideoItem:) name:kNotificationPlayItem object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openMovieDetails:) name:kNotificationOpenMovieDetails object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openTVShowDetails:) name:kNotificationOpenTVShowDetails object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scanCompleted:) name:kNotificationScanComplete object:nil];
 }
 
 -(void)playVideoItem:(NSNotification *)notification
@@ -89,17 +90,33 @@
 
 -(IBAction)scanDirectory:(NSPopUpButton *)sender
 {
-    if(sender.selectedTag == 1){
+    long selected = sender.selectedTag;
+    
+    [sender setEnabled:NO];
+    [sender selectItemAtIndex:0];
+    [sender.selectedItem setState:NSOffState];
+    [sender.selectedItem setTitle:@"Updating..."];
+    
+    if(selected == 1){
         NSThread *thread = [[NSThread alloc] initWithTarget:[Library sharedInstance] selector:@selector(scanMoviesLibrary) object:nil];
         [thread start];
     }
-    else if(sender.selectedTag == 2){
+    else if(selected == 2){
         NSThread *thread = [[NSThread alloc] initWithTarget:[Library sharedInstance] selector:@selector(scanTVShowsLibrary) object:nil];
         [thread start];
     }
     else {
+        [sender setEnabled:YES];
         [Utils showError:@"Invalid library"];
     }
+}
+
+-(void)scanCompleted:(NSNotification *)notification
+{
+    [self.scanLibraryButton setEnabled:YES];
+    [self.scanLibraryButton selectItemAtIndex:0];
+    [self.scanLibraryButton.selectedItem setState:NSOffState];
+    [self.scanLibraryButton.selectedItem setTitle:@"Update Library"];
 }
 
 -(IBAction)toggleViewController:(NSButton *)sender
@@ -108,6 +125,9 @@
     {
         if(i != sender.tag){
             [(MainButton*)[self.view viewWithTag:i] setInactive];
+        }
+        else {
+            [(MainButton*)[self.view viewWithTag:i] setActive];
         }
     }
     

@@ -46,7 +46,8 @@
     [super viewWillDraw];
     
     if(!largeView) return;
-    self.layer.borderColor = rgba(255, 255, 255, 0.5).CGColor;
+    self.layer.borderWidth = 15;
+    self.layer.borderColor = rgba(255, 255, 255, 0.15).CGColor;
 }
 
 -(void)mouseEntered:(NSEvent *)theEvent
