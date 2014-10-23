@@ -8,6 +8,7 @@
 
 #import "MovieDetailsViewController.h"
 #import "EDStarRating.h"
+#import "BackDropView.h"
 
 @interface MovieDetailsViewController ()
 
@@ -17,6 +18,7 @@
 @property (weak) IBOutlet NSTextField *movieTitleLabel;
 @property (weak) IBOutlet NSTextField *movieDescriptionLabel;
 @property (weak) IBOutlet NSTextField *tagLine;
+@property (strong) IBOutlet BackDropView *backDropView;
 
 @property (weak) IBOutlet NSLayoutConstraint *titleHeight;
 @property (weak) IBOutlet NSLayoutConstraint *descriptionHeight;
@@ -42,8 +44,8 @@
     self.movieTitleLabel.stringValue = title;
     self.movieDescriptionLabel.stringValue = overview;
     self.posterImageView.image = [[NSImage alloc] initWithData:movie.poster];
-    self.backdropImageView.image = [[NSImage alloc] initWithData:movie.backdrop];
-    self.backdropImageView.alphaValue = 0.3;
+    self.backDropView.image = [[NSImage alloc] initWithData:movie.backdrop];
+//    self.backDropView.alphaValue = 0.3;
     
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
@@ -93,11 +95,5 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPlayItem object:self.movie.path];
 }
-
--(IBAction)close:(id)sender
-{
-    
-}
-
 
 @end

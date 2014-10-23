@@ -12,14 +12,16 @@
 #import "Config.h"
 #import "MainButton.h"
 #import "Library.h"
+#import "FlippedView.h"
 
 #import "MovieDetailsViewController.h"
 #import "TVShowDetailsViewController.h"
 
 @interface MasterViewController ()
 
-@property (weak) IBOutlet NSView *masterView;
+//@property (weak) IBOutlet NSView *masterView;
 @property (weak) IBOutlet NSView *headerView;
+@property (weak) IBOutlet NSScrollView *scrollView;
 @property (weak) IBOutlet NSProgressIndicator *progressIndicator;
 @property (weak) IBOutlet NSPopUpButton *scanLibraryButton;
 
@@ -28,7 +30,7 @@
 @end
 
 @implementation MasterViewController
-@synthesize currentViewController;
+@synthesize currentViewController, scrollView;
 
 -(void)viewDidLoad
 {
@@ -39,14 +41,18 @@
     NSShadow *dropShadow = [[NSShadow alloc] init];
     [dropShadow setShadowColor:SHADOW_COLOR];
     [dropShadow setShadowOffset:NSMakeSize(0, 0)];
-    [dropShadow setShadowBlurRadius:10.0];
+    [dropShadow setShadowBlurRadius:3.0];
     
     [self.headerView.superview setWantsLayer: YES];
     [self.headerView.layer setBackgroundColor:WINDOW_COLOR.CGColor];
     [self.headerView setShadow:dropShadow];
     
-    [(MainButton*)[self.view viewWithTag:1] setActive];
-    [self toggleViewController:[self.view viewWithTag:1]];
+    self.scrollView.backgroundColor = WINDOW_COLOR;
+    self.scrollView.automaticallyAdjustsContentInsets = NO;
+    
+    int initalController = 2;
+    [(MainButton*)[self.view viewWithTag:initalController] setActive];
+    [self toggleViewController:[self.view viewWithTag:initalController]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playVideoItem:) name:kNotificationPlayItem object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openMovieDetails:) name:kNotificationOpenMovieDetails object:nil];
@@ -57,7 +63,6 @@
 -(void)playVideoItem:(NSNotification *)notification
 {
     NSString *path = notification.object;
-    NSLog(@"PLAY: %@", path);
     
     if([Utils isNilOrEmpty:path] == NO)
     {
@@ -104,12 +109,14 @@
     [sender.selectedItem setTitle:@"Updating..."];
     
     if(selected == 1){
-        NSThread *thread = [[NSThread alloc] initWithTarget:[Library sharedInstance] selector:@selector(scanMoviesLibrary) object:nil];
-        [thread start];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[Library sharedInstance] scanMoviesLibrary];
+        });
     }
     else if(selected == 2){
-        NSThread *thread = [[NSThread alloc] initWithTarget:[Library sharedInstance] selector:@selector(scanTVShowsLibrary) object:nil];
-        [thread start];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[Library sharedInstance] scanTVShowsLibrary];
+        });
     }
     else {
         [sender setEnabled:YES];
@@ -165,8 +172,9 @@
 
 -(void)layoutCurrentViewController
 {
-    [self.masterView addSubview:self.currentViewController.view];
-    [self.currentViewController.view setFrame:self.masterView.bounds];
+    [self.scrollView setDocumentView:self.currentViewController.view];
+    [self.currentViewController.view setFrameSize:self.scrollView.frame.size];
+    
     [self.currentViewController.view setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
     [self.currentViewController.view setTranslatesAutoresizingMaskIntoConstraints:YES];
 }

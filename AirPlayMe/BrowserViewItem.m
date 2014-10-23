@@ -13,6 +13,7 @@
 
 @interface BrowserViewItem ()
 @property (strong, nonatomic) NSManagedObjectContext *context;
+@property (weak) IBOutlet NSButton *playButton;
 @end
 
 @implementation BrowserViewItem
@@ -24,6 +25,10 @@
     
     AppDelegate *appDelegate = [[NSApplication sharedApplication] delegate];
     self.context = appDelegate.managedObjectContext;
+    self.playButton.hidden = YES;
+    
+    NSTrackingArea *area = [[NSTrackingArea alloc] initWithRect:self.imageView.frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways) owner:self userInfo:nil];
+    [self.view addTrackingArea:area];
 }
 
 -(IBAction)singleClick:(id)sender
@@ -35,6 +40,14 @@
     else if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"Movie"])
     {
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOpenMovieDetails object:self.representedObject];
+    }
+}
+
+-(IBAction)playVideo:(id)sender
+{
+    if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"Movie"]){
+        Movie *movie = (Movie *) self.representedObject;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPlayItem object:movie.path];
     }
 }
 
@@ -68,14 +81,14 @@
 
 -(void)mouseEntered:(NSEvent *)theEvent
 {
-    NSLog(@"MOUSE IN");
+    if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"Movie"]){
+        self.playButton.hidden = NO;
+    }
 }
 
 -(void)mouseExited:(NSEvent *)theEvent
 {
-    NSLog(@"MOUSE OUT");
+    self.playButton.hidden = YES;
 }
-
-
 
 @end

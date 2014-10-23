@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6249" systemVersion="14A388b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6249"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BrowserViewItem">
             <connections>
                 <outlet property="imageView" destination="RSG-WG-TPa" id="umj-fk-OcH"/>
                 <outlet property="nameField" destination="qgQ-t5-4UQ" id="Z1C-HX-NPo"/>
+                <outlet property="playButton" destination="MQl-Ij-BNY" id="2Q5-nP-AfX"/>
                 <outlet property="view" destination="c22-O7-iKe" id="j0m-pv-Vty"/>
                 <outlet property="yearField" destination="SIR-Eo-gjd" id="7aJ-8q-L7s"/>
             </connections>
@@ -18,11 +19,19 @@
             <rect key="frame" x="0.0" y="0.0" width="180" height="305"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Cl-bX-hyd" customClass="ShadowView">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="9Cl-bX-hyd" customClass="ShadowView">
                     <rect key="frame" x="10" y="60" width="160" height="235"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="235" id="jbA-wO-FJN"/>
+                        <constraint firstAttribute="width" constant="160" id="joV-vv-5Gc"/>
+                    </constraints>
                 </customView>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RSG-WG-TPa" customClass="PosterView">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RSG-WG-TPa" customClass="PosterView">
                     <rect key="frame" x="10" y="60" width="160" height="235"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="235" id="1rq-AB-I4e"/>
+                        <constraint firstAttribute="width" constant="160" id="V7I-tR-6OA"/>
+                    </constraints>
                     <gestureRecognizers>
                         <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" id="xro-ub-AUt" userLabel="Single Click">
                             <connections>
@@ -30,30 +39,68 @@
                             </connections>
                         </clickGestureRecognizer>
                     </gestureRecognizers>
-                    <imageCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="NSFlowViewTemplate" id="Wvv-AI-ulf"/>
+                    <imageCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="Wvv-AI-ulf"/>
                 </imageView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qgQ-t5-4UQ">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qgQ-t5-4UQ">
                     <rect key="frame" x="10" y="30" width="160" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="eDy-cC-35d"/>
+                    </constraints>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="left" title="Label" id="dOP-G9-Xuf">
                         <font key="font" size="15" name="HelveticaNeue"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SIR-Eo-gjd">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SIR-Eo-gjd">
                     <rect key="frame" x="10" y="13" width="160" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="17" id="riv-ij-l38"/>
+                    </constraints>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="left" title="Label" id="ej5-5e-YDS">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" white="1" alpha="0.28999999999999998" colorSpace="deviceWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MQl-Ij-BNY">
+                    <rect key="frame" x="65" y="142" width="50" height="70"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="7uv-rO-sN4"/>
+                        <constraint firstAttribute="height" constant="70" id="Yu3-22-MuD"/>
+                    </constraints>
+                    <buttonCell key="cell" type="inline" bezelStyle="inline" image="Play" imagePosition="only" alignment="center" alternateImage="Play-Active" imageScaling="proportionallyDown" inset="2" id="YB9-Ks-UxO">
+                        <behavior key="behavior" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystemBold"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="playVideo:" target="-2" id="JgN-Of-MQx"/>
+                    </connections>
+                </button>
             </subviews>
-            <point key="canvasLocation" x="187" y="291"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="SIR-Eo-gjd" secondAttribute="trailing" constant="12" id="8ng-t2-zKe"/>
+                <constraint firstAttribute="trailing" secondItem="MQl-Ij-BNY" secondAttribute="trailing" constant="65" id="Pbf-yG-BQ6"/>
+                <constraint firstItem="9Cl-bX-hyd" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="10" id="QET-Wv-6ZL"/>
+                <constraint firstItem="SIR-Eo-gjd" firstAttribute="top" secondItem="qgQ-t5-4UQ" secondAttribute="bottom" id="SXR-QR-7DO"/>
+                <constraint firstAttribute="trailing" secondItem="qgQ-t5-4UQ" secondAttribute="trailing" constant="12" id="XEW-IV-mT1"/>
+                <constraint firstAttribute="trailing" secondItem="RSG-WG-TPa" secondAttribute="trailing" constant="10" id="XxD-mN-Bze"/>
+                <constraint firstItem="9Cl-bX-hyd" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="10" id="aZp-Gw-gQN"/>
+                <constraint firstItem="SIR-Eo-gjd" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="12" id="bu4-XT-2Xm"/>
+                <constraint firstItem="qgQ-t5-4UQ" firstAttribute="top" secondItem="RSG-WG-TPa" secondAttribute="bottom" constant="9" id="dCC-ET-2Xd"/>
+                <constraint firstItem="MQl-Ij-BNY" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="65" id="k5Y-mM-GsS"/>
+                <constraint firstAttribute="trailing" secondItem="9Cl-bX-hyd" secondAttribute="trailing" constant="10" id="oZI-4y-bDC"/>
+                <constraint firstItem="qgQ-t5-4UQ" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="12" id="rpC-qa-qh7"/>
+                <constraint firstItem="RSG-WG-TPa" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="10" id="uu4-w0-sW8"/>
+                <constraint firstItem="qgQ-t5-4UQ" firstAttribute="top" secondItem="MQl-Ij-BNY" secondAttribute="bottom" constant="91" id="yQo-nA-ovN"/>
+                <constraint firstItem="RSG-WG-TPa" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="10" id="zsh-SY-ELT"/>
+            </constraints>
+            <point key="canvasLocation" x="187" y="290.5"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="aOQ-1o-sjT"/>
     </objects>
     <resources>
-        <image name="NSFlowViewTemplate" width="18" height="10"/>
+        <image name="Play" width="65.454544067382812" height="65.454544067382812"/>
+        <image name="Play-Active" width="65.454544067382812" height="65.454544067382812"/>
     </resources>
 </document>

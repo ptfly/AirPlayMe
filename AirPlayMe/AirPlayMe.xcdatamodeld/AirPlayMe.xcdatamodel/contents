@@ -53,7 +53,7 @@
         <attribute name="tmdbID" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="vote_average" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="vote_count" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <relationship name="episodes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TVEpisode" inverseName="show" inverseEntity="TVEpisode" syncable="YES"/>
+        <relationship name="episodes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TVEpisode" inverseName="show" inverseEntity="TVEpisode" syncable="YES"/>
     </entity>
     <elements>
         <element name="Movie" positionX="-666" positionY="-243" width="128" height="358"/>

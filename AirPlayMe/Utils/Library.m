@@ -41,7 +41,9 @@
 
 -(void)notifyScanComplete
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationScanComplete object:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationScanComplete object:nil];
+    });
 }
 
 #pragma mark - Scanner
@@ -269,13 +271,13 @@
                 scanned++;
                 
                 if(scanned >= records.count){
-                    [self performSelectorOnMainThread:@selector(notifyScanComplete) withObject:nil waitUntilDone:NO];
+                    [self notifyScanComplete];
                 }
             }];
         }];
     }
     else {
-        [self performSelectorOnMainThread:@selector(notifyScanComplete) withObject:nil waitUntilDone:NO];
+        [self notifyScanComplete];
     }
 }
 
@@ -303,8 +305,10 @@
                       
                       if(series && [Utils isNilOrEmpty:series.overview])
                       {
-                          [self tmdbGetTVShowInfo:series.tmdbID callback:^(NSDictionary *response, BOOL success){
-                              if(success){
+                          [self tmdbGetTVShowInfo:series.tmdbID callback:^(NSDictionary *response, BOOL success)
+                          {
+                              if(success)
+                              {
                                   series.overview = response[@"overview"];
                                   [self.context save:nil];
                               }
@@ -318,14 +322,14 @@
                       scanned++;
                       
                       if(scanned >= records.count){
-                          [self performSelectorOnMainThread:@selector(notifyScanComplete) withObject:nil waitUntilDone:NO];
+                          [self notifyScanComplete];
                       }
                   }
               }];
          }];
     }
     else {
-        [self performSelectorOnMainThread:@selector(notifyScanComplete) withObject:nil waitUntilDone:NO];
+        [self notifyScanComplete];
     }
 }
 
@@ -411,6 +415,7 @@
              
              if(data){
                  data[@"poster"] = [NSString stringWithFormat:@"%@w500%@", self.tmdbConfig[@"base_url"], data[@"poster_path"]];
+                 data[@"backdrop"] = [NSString stringWithFormat:@"%@w1280%@", self.tmdbConfig[@"base_url"], data[@"backdrop_path"]];
                  callbackBlock(data, success);
              }
              else {
@@ -475,7 +480,7 @@
              NSMutableDictionary *data = [response mutableCopy];
              
              if(data){
-                 data[@"poster"] = [NSString stringWithFormat:@"%@w500%@", self.tmdbConfig[@"base_url"], data[@"postter_path"]];
+                 data[@"poster"] = [NSString stringWithFormat:@"%@w500%@", self.tmdbConfig[@"base_url"], data[@"poster_path"]];
                  data[@"backdrop"] = [NSString stringWithFormat:@"%@w1280%@", self.tmdbConfig[@"base_url"], data[@"backdrop_path"]];
                  callbackBlock(data, success);
              }

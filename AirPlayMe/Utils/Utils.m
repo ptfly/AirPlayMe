@@ -98,7 +98,7 @@
 
 +(void)makeGetRequest:(NSString *)url parameters:(NSDictionary *)params callback:(void (^)(id response, BOOL success))callbackBlock
 {
-    NSLog(@"%@ - %@", url, params);
+//    NSLog(@"%@ - %@", url, params);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
