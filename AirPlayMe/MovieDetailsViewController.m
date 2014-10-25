@@ -9,6 +9,7 @@
 #import "MovieDetailsViewController.h"
 #import "EDStarRating.h"
 #import "BackDropView.h"
+#import "AppDelegate.h"
 
 @interface MovieDetailsViewController ()
 
@@ -20,10 +21,13 @@
 @property (weak) IBOutlet NSTextField *tagLine;
 @property (strong) IBOutlet BackDropView *backDropView;
 
+@property (strong, nonatomic) NSManagedObjectContext *context;
+
 @property (weak) IBOutlet NSLayoutConstraint *titleHeight;
 @property (weak) IBOutlet NSLayoutConstraint *descriptionHeight;
 @property (weak) IBOutlet NSLayoutConstraint *tagLineHeight;
 @property (weak) IBOutlet NSLayoutConstraint *tagLineTopSpace;
+@property (weak) IBOutlet NSImageView *watchedIcon;
 
 @property (weak) IBOutlet NSTextField *infoBox1;
 @property (weak) IBOutlet NSTextField *infoBox2;
@@ -38,6 +42,10 @@
 {
     [super viewDidLoad];
     
+    AppDelegate *delegate = [[NSApplication sharedApplication] delegate];
+    self.context = delegate.managedObjectContext;
+
+    
     NSString *title = [Utils isNilOrEmpty:movie.original_title] == NO ? movie.original_title : movie.title;
     NSString *overview = [Utils isNilOrEmpty:movie.overview] == NO ? movie.overview : @"N/A";
     
@@ -45,7 +53,7 @@
     self.movieDescriptionLabel.stringValue = overview;
     self.posterImageView.image = [[NSImage alloc] initWithData:movie.poster];
     self.backDropView.image = [[NSImage alloc] initWithData:movie.backdrop];
-//    self.backDropView.alphaValue = 0.3;
+    self.watchedIcon.image = [NSImage imageNamed:(self.movie.watched ? @"Eye-Active" : @"Eye")];
     
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
@@ -94,6 +102,21 @@
 -(IBAction)playMovie:(id)sender
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPlayItem object:self.movie.path];
+}
+
+-(IBAction)setAsWatched:(id)sender
+{
+    NSError *error;
+    self.movie.watched = !self.movie.watched;
+    
+    [self.context save:&error];
+    
+    if(error){
+        [Utils showError:error.localizedDescription];
+    }
+    else {
+        self.watchedIcon.image = [NSImage imageNamed:(self.movie.watched ? @"Eye-Active" : @"Eye")];
+    }
 }
 
 @end

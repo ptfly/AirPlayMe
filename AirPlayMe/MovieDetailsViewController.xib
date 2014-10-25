@@ -21,12 +21,13 @@
                 <outlet property="tagLineTopSpace" destination="bex-xh-UJu" id="lQ2-gF-WIM"/>
                 <outlet property="titleHeight" destination="UQc-yN-onT" id="VYM-Qm-poc"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+                <outlet property="watchedIcon" destination="bov-Tt-0qn" id="CXM-pU-wGC"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY" customClass="BackDropView">
-            <rect key="frame" x="0.0" y="0.0" width="1280" height="580"/>
+            <rect key="frame" x="0.0" y="0.0" width="1296" height="580"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="hpe-Rz-L4G" userLabel="Shadow" customClass="ShadowView">
@@ -48,7 +49,7 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Ys-p9-Mib" userLabel="Title" customClass="ShadowTextField">
-                    <rect key="frame" x="416" y="516" width="846" height="34"/>
+                    <rect key="frame" x="416" y="516" width="862" height="34"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="34" id="UQc-yN-onT"/>
                     </constraints>
@@ -59,7 +60,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tRF-ci-SV8" userLabel="Overview" customClass="ShadowTextField">
-                    <rect key="frame" x="416" y="364" width="846" height="34"/>
+                    <rect key="frame" x="416" y="364" width="862" height="34"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="34" id="AUm-Xo-YWw"/>
                     </constraints>
@@ -129,7 +130,7 @@ Budget: $91.129.912.234</string>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="BpX-be-F21" customClass="ShadowTextField">
-                    <rect key="frame" x="416" y="491" width="846" height="19"/>
+                    <rect key="frame" x="416" y="491" width="862" height="19"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="19" id="Bgu-d9-yvP"/>
                     </constraints>
@@ -153,9 +154,25 @@ Released: 23 September 2014</string>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bov-Tt-0qn">
+                    <rect key="frame" x="1226" y="30" width="35" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="35" id="iQb-X8-HfO"/>
+                        <constraint firstAttribute="height" constant="20" id="m2U-TW-2kh"/>
+                    </constraints>
+                    <gestureRecognizers>
+                        <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" id="bYA-Zq-sjb" userLabel="set As Watched">
+                            <connections>
+                                <action selector="setAsWatched:" target="-2" id="0tk-HF-Mgd"/>
+                            </connections>
+                        </clickGestureRecognizer>
+                    </gestureRecognizers>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Eye" id="uOA-d7-de1"/>
+                </imageView>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="tRF-ci-SV8" secondAttribute="trailing" constant="20" id="0SY-67-ham"/>
+                <constraint firstAttribute="bottom" secondItem="bov-Tt-0qn" secondAttribute="bottom" constant="30" id="3Qv-qF-3RT"/>
                 <constraint firstItem="wIj-tW-qWn" firstAttribute="top" secondItem="BpX-be-F21" secondAttribute="bottom" constant="28" id="5Wj-qO-7hn"/>
                 <constraint firstItem="14C-yv-Vx6" firstAttribute="top" secondItem="BpX-be-F21" secondAttribute="bottom" constant="28" id="8vW-B7-g8L"/>
                 <constraint firstItem="05i-gF-EqZ" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="30" id="B77-nr-s0Y"/>
@@ -163,13 +180,14 @@ Released: 23 September 2014</string>
                 <constraint firstItem="crh-Kq-TAq" firstAttribute="top" secondItem="BpX-be-F21" secondAttribute="bottom" constant="28" id="I6S-6J-hRi"/>
                 <constraint firstItem="TsF-cb-cCx" firstAttribute="top" secondItem="BpX-be-F21" secondAttribute="bottom" constant="28" id="IDR-kj-OZu"/>
                 <constraint firstItem="crh-Kq-TAq" firstAttribute="leading" secondItem="a3f-uy-wOr" secondAttribute="trailing" constant="20" id="Lp7-TH-Alf"/>
+                <constraint firstAttribute="trailing" secondItem="bov-Tt-0qn" secondAttribute="trailing" constant="35" id="M6l-H8-cX0"/>
                 <constraint firstItem="hpe-Rz-L4G" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="30" id="Pnt-Ge-Uog"/>
                 <constraint firstItem="tRF-ci-SV8" firstAttribute="top" secondItem="a3f-uy-wOr" secondAttribute="bottom" constant="28" id="WaN-6V-Y6d"/>
                 <constraint firstItem="tRF-ci-SV8" firstAttribute="leading" secondItem="05i-gF-EqZ" secondAttribute="trailing" constant="38" id="bdT-3y-yDt"/>
                 <constraint firstItem="BpX-be-F21" firstAttribute="top" secondItem="7Ys-p9-Mib" secondAttribute="bottom" constant="6" id="bex-xh-UJu"/>
                 <constraint firstItem="TsF-cb-cCx" firstAttribute="leading" secondItem="14C-yv-Vx6" secondAttribute="trailing" constant="18" id="f0o-0K-qwH"/>
                 <constraint firstItem="7Ys-p9-Mib" firstAttribute="leading" secondItem="05i-gF-EqZ" secondAttribute="trailing" constant="38" id="iWf-PC-GMe"/>
-                <constraint firstAttribute="trailing" secondItem="7Ys-p9-Mib" secondAttribute="trailing" constant="20" id="jKL-46-dU3"/>
+                <constraint firstAttribute="trailing" secondItem="7Ys-p9-Mib" secondAttribute="trailing" constant="20" id="ivC-OH-bxO"/>
                 <constraint firstItem="a3f-uy-wOr" firstAttribute="leading" secondItem="05i-gF-EqZ" secondAttribute="trailing" constant="38" id="jUx-lK-zoH"/>
                 <constraint firstItem="7Ys-p9-Mib" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="30" id="krz-Pl-xDS"/>
                 <constraint firstAttribute="trailing" secondItem="BpX-be-F21" secondAttribute="trailing" constant="20" id="lhd-lH-ng5"/>
@@ -179,10 +197,11 @@ Released: 23 September 2014</string>
                 <constraint firstItem="wIj-tW-qWn" firstAttribute="leading" secondItem="crh-Kq-TAq" secondAttribute="trailing" constant="20" id="wQP-DV-ach"/>
                 <constraint firstItem="05i-gF-EqZ" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="30" id="z3s-bl-iOl"/>
             </constraints>
-            <point key="canvasLocation" x="359" y="197"/>
+            <point key="canvasLocation" x="367" y="169"/>
         </customView>
     </objects>
     <resources>
+        <image name="Eye" width="35" height="20"/>
         <image name="NSBluetoothTemplate" width="7" height="14"/>
         <image name="Play" width="65.454544067382812" height="65.454544067382812"/>
         <image name="Play-Active" width="65.454544067382812" height="65.454544067382812"/>

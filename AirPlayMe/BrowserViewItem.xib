@@ -10,7 +10,9 @@
                 <outlet property="nameField" destination="qgQ-t5-4UQ" id="Z1C-HX-NPo"/>
                 <outlet property="playButton" destination="MQl-Ij-BNY" id="2Q5-nP-AfX"/>
                 <outlet property="view" destination="c22-O7-iKe" id="j0m-pv-Vty"/>
+                <outlet property="watchedIcon" destination="9Vy-9M-a5T" id="B2w-XJ-q9D"/>
                 <outlet property="yearField" destination="SIR-Eo-gjd" id="7aJ-8q-L7s"/>
+                <outlet property="yearFieldPosition" destination="ygL-Yx-MUy" id="sAF-ML-G5K"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -53,9 +55,9 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SIR-Eo-gjd">
-                    <rect key="frame" x="10" y="13" width="160" height="17"/>
+                    <rect key="frame" x="10" y="13" width="122" height="17"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="17" id="riv-ij-l38"/>
+                        <constraint firstAttribute="height" constant="17" id="134-GB-KzN"/>
                     </constraints>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="left" title="Label" id="ej5-5e-YDS">
                         <font key="font" metaFont="system"/>
@@ -77,29 +79,40 @@
                         <action selector="playVideo:" target="-2" id="JgN-Of-MQx"/>
                     </connections>
                 </button>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Vy-9M-a5T">
+                    <rect key="frame" x="12" y="11" width="17" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="17" id="7V9-Tl-qsj"/>
+                        <constraint firstAttribute="height" constant="20" id="JhH-wX-4S2"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Eye" id="7w2-NV-MsB"/>
+                </imageView>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="SIR-Eo-gjd" secondAttribute="trailing" constant="12" id="8ng-t2-zKe"/>
                 <constraint firstAttribute="trailing" secondItem="MQl-Ij-BNY" secondAttribute="trailing" constant="65" id="Pbf-yG-BQ6"/>
+                <constraint firstAttribute="trailing" secondItem="SIR-Eo-gjd" secondAttribute="trailing" constant="50" id="Q42-Vd-w5J"/>
                 <constraint firstItem="9Cl-bX-hyd" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="10" id="QET-Wv-6ZL"/>
-                <constraint firstItem="SIR-Eo-gjd" firstAttribute="top" secondItem="qgQ-t5-4UQ" secondAttribute="bottom" id="SXR-QR-7DO"/>
-                <constraint firstAttribute="trailing" secondItem="qgQ-t5-4UQ" secondAttribute="trailing" constant="12" id="XEW-IV-mT1"/>
                 <constraint firstAttribute="trailing" secondItem="RSG-WG-TPa" secondAttribute="trailing" constant="10" id="XxD-mN-Bze"/>
                 <constraint firstItem="9Cl-bX-hyd" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="10" id="aZp-Gw-gQN"/>
-                <constraint firstItem="SIR-Eo-gjd" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="12" id="bu4-XT-2Xm"/>
+                <constraint firstAttribute="trailing" secondItem="qgQ-t5-4UQ" secondAttribute="trailing" constant="12" id="bni-oN-7w9"/>
                 <constraint firstItem="qgQ-t5-4UQ" firstAttribute="top" secondItem="RSG-WG-TPa" secondAttribute="bottom" constant="9" id="dCC-ET-2Xd"/>
+                <constraint firstItem="9Vy-9M-a5T" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="12" id="ggv-Q5-FXR"/>
+                <constraint firstItem="9Vy-9M-a5T" firstAttribute="top" secondItem="RSG-WG-TPa" secondAttribute="bottom" constant="29" id="jdY-vz-aUP"/>
                 <constraint firstItem="MQl-Ij-BNY" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="65" id="k5Y-mM-GsS"/>
+                <constraint firstAttribute="bottom" secondItem="SIR-Eo-gjd" secondAttribute="bottom" constant="13" id="mbc-gu-tzg"/>
                 <constraint firstAttribute="trailing" secondItem="9Cl-bX-hyd" secondAttribute="trailing" constant="10" id="oZI-4y-bDC"/>
                 <constraint firstItem="qgQ-t5-4UQ" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="12" id="rpC-qa-qh7"/>
                 <constraint firstItem="RSG-WG-TPa" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="10" id="uu4-w0-sW8"/>
                 <constraint firstItem="qgQ-t5-4UQ" firstAttribute="top" secondItem="MQl-Ij-BNY" secondAttribute="bottom" constant="91" id="yQo-nA-ovN"/>
+                <constraint firstItem="SIR-Eo-gjd" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="12" id="ygL-Yx-MUy"/>
                 <constraint firstItem="RSG-WG-TPa" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="10" id="zsh-SY-ELT"/>
             </constraints>
-            <point key="canvasLocation" x="187" y="290.5"/>
+            <point key="canvasLocation" x="187" y="285.5"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="aOQ-1o-sjT"/>
     </objects>
     <resources>
+        <image name="Eye" width="35" height="20"/>
         <image name="Play" width="65.454544067382812" height="65.454544067382812"/>
         <image name="Play-Active" width="65.454544067382812" height="65.454544067382812"/>
     </resources>

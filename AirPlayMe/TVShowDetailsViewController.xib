@@ -158,20 +158,20 @@ Episodes: 82</string>
                                         <constraint firstAttribute="height" constant="34" id="Lp3-o0-QFO"/>
                                     </constraints>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="HVZ-KG-e8h">
-                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <font key="font" metaFont="cellTitle"/>
                                         <string key="title">Season: 2
 Episode: 4</string>
                                         <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DgI-9m-mPv">
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DgI-9m-mPv">
                                     <rect key="frame" x="122" y="220" width="259" height="34"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="34" id="0CP-7j-1Uu"/>
                                     </constraints>
                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="jh6-vo-IUv">
-                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <font key="font" metaFont="cellTitle"/>
                                         <string key="title">Rating: 4/129
 Air Date: 22 September 2014</string>
                                         <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -225,7 +225,6 @@ Air Date: 22 September 2014</string>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView identifier="seasonsTableView" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="35" rowSizeStyle="automatic" viewBased="YES" id="FQB-LB-9rT">
-                                        <rect key="frame" x="0.0" y="0.0" width="238" height="134"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <color key="backgroundColor" red="0.1215686277" green="0.12549020350000001" blue="0.14509804549999999" alpha="1" colorSpace="deviceRGB"/>
                                         <tableViewGridLines key="gridStyleMask" vertical="YES"/>
@@ -291,7 +290,6 @@ Air Date: 22 September 2014</string>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView identifier="episodesTableView" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="35" rowSizeStyle="automatic" viewBased="YES" id="Wnu-fw-TSg">
-                                        <rect key="frame" x="0.0" y="0.0" width="238" height="134"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <color key="backgroundColor" red="0.12156862765550613" green="0.12549020349979401" blue="0.14509804546833038" alpha="1" colorSpace="deviceRGB"/>
                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>

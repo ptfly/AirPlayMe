@@ -13,7 +13,9 @@
 
 @interface BrowserViewItem ()
 @property (strong, nonatomic) NSManagedObjectContext *context;
+@property (weak) IBOutlet NSImageView *watchedIcon;
 @property (weak) IBOutlet NSButton *playButton;
+@property (weak) IBOutlet NSLayoutConstraint *yearFieldPosition;
 @end
 
 @implementation BrowserViewItem
@@ -61,6 +63,7 @@
     {
         TVShow *show = (TVShow *)representedObject;
         
+        self.watchedIcon.hidden = YES;
         self.imageView.image = [[NSImage alloc] initWithData:show.poster];
         self.nameField.stringValue = show.original_name;
         self.yearField.stringValue = [[YLMoment momentWithDate:show.first_air_date] format:@"YYYY"];
@@ -68,8 +71,14 @@
     else if([[[representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"Movie"])
     {
         Movie *movie = (Movie *)representedObject;
+        
         self.nameField.stringValue = movie.title;
         self.yearField.stringValue = movie.year;
+        self.watchedIcon.hidden = !movie.watched;
+        
+        if(movie.watched){
+            self.yearFieldPosition.constant = 35;
+        }
         
         if([movie.tmdbID intValue] > 0){
             self.imageView.image = [[NSImage alloc] initWithData:movie.poster];

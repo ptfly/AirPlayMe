@@ -296,15 +296,15 @@
                                 updated.overview = response[@"overview"];
                                 
                                 [self.context save:nil];
+                                
+                                scanned++;
+                                
+                                if(scanned >= records.count){
+                                    [self notifyScanComplete];
+                                }
                             }
                         }];
                     }
-                }
-                
-                scanned++;
-                
-                if(scanned >= records.count){
-                    [self notifyScanComplete];
                 }
             }];
         }];

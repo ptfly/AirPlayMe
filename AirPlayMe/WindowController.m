@@ -19,8 +19,7 @@
 {
     [super windowDidLoad];
     
-    self.window.backgroundColor = WINDOW_COLOR;
-    self.window.opaque = YES;
+//    self.window.backgroundColor = WINDOW_COLOR;
 }
 
 
