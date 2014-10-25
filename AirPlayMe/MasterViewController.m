@@ -50,7 +50,7 @@
     self.scrollView.backgroundColor = WINDOW_COLOR;
     self.scrollView.automaticallyAdjustsContentInsets = NO;
     
-    int initalController = 2;
+    int initalController = 1;
     [(MainButton*)[self.view viewWithTag:initalController] setActive];
     [self toggleViewController:[self.view viewWithTag:initalController]];
     
@@ -110,11 +110,13 @@
     
     if(selected == 1){
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[Library sharedInstance] scanForDeleted:@"Movie"];
             [[Library sharedInstance] scanMoviesLibrary];
         });
     }
     else if(selected == 2){
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[Library sharedInstance] scanForDeleted:@"TVEpisode"];
             [[Library sharedInstance] scanTVShowsLibrary];
         });
     }

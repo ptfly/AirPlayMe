@@ -17,6 +17,7 @@
 +(id)sharedInstance;
 
 // Local Scanner
+-(void)scanForDeleted:(NSString *)entityName;
 -(void)scanMoviesLibrary;
 -(void)scanTVShowsLibrary;
 

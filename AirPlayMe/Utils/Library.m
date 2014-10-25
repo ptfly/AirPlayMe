@@ -47,6 +47,39 @@
 }
 
 #pragma mark - Scanner
+-(void)scanForDeleted:(NSString *)entityName
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:entityName];
+    [request setPropertiesToFetch:@[@"path"]];
+    
+    NSError *error;
+    NSArray *result = [self.context executeFetchRequest:request error:&error];
+    
+    if(!error)
+    {
+        [result enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop)
+        {
+            if([entityName isEqualToString:@"Movie"])
+            {
+                Movie *movie = (Movie *)object;
+                NSURL *url = [NSURL URLWithString:movie.path];
+                if([[NSFileManager defaultManager] fileExistsAtPath:url.path] == NO){
+                    [self.context deleteObject:movie];
+                }
+            }
+            else if([entityName isEqualToString:@"Movie"])
+            {
+                TVEpisode *episode = (TVEpisode *)object;
+                NSURL *url = [NSURL URLWithString:episode.path];
+                if([[NSFileManager defaultManager] fileExistsAtPath:url.path] == NO){
+                    [self.context deleteObject:episode];
+                }
+            }
+        }];
+    }
+    
+    [self.context save:nil];
+}
 
 -(void)scanMoviesLibrary
 {

@@ -9,7 +9,8 @@
 #import "BrowserViewController.h"
 #import "AppDelegate.h"
 #import "BrowserViewItem.h"
-#import "Utils.h"
+#import "Config.h"
+#import "Movie.h"
 
 @interface BrowserViewController () <NSCollectionViewDelegate>
 
@@ -18,8 +19,9 @@
 @property (weak, nonatomic) IBOutlet NSCollectionView *collectionView;
 
 @property (strong, nonatomic) NSManagedObjectContext *context;
-@property (strong, nonatomic) NSIndexSet *selectedIndexes;
 @property (strong, nonatomic) NSArray *sortDescriptors;
+@property (strong, nonatomic) NSArray *items;
+@property (strong, nonatomic) NSFetchRequest *request;
 
 @end
 
@@ -27,6 +29,7 @@
 @synthesize context;
 @synthesize type = _type;
 @synthesize sortDescriptors = _sortDescriptors;
+@synthesize request = _request;
 
 -(void)viewDidLoad
 {
@@ -35,15 +38,53 @@
     AppDelegate *appDelegate = [[NSApplication sharedApplication] delegate];
     
     self.context = appDelegate.managedObjectContext;
-    self.arrayController.managedObjectContext = self.context;
-    self.collectionView.itemPrototype = [BrowserViewItem new];
     
-    if(_type == BrowseMovies){
-        self.arrayController.entityName = @"Movie";
+    self.collectionView.itemPrototype = [BrowserViewItem new];
+    self.collectionView.content = self.arrayController.content;
+    
+    [self loadItems:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadItems:) name:kNotificationScanComplete object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.context];
+}
+
+-(void)loadItems:(NSNotification *)notification
+{
+    NSError *error;
+    self.items = [self.context executeFetchRequest:self.request error:&error];
+    
+    if(error){
+        NSLog(@"%@", error.localizedDescription);
     }
-    else if(_type == BrowseTVShows){
-        self.arrayController.entityName = @"TVShow";
+    else {
+        if(notification){
+            self.collectionView.content = self.arrayController.content;
+        }
     }
+}
+
+-(void)viewWillAppear
+{
+    [super viewWillAppear];
+    [self.collectionView setContent:self.arrayController.content];
+}
+
+-(NSFetchRequest *)request
+{
+    if(_request == nil)
+    {
+        if(_type == BrowseMovies){
+            _request = [[NSFetchRequest alloc] initWithEntityName:@"Movie"];
+        }
+        else if(_type == BrowseTVShows){
+            _request = [[NSFetchRequest alloc] initWithEntityName:@"TVShow"];
+        }
+        
+        [_request setSortDescriptors:self.sortDescriptors];
+        [_request setReturnsObjectsAsFaults:NO];
+    }
+    
+    return _request;
 }
 
 -(NSArray *)sortDescriptors
@@ -53,23 +94,27 @@
         NSMutableArray *descriptors = [NSMutableArray new];
         
         if(self.type == BrowseMovies){
+            [descriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"original_title" ascending:YES]];
             [descriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES]];
             [descriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"year" ascending:NO]];
         }
         else if(self.type == BrowseTVShows){
+            [descriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"original_name" ascending:YES]];
             [descriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]];
             [descriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"first_air_date" ascending:YES]];
-        }
-        if(self.type == BrowseTVEpisodes){
-            [descriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"season" ascending:YES]];
-            [descriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"episode" ascending:YES]];
-            [descriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"original_name" ascending:YES]];
         }
         
         _sortDescriptors = descriptors;
     }
     
     return _sortDescriptors;
+}
+
+-(void)contextDidChange:(NSNotification *)notification
+{
+//    NSArray *insertedObjects = [[notification userInfo] objectForKey:NSInsertedObjectsKey];
+//    NSArray *deletedObjects = [[notification userInfo] objectForKey:NSDeletedObjectsKey];
+//    NSArray *updatedObjects = [[notification userInfo] objectForKey:NSUpdatedObjectsKey];
 }
 
 -(void)dealloc

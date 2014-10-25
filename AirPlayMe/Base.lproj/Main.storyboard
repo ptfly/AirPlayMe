@@ -85,8 +85,9 @@
                 <windowController id="B8D-0N-5wS" customClass="WindowController" sceneMemberID="viewController">
                     <window key="window" title="AirPlayMe" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES" unifiedTitleAndToolbar="YES"/>
-                        <rect key="contentRect" x="400" y="327" width="1280" height="645"/>
+                        <rect key="contentRect" x="0.0" y="0.0" width="1280" height="680"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="950" height="680"/>
                     </window>
                     <connections>
                         <outlet property="window" destination="IQv-IB-iLA" id="i0P-UY-pj9"/>
@@ -95,7 +96,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="368" y="-96"/>
+            <point key="canvasLocation" x="247" y="-142"/>
         </scene>
         <!--Master View Controller-->
         <scene sceneID="CO0-hZ-OSj">
@@ -245,7 +246,7 @@
                 </viewController>
                 <customObject id="mf1-pg-Zc0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="389" y="665.5"/>
+            <point key="canvasLocation" x="247" y="657.5"/>
         </scene>
         <!--Browser View Controller-->
         <scene sceneID="fb8-Sl-i85">
@@ -265,9 +266,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="248" height="158"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="primaryBackgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <connections>
-                                                <binding destination="wyj-d7-2df" name="content" keyPath="arrangedObjects" id="7rO-jE-08H"/>
-                                            </connections>
                                         </collectionView>
                                     </subviews>
                                 </clipView>
@@ -289,20 +287,18 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="arrayController" destination="wyj-d7-2df" id="Zxn-zg-raq"/>
+                        <outlet property="arrayController" destination="Jb8-ph-63b" id="uyB-3T-aEn"/>
                         <outlet property="collectionView" destination="ixD-QY-XTH" id="HqC-jh-qHn"/>
                     </connections>
                 </viewController>
                 <customObject id="svb-OB-mXl" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <arrayController mode="entity" entityName="TVShow" usesLazyFetching="YES" automaticallyPreparesContent="YES" id="wyj-d7-2df">
+                <arrayController mode="entity" entityName="Movie" id="Jb8-ph-63b">
                     <connections>
-                        <binding destination="9kB-bC-t4C" name="managedObjectContext" keyPath="context" id="y9j-Rc-5Lj"/>
-                        <binding destination="9kB-bC-t4C" name="selectionIndexes" keyPath="selectedIndexes" id="iaM-98-X9Z"/>
-                        <binding destination="9kB-bC-t4C" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="iaM-98-X9Z" id="6WK-tp-n36"/>
+                        <binding destination="9kB-bC-t4C" name="contentArray" keyPath="items" id="afh-CQ-xpX"/>
                     </connections>
                 </arrayController>
             </objects>
-            <point key="canvasLocation" x="7" y="1423"/>
+            <point key="canvasLocation" x="-122" y="1199"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="FDo-G4-iIE">
@@ -373,7 +369,7 @@
                 </viewController>
                 <customObject id="DZf-Ba-enK" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="799" y="1442"/>
+            <point key="canvasLocation" x="629" y="1192"/>
         </scene>
     </scenes>
 </document>
