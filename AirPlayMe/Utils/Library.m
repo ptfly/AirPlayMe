@@ -9,6 +9,9 @@
 #import "Library.h"
 #import "AppDelegate.h"
 
+static NSString *releaseTypes  = @"(\\(|\\)|brrip|xvid|webrip|ac3|blueray|divx|pdtv|bdrip|uncut|hdrip|sample|720p|1080p|1080i|x264|dvdrip|dvd|h264|dts-hd|dts|ma5.1|avc|unrated|remux)";
+static NSString *releaseGroups = @"-HDMaNiAcS|-war|aac-cpg|-VietHD|-WARHD|-PFa|-SPARKS|-DIMENSION|-PGM|-AMIABLE|SiMPLE|-GECKOS|-HiFi|-ChaoS|-VietHD|-iFT|-WiKi|-HDAccess";
+
 @interface Library ()
 
 @property (strong, nonatomic) NSDictionary *tmdbConfig;
@@ -122,7 +125,7 @@
             {
                 NSString *file = [[theURL absoluteString] lastPathComponent];
                 
-                if([self movieItemExists:theURL] == NO && [file isMatch:RX(@"sample")] == NO){
+                if([self movieItemExists:theURL] == NO && [file isMatch:[Rx rx:@"sample" ignoreCase:YES]] == NO){
                     [self addMovieItem:theURL];
                 }
             }
@@ -175,7 +178,7 @@
             {
                 NSString *file = [[theURL absoluteString] lastPathComponent];
                 
-                if([self episodeItemExists:theURL] == NO && [file isMatch:RX(@"sample")] == NO){
+                if([self episodeItemExists:theURL] == NO && [file isMatch:[Rx rx:@"sample" ignoreCase:YES]] == NO){
                     [self addTVEpisodeItem:theURL];
                 }
             }
@@ -212,8 +215,15 @@
     
     // Name parser
     NSString *name = [file stringByReplacingOccurrencesOfString:year withString:@""];
-    name = [name replace:[Rx rx:@"(brrip|xvid|ac3|blueray|divx|pdtv|bdrip|uncut|sample|720p|1080p|1080i|x264|dvdrip|dvd|h264|\\-war)" ignoreCase:YES] with:@""];
+    
+//    NSLog(@"NAME BEFORE : %@", name);
+    
+    name = [name stringByRemovingPercentEncoding];
+    name = [name replace:[Rx rx:releaseTypes ignoreCase:YES] with:@""];
+    name = [name replace:[Rx rx:releaseGroups ignoreCase:YES] with:@""];
     name = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+//    NSLog(@"NAME AFTER : %@", name);
     
     return @{@"title":name, @"year":year, @"parsed":@(!parseFailed)};
 }
@@ -253,7 +263,8 @@
     
     // Name parser
     NSString *name = [file stringByReplacingOccurrencesOfString:seasonId withString:@""];
-    name = [name replace:[Rx rx:@"(brrip|xvid|ac3|blueray|divx|pdtv|bdrip|uncut|sample|720p|1080p|1080i|x264|dvdrip|dvd|h264\\-war)" ignoreCase:YES] with:@""];
+    name = [name replace:[Rx rx:releaseTypes ignoreCase:YES] with:@""];
+    name = [name replace:[Rx rx:releaseGroups ignoreCase:YES] with:@""];
     name = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     return @{@"name":name, @"season":season, @"episode":episode, @"parsed":@(!parseFailed)};
@@ -296,15 +307,15 @@
                                 updated.overview = response[@"overview"];
                                 
                                 [self.context save:nil];
-                                
-                                scanned++;
-                                
-                                if(scanned >= records.count){
-                                    [self notifyScanComplete];
-                                }
                             }
                         }];
                     }
+                }
+                
+                scanned++;
+                
+                if(scanned >= records.count){
+                    [self notifyScanComplete];
                 }
             }];
         }];

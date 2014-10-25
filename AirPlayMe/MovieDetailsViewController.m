@@ -44,7 +44,6 @@
     
     AppDelegate *delegate = [[NSApplication sharedApplication] delegate];
     self.context = delegate.managedObjectContext;
-
     
     NSString *title = [Utils isNilOrEmpty:movie.original_title] == NO ? movie.original_title : movie.title;
     NSString *overview = [Utils isNilOrEmpty:movie.overview] == NO ? movie.overview : @"N/A";
@@ -59,7 +58,7 @@
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
     [numberFormatter setCurrencySymbol:@""];
     
-    self.tagLine.stringValue  = movie.tagline;
+    self.tagLine.stringValue  = [Utils stringValue:movie.tagline];
     
     if([Utils isNilOrEmpty:movie.tagline]){
         self.tagLineHeight.constant = 0;
@@ -67,7 +66,7 @@
     }
     
     self.infoBox1.stringValue = [NSString stringWithFormat:@"Votes: %d\nRating: %.02f/10", movie.vote_count.intValue, movie.vote_average.floatValue];
-    self.infoBox2.stringValue = [NSString stringWithFormat:@"Status: %@\nReleased: %@", movie.status, [[YLMoment momentWithDate:movie.release_date] format:@"dd MMMM YYYY"]];
+    self.infoBox2.stringValue = [NSString stringWithFormat:@"Status: %@\nReleased: %@", [Utils stringValue:movie.status], [[YLMoment momentWithDate:movie.release_date] format:@"dd MMMM YYYY"]];
     self.infoBox3.stringValue = [NSString stringWithFormat:@"Runtime: %@\nPopularity: %.02f", [self timeFormatted:movie.runtime.intValue*60], movie.popularity.floatValue];
     self.infoBox4.stringValue = [NSString stringWithFormat:@"Adult: %@\nBudget: %@", (movie.adult.boolValue == YES ? @"Yes" : @"No"), (movie.budget.intValue == 0 ? @"N/A" : [numberFormatter stringFromNumber:movie.budget])];
     

@@ -157,8 +157,8 @@
         self.episodeDetailsView.image = nil;
     }
     
-    self.episodeTitle.stringValue = self.selectedEpisode.original_name;
-    self.episodeOverview.stringValue = self.selectedEpisode.overview;
+    self.episodeTitle.stringValue = [Utils stringValue:self.selectedEpisode.original_name];
+    self.episodeOverview.stringValue = [Utils stringValue:self.selectedEpisode.overview];
     self.episodeInfoBox1.stringValue = [NSString stringWithFormat:@"Season: %d\nEpisode: %d", self.selectedEpisode.season.intValue, self.selectedEpisode.episode.intValue];
     self.episodeInfoBox2.stringValue = [NSString stringWithFormat:@"Rating: %d/%.02f\nAir Date: %@", self.selectedEpisode.vote_count.intValue, self.selectedEpisode.vote_average.floatValue, [[YLMoment momentWithDate:self.selectedEpisode.air_date] format:@"d MMMM YYYY"]];
     

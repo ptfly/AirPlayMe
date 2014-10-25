@@ -10,6 +10,11 @@
 
 @implementation Utils
 
++(NSString *)stringValue:(NSString *)string
+{
+    return [Utils isNilOrEmpty:string] ? @"" : string;
+}
+
 +(CGFloat)heightForString:(NSString *)myString font:(NSFont *)myFont containerWidth:(CGFloat)myWidth
 {
     NSTextStorage *textStorage = [[NSTextStorage alloc] initWithString:myString];
