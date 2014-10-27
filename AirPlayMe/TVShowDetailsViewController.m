@@ -14,7 +14,7 @@
 #import "CustomTableRow.h"
 #import "ShadowTextField.h"
 
-@interface TVShowDetailsViewController () <NSTableViewDataSource, NSTableViewDelegate>
+@interface TVShowDetailsViewController () <NSTableViewDataSource, NSTableViewDelegate, NSMenuDelegate>
 
 @property (weak) IBOutlet NSImageView *posterImageView;
 @property (weak) IBOutlet NSTextField *showTitleLabel;
@@ -201,6 +201,25 @@
     }
 }
 
+-(IBAction)showInFinder:(id)sender
+{
+    TVEpisode *episode = self.scheme[self.seasonsTableView.selectedRow][@"episodes"][self.episodesTableView.clickedRow];
+    NSURL *url = [NSURL URLWithString:episode.path];
+    [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[url]];
+}
+
+#pragma mark - Episodes Menu
+
+-(void)menuWillOpen:(NSMenu *)menu
+{
+    if(self.seasonsTableView.selectedRow < 0 || self.episodesTableView.clickedRow < 0){
+        [[menu itemAtIndex:0] setHidden:YES];
+    }
+    else {
+        [[menu itemAtIndex:0] setHidden:NO];
+    }
+}
+
 #pragma mark - TableViews
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
@@ -294,6 +313,8 @@
     else if([tableView.identifier isEqualToString:@"episodesTableView"])
     {
         long selectedRow = [[notification object] selectedRow];
+        
+        if(self.seasonsTableView.selectedRow < 0 || selectedRow < 0) return;
         
         NSArray *episodes = self.scheme[self.seasonsTableView.selectedRow][@"episodes"];
         TVEpisode *episode = episodes[selectedRow];

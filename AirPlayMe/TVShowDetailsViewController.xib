@@ -335,6 +335,7 @@ Air Date: 22 September 2014</string>
                                         <connections>
                                             <outlet property="dataSource" destination="-2" id="x9h-9a-PO4"/>
                                             <outlet property="delegate" destination="-2" id="qQg-BK-H6R"/>
+                                            <outlet property="menu" destination="gbP-9w-yay" id="pcM-Q8-odG"/>
                                         </connections>
                                     </tableView>
                                 </subviews>
@@ -398,6 +399,20 @@ Air Date: 22 September 2014</string>
             </constraints>
             <point key="canvasLocation" x="9" y="400"/>
         </customView>
+        <menu autoenablesItems="NO" id="gbP-9w-yay">
+            <items>
+                <menuItem title="Show in Finder" id="pnV-u3-MHB">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showInFinder:" target="-2" id="31U-dw-0Is"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="-2" id="3Gn-pj-i2i"/>
+            </connections>
+            <point key="canvasLocation" x="-186.5" y="805.5"/>
+        </menu>
     </objects>
     <resources>
         <image name="Eye" width="35" height="20"/>

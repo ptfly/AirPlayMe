@@ -42,6 +42,9 @@
                         </clickGestureRecognizer>
                     </gestureRecognizers>
                     <imageCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="Wvv-AI-ulf"/>
+                    <connections>
+                        <outlet property="menu" destination="nM2-m4-d2a" id="Up2-Tp-BqN"/>
+                    </connections>
                 </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qgQ-t5-4UQ">
                     <rect key="frame" x="10" y="30" width="160" height="21"/>
@@ -110,6 +113,20 @@
             <point key="canvasLocation" x="187" y="285.5"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="aOQ-1o-sjT"/>
+        <menu id="nM2-m4-d2a">
+            <items>
+                <menuItem title="Show in Finder" id="17q-iR-PuU">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showInFinder:" target="-2" id="0lc-16-e6H"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="-2" id="6rK-Hb-Njd"/>
+            </connections>
+            <point key="canvasLocation" x="172.5" y="502.5"/>
+        </menu>
     </objects>
     <resources>
         <image name="Eye" width="35" height="20"/>

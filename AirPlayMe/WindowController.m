@@ -19,8 +19,11 @@
 {
     [super windowDidLoad];
     
-//    self.window.backgroundColor = WINDOW_COLOR;
+//    CGSize screen = [[NSScreen mainScreen] frame].size;
+//    CGSize target = self.window.minSize;
+//    
+//    [self.window setFrame:CGRectMake(screen.width/2 - target.width/2, screen.height/2 - target.height/2, target.width, target.height) display:YES];
+    
 }
-
 
 @end

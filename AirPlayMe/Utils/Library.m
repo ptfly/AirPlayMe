@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 
 static NSString *releaseTypes  = @"(\\(|\\)|brrip|xvid|webrip|ac3|blueray|divx|pdtv|bdrip|uncut|hdrip|sample|720p|1080p|1080i|x264|dvdrip|dvd|h264|dts-hd|dts|ma5.1|avc|unrated|remux)";
-static NSString *releaseGroups = @"-HDMaNiAcS|-war|aac-cpg|-VietHD|-WARHD|-PFa|-SPARKS|-DIMENSION|-PGM|-AMIABLE|SiMPLE|-GECKOS|-HiFi|-ChaoS|-VietHD|-iFT|-WiKi|-HDAccess";
+static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-VietHD|-WARHD|-PFa|-SPARKS|-DIMENSION|-PGM|-AMIABLE|SiMPLE|-GECKOS|-HiFi|-ChaoS|-VietHD|-iFT|-WiKi|-HDAccess";
 
 @interface Library ()
 
@@ -50,6 +50,7 @@ static NSString *releaseGroups = @"-HDMaNiAcS|-war|aac-cpg|-VietHD|-WARHD|-PFa|-
 }
 
 #pragma mark - Scanner
+
 -(void)scanForDeleted:(NSString *)entityName
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:entityName];
@@ -78,6 +79,22 @@ static NSString *releaseGroups = @"-HDMaNiAcS|-war|aac-cpg|-VietHD|-WARHD|-PFa|-
                     [self.context deleteObject:episode];
                 }
             }
+        }];
+    }
+    else {
+        NSLog(@"%@", error.localizedDescription);
+        return;
+    }
+    
+    // Check for empty Shows
+    error = nil;
+    NSFetchRequest *showsRequest = [[NSFetchRequest alloc] initWithEntityName:@"TVShow"];
+    [showsRequest setPredicate:[NSPredicate predicateWithFormat:@"episodes.@count = 0"]];
+    NSArray *shows = [self.context executeFetchRequest:showsRequest error:&error];
+    
+    if(!error && shows.count > 0){
+        [shows enumerateObjectsUsingBlock:^(TVShow *show, NSUInteger idx, BOOL *stop){
+            [self.context deleteObject:show];
         }];
     }
     

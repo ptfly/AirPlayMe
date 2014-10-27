@@ -11,7 +11,8 @@
 #import "Library.h"
 #import "ShadowView.h"
 
-@interface BrowserViewItem ()
+@interface BrowserViewItem () <NSMenuDelegate>
+
 @property (strong, nonatomic) NSManagedObjectContext *context;
 @property (weak) IBOutlet NSImageView *watchedIcon;
 @property (weak) IBOutlet NSButton *playButton;
@@ -98,6 +99,26 @@
 -(void)mouseExited:(NSEvent *)theEvent
 {
     self.playButton.hidden = YES;
+}
+
+-(IBAction)showInFinder:(id)sender
+{
+    Movie *movie = (Movie *) self.representedObject;
+    
+    NSURL *url = [NSURL URLWithString:movie.path];
+    [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[url]];
+}
+
+#pragma mark - Episodes Menu
+
+-(void)menuWillOpen:(NSMenu *)menu
+{
+    if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"Movie"]){
+        [[menu itemAtIndex:0] setHidden:NO];
+    }
+    else {
+        [[menu itemAtIndex:0] setHidden:YES];
+    }
 }
 
 @end
