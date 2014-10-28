@@ -26,7 +26,7 @@
 @end
 
 @implementation BrowserViewController
-@synthesize context;
+@synthesize context, items, filter;
 @synthesize type = _type;
 @synthesize sortDescriptors = _sortDescriptors;
 @synthesize request = _request;
@@ -44,12 +44,19 @@
     
     [self loadItems:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applyFilter:) name:kNotificationApplyBrowseFilter object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadItems:) name:kNotificationScanComplete object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.context];
 }
 
--(void)loadItems:(NSNotification *)notification
+-(void)applyFilter:(NSNotification *)notification
 {
+    self.filter = (FilterType)[notification.object unsignedIntegerValue];
+    [self loadItems:notification];
+}
+
+-(void)loadItems:(NSNotification *)notification
+{    
     NSError *error;
     self.items = [self.context executeFetchRequest:self.request error:&error];
     
@@ -82,6 +89,19 @@
         
         [_request setSortDescriptors:self.sortDescriptors];
         [_request setReturnsObjectsAsFaults:NO];
+    }
+    
+    if(self.filter != FilterAll && _type == BrowseMovies)
+    {
+        if(self.filter == FilterNew){
+            [_request setPredicate:[NSPredicate predicateWithFormat:@"watched = NO"]];
+        }
+        else if(self.filter == FilterWatched){
+            [_request setPredicate:[NSPredicate predicateWithFormat:@"watched = YES"]];
+        }
+    }
+    else {
+        [_request setPredicate:nil];
     }
     
     return _request;

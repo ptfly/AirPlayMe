@@ -7,6 +7,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="BrowserViewItem">
             <connections>
                 <outlet property="imageView" destination="RSG-WG-TPa" id="umj-fk-OcH"/>
+                <outlet property="infoField" destination="Ue5-8a-tKv" id="E8u-vZ-yfc"/>
                 <outlet property="nameField" destination="qgQ-t5-4UQ" id="Z1C-HX-NPo"/>
                 <outlet property="playButton" destination="MQl-Ij-BNY" id="2Q5-nP-AfX"/>
                 <outlet property="view" destination="c22-O7-iKe" id="j0m-pv-Vty"/>
@@ -58,11 +59,11 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SIR-Eo-gjd">
-                    <rect key="frame" x="10" y="13" width="122" height="17"/>
+                    <rect key="frame" x="10" y="13" width="35" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="134-GB-KzN"/>
                     </constraints>
-                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="left" title="Label" id="ej5-5e-YDS">
+                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="left" title="2014" id="ej5-5e-YDS">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" white="1" alpha="0.28999999999999998" colorSpace="deviceWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -90,10 +91,23 @@
                     </constraints>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Eye" id="7w2-NV-MsB"/>
                 </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ue5-8a-tKv">
+                    <rect key="frame" x="65" y="13" width="107" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="17" id="l4Q-bM-jeB"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="oAa-RO-c4G"/>
+                    </constraints>
+                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="right" title="Add. Information" id="fgB-74-VjW">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" white="1" alpha="0.28999999999999998" colorSpace="deviceWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
+                <constraint firstItem="Ue5-8a-tKv" firstAttribute="top" secondItem="qgQ-t5-4UQ" secondAttribute="bottom" id="5cj-Wz-vCP"/>
+                <constraint firstAttribute="trailing" secondItem="Ue5-8a-tKv" secondAttribute="trailing" constant="10" id="JHp-Fe-t9G"/>
                 <constraint firstAttribute="trailing" secondItem="MQl-Ij-BNY" secondAttribute="trailing" constant="65" id="Pbf-yG-BQ6"/>
-                <constraint firstAttribute="trailing" secondItem="SIR-Eo-gjd" secondAttribute="trailing" constant="50" id="Q42-Vd-w5J"/>
                 <constraint firstItem="9Cl-bX-hyd" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="10" id="QET-Wv-6ZL"/>
                 <constraint firstAttribute="trailing" secondItem="RSG-WG-TPa" secondAttribute="trailing" constant="10" id="XxD-mN-Bze"/>
                 <constraint firstItem="9Cl-bX-hyd" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="10" id="aZp-Gw-gQN"/>
@@ -110,7 +124,7 @@
                 <constraint firstItem="SIR-Eo-gjd" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="12" id="ygL-Yx-MUy"/>
                 <constraint firstItem="RSG-WG-TPa" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="10" id="zsh-SY-ELT"/>
             </constraints>
-            <point key="canvasLocation" x="187" y="285.5"/>
+            <point key="canvasLocation" x="173" y="285.5"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="aOQ-1o-sjT"/>
         <menu id="nM2-m4-d2a">
@@ -121,11 +135,24 @@
                         <action selector="showInFinder:" target="-2" id="0lc-16-e6H"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Delete from Library" id="kpr-VP-xuu">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="deleteFromLibrary:" target="-2" id="XTR-Dh-0sL"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="fuM-cA-GiC"/>
+                <menuItem title="Play Using Default Application" id="ewa-RI-8gJ">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="playLocally:" target="-2" id="WJA-dh-Kc5"/>
+                    </connections>
+                </menuItem>
             </items>
             <connections>
                 <outlet property="delegate" destination="-2" id="6rK-Hb-Njd"/>
             </connections>
-            <point key="canvasLocation" x="172.5" y="502.5"/>
+            <point key="canvasLocation" x="174.5" y="533.5"/>
         </menu>
     </objects>
     <resources>

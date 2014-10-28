@@ -12,10 +12,11 @@
 
 #define rgba(r, g, b, a) [NSColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
-#define WINDOW_COLOR rgba(23,24,27,1)
-#define BACKGROUND_COLOR rgba(23,24,27,1)
-#define SHADOW_COLOR rgba(0,0,0,1)
+#define WINDOW_COLOR rgba(10,10,10,1)
+#define BACKGROUND_COLOR rgba(40,40,40,1)
+#define SHADOW_COLOR rgba(0,0,0,0.9)
 #define CORNER_RADIUS 5.0
+#define TINT_COLOR rgba(92,171,248,1)
 
 #define TMDB_API_URL @"http://api.themoviedb.org/3"
 #define TMDB_API_KEY @"b8f652f4b231d6653c9146910628e547"
@@ -23,7 +24,9 @@
 #define kMoviesLibraryPathKey  @"MoviesLibraryPath"
 #define kTVShowsLibraryPathKey @"TVShowsLibraryPath"
 
-#define kNotificationScanComplete @"NotificationScanComplete"
-#define kNotificationPlayItem @"NotificationPlayItem"
-#define kNotificationOpenMovieDetails @"NotificationOpenMovieDetails"
-#define kNotificationOpenTVShowDetails @"NotificationOpenTVShowDetails"
+#define kNotificationScanComplete           @"NotificationScanComplete"
+#define kNotificationPlayItem               @"NotificationPlayItem"
+#define kNotificationOpenMovieDetails       @"NotificationOpenMovieDetails"
+#define kNotificationOpenTVShowDetails      @"NotificationOpenTVShowDetails"
+
+#define kNotificationApplyBrowseFilter      @"NotificationApplyBrowseFilter"

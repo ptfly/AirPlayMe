@@ -27,8 +27,10 @@
     [super viewDidLoad];
     
     AppDelegate *appDelegate = [[NSApplication sharedApplication] delegate];
+    
     self.context = appDelegate.managedObjectContext;
     self.playButton.hidden = YES;
+    self.infoField.stringValue = @"";
     
     NSTrackingArea *area = [[NSTrackingArea alloc] initWithRect:self.imageView.frame options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways) owner:self userInfo:nil];
     [self.view addTrackingArea:area];
@@ -67,7 +69,15 @@
         self.watchedIcon.hidden = YES;
         self.imageView.image = [[NSImage alloc] initWithData:show.poster];
         self.nameField.stringValue = show.original_name;
-        self.yearField.stringValue = [[YLMoment momentWithDate:show.first_air_date] format:@"YYYY"];
+        
+        __block long unwatched = 0;
+        [show.episodes enumerateObjectsUsingBlock:^(TVEpisode *episode, BOOL *stop){
+            if(episode.watched == NO){
+                unwatched += 1;
+            }
+        }];
+        
+        self.yearField.stringValue = [NSString stringWithFormat:@"%ld episodes, %ld new", show.episodes.count, unwatched];
     }
     else if([[[representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"Movie"])
     {
@@ -109,15 +119,37 @@
     [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[url]];
 }
 
+-(IBAction)playLocally:(id)sender
+{
+    Movie *movie = (Movie *)self.representedObject;
+    NSURL *url = [NSURL URLWithString:movie.path];
+    
+    [[NSWorkspace sharedWorkspace] openFile:url.path];
+}
+
+-(IBAction)deleteFromLibrary:(id)sender
+{
+    [self.context deleteObject:self.representedObject];
+    [self.context save:nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationScanComplete object:nil];
+}
+
 #pragma mark - Episodes Menu
 
 -(void)menuWillOpen:(NSMenu *)menu
 {
     if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"Movie"]){
         [[menu itemAtIndex:0] setHidden:NO];
+        [[menu itemAtIndex:1] setHidden:NO];
+        [[menu itemAtIndex:2] setHidden:NO];
+        [[menu itemAtIndex:3] setHidden:NO];
     }
-    else {
+    else if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"TVShow"]){
         [[menu itemAtIndex:0] setHidden:YES];
+        [[menu itemAtIndex:1] setHidden:NO];
+        [[menu itemAtIndex:2] setHidden:YES];
+        [[menu itemAtIndex:3] setHidden:YES];
     }
 }
 

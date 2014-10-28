@@ -26,6 +26,7 @@
 @property (weak) IBOutlet NSPopUpButton *scanLibraryButton;
 
 @property (strong, nonatomic) IBOutlet NSViewController *currentViewController;
+@property (weak) IBOutlet NSSegmentedControl *filterControl;
 
 @end
 
@@ -41,13 +42,13 @@
     NSShadow *dropShadow = [[NSShadow alloc] init];
     [dropShadow setShadowColor:SHADOW_COLOR];
     [dropShadow setShadowOffset:NSMakeSize(0, 0)];
-    [dropShadow setShadowBlurRadius:3.0];
+    [dropShadow setShadowBlurRadius:5.0];
     
     [self.headerView.superview setWantsLayer: YES];
     [self.headerView.layer setBackgroundColor:WINDOW_COLOR.CGColor];
     [self.headerView setShadow:dropShadow];
     
-    self.scrollView.backgroundColor = WINDOW_COLOR;
+    self.scrollView.backgroundColor = BACKGROUND_COLOR;
     self.scrollView.automaticallyAdjustsContentInsets = NO;
     
     int initalController = 1;
@@ -73,8 +74,10 @@
 
 -(void)openMovieDetails:(NSNotification *)notification
 {
+    self.filterControl.hidden = YES;
+    
     MovieDetailsViewController *dc = [[MovieDetailsViewController alloc] initWithNibName:@"MovieDetailsViewController" bundle:nil];
-    [dc setMovie:(Movie *)notification.object];
+    [dc setTmdbID:((Movie *)notification.object).tmdbID];
     
     if(self.currentViewController){
         [self.currentViewController.view removeFromSuperview];
@@ -97,6 +100,19 @@
     
     self.currentViewController = dc;
     [self layoutCurrentViewController];
+}
+
+-(IBAction)applyFilter:(NSSegmentedControl *)sender
+{
+    if(sender.selectedSegment == 0){
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationApplyBrowseFilter object:@(FilterAll)];
+    }
+    else if(sender.selectedSegment == 1){
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationApplyBrowseFilter object:@(FilterNew)];
+    }
+    else if(sender.selectedSegment == 2){
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationApplyBrowseFilter object:@(FilterWatched)];
+    }
 }
 
 -(IBAction)scanDirectory:(NSPopUpButton *)sender
@@ -155,18 +171,23 @@
     {
         BrowserViewController *vc = [self.storyboard instantiateControllerWithIdentifier:@"browserViewController"];
         [vc setType:BrowseMovies];
+        [vc setFilter:(FilterType) self.filterControl.selectedSegment];
+        
         self.currentViewController = vc;
+        self.filterControl.hidden = NO;
     }
     else if(sender.tag == 2)
     {
         BrowserViewController *vc = [self.storyboard instantiateControllerWithIdentifier:@"browserViewController"];
         [vc setType:BrowseTVShows];
         self.currentViewController = vc;
+        self.filterControl.hidden = YES;
     }
     else if(sender.tag == 3)
     {
         SettingsViewController *vc = [self.storyboard instantiateControllerWithIdentifier:@"settingViewController"];
         self.currentViewController = vc;
+        self.filterControl.hidden = YES;
     }
     
     [self layoutCurrentViewController];
@@ -174,6 +195,9 @@
 
 -(void)layoutCurrentViewController
 {
+    [self.scrollView setHorizontalScrollElasticity:NSScrollElasticityNone];
+    [self.scrollView setVerticalScrollElasticity:NSScrollElasticityNone];
+    
     [self.scrollView setDocumentView:self.currentViewController.view];
     [self.currentViewController.view setFrameSize:self.scrollView.frame.size];
     

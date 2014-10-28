@@ -13,5 +13,6 @@
 @interface MovieDetailsViewController : NSViewController
 
 @property (strong, nonatomic) Movie *movie;
+@property (strong, nonatomic) NSNumber *tmdbID;
 
 @end

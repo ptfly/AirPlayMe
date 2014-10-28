@@ -104,12 +104,12 @@
             <objects>
                 <viewController id="Jvr-Z4-KH8" customClass="MasterViewController" sceneMemberID="viewController">
                     <view key="view" id="Mxe-Pf-dyJ">
-                        <rect key="frame" x="0.0" y="0.0" width="530" height="232"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1102" height="232"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eu-V8-ZRD">
-                                <rect key="frame" x="0.0" y="0.0" width="530" height="176"/>
-                                <clipView key="contentView" id="9bL-3b-Ybj">
+                                <rect key="frame" x="0.0" y="0.0" width="1102" height="176"/>
+                                <clipView key="contentView" copiesOnScroll="NO" id="9bL-3b-Ybj">
                                     <rect key="frame" x="1" y="1" width="181" height="94"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -128,7 +128,7 @@
                                 </scroller>
                             </scrollView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="pT7-QB-sXU" userLabel="Header View">
-                                <rect key="frame" x="0.0" y="176" width="530" height="56"/>
+                                <rect key="frame" x="0.0" y="176" width="1102" height="56"/>
                                 <subviews>
                                     <button focusRingType="none" verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="STh-Y5-feG" customClass="MainButton">
                                         <rect key="frame" x="20" y="20" width="90" height="18"/>
@@ -145,12 +145,12 @@
                                         </connections>
                                     </button>
                                     <button focusRingType="none" verticalHuggingPriority="750" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="cd6-xs-Qcj" customClass="MainButton">
-                                        <rect key="frame" x="436" y="20" width="90" height="18"/>
+                                        <rect key="frame" x="1008" y="20" width="90" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="90" id="OJ3-2l-imq"/>
                                             <constraint firstAttribute="height" constant="18" id="lYq-C5-ZnM"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="inline" title="Settings" bezelStyle="inline" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Ut5-vM-Ah2">
+                                        <buttonCell key="cell" type="inline" title="Settings" bezelStyle="inline" imagePosition="overlaps" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Ut5-vM-Ah2">
                                             <behavior key="behavior" lightByContents="YES"/>
                                             <font key="font" metaFont="systemBold" size="14"/>
                                         </buttonCell>
@@ -159,14 +159,14 @@
                                         </connections>
                                     </button>
                                     <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="JKh-ck-D4x">
-                                        <rect key="frame" x="275" y="19" width="16" height="16"/>
+                                        <rect key="frame" x="847" y="19" width="16" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="KOp-Mj-HA5"/>
                                             <constraint firstAttribute="height" constant="16" id="Q3u-eH-q2L"/>
                                         </constraints>
                                     </progressIndicator>
                                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UY1-Cf-Cli">
-                                        <rect key="frame" x="296" y="14" width="135" height="26"/>
+                                        <rect key="frame" x="868" y="14" width="135" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="130" id="nZ4-C3-XzW"/>
                                             <constraint firstAttribute="height" constant="21" id="xap-Y2-P7k"/>
@@ -206,6 +206,23 @@
                                             <action selector="toggleViewController:" target="Jvr-Z4-KH8" id="Xt4-Mi-WBM"/>
                                         </connections>
                                     </button>
+                                    <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3oh-xC-23x">
+                                        <rect key="frame" x="457" y="16" width="188" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="184" id="r6X-fE-cpu"/>
+                                        </constraints>
+                                        <segmentedCell key="cell" controlSize="small" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="w3K-bP-2Rq">
+                                            <font key="font" metaFont="system" size="10"/>
+                                            <segments>
+                                                <segment label="All" width="60" selected="YES"/>
+                                                <segment label="New" width="60" tag="1"/>
+                                                <segment label="Watched" width="60"/>
+                                            </segments>
+                                        </segmentedCell>
+                                        <connections>
+                                            <action selector="applyFilter:" target="Jvr-Z4-KH8" id="rrK-fk-i3l"/>
+                                        </connections>
+                                    </segmentedControl>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="STh-Y5-feG" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="0ff-s6-qim"/>
@@ -217,8 +234,11 @@
                                     <constraint firstItem="UY1-Cf-Cli" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="Vrm-1V-I0O"/>
                                     <constraint firstItem="1Gs-sB-xc6" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="b0r-v1-QFl"/>
                                     <constraint firstItem="JKh-ck-D4x" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="21" id="fbe-zf-YKP"/>
+                                    <constraint firstAttribute="bottom" secondItem="3oh-xC-23x" secondAttribute="bottom" constant="18" id="ir3-iK-2Rf"/>
+                                    <constraint firstItem="3oh-xC-23x" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="20" id="n3a-gN-6CN"/>
                                     <constraint firstItem="cd6-xs-Qcj" firstAttribute="leading" secondItem="UY1-Cf-Cli" secondAttribute="trailing" constant="8" id="pij-fA-FM4"/>
                                     <constraint firstItem="cd6-xs-Qcj" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="wLX-x4-AFW"/>
+                                    <constraint firstAttribute="centerX" secondItem="3oh-xC-23x" secondAttribute="centerX" id="yJ3-uZ-m9n"/>
                                 </constraints>
                             </customView>
                         </subviews>
@@ -233,6 +253,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="filterControl" destination="3oh-xC-23x" id="u2I-nd-TWb"/>
                         <outlet property="headerView" destination="pT7-QB-sXU" id="NSu-Vr-aGN"/>
                         <outlet property="progressIndicator" destination="JKh-ck-D4x" id="vYo-qY-FTb"/>
                         <outlet property="scanLibraryButton" destination="UY1-Cf-Cli" id="0tu-7R-RyT"/>

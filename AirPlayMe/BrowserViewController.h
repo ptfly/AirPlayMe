@@ -14,7 +14,15 @@ typedef enum : NSUInteger {
     BrowseTVEpisodes,
 } BrowseType;
 
+typedef enum : NSUInteger {
+    FilterAll = 0,
+    FilterNew,
+    FilterWatched,
+} FilterType;
+
 @interface BrowserViewController : NSViewController
 
+@property (assign, nonatomic) FilterType filter;
 @property (assign, nonatomic) BrowseType type;
+
 @end

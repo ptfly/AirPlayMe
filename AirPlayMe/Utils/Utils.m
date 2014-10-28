@@ -75,7 +75,7 @@
 
 +(BOOL)isNilOrEmpty:(id)object
 {
-    if(object == nil) return YES;
+    if(object == nil || object == [NSNull null]) return YES;
     
     if([object isKindOfClass:[NSString class]] || [object isKindOfClass:[NSMutableString class]] || [object isKindOfClass:[NSAttributedString class]] || [object isKindOfClass:[NSMutableAttributedString class]]){
         return [object isEqualToString:@""];

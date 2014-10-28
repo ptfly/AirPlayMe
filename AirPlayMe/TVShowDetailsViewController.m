@@ -103,13 +103,14 @@
     if(_scheme == nil)
     {
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"TVEpisode"];
-        [request setPredicate:[NSPredicate predicateWithFormat:@"show = %@", show]];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"show == %@", show]];
         [request setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"season" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"episode" ascending:YES]]];
         
         NSError *error = nil;
         NSArray *results = [context executeFetchRequest: request error: &error];
         
         NSMutableDictionary *tmp = [NSMutableDictionary dictionary];
+        NSMutableDictionary *cnt = [NSMutableDictionary dictionary];
         self.scheme = [NSMutableArray new];
         
         if(!error && results.count > 0)
@@ -120,19 +121,28 @@
                  
                  if(![tmp objectForKey:key]){
                      [tmp setObject:[NSMutableArray array] forKey:key];
+                     [cnt setObject:@(0) forKey:key];
                  }
                  
                  NSMutableArray *episodes = (NSMutableArray *)[tmp objectForKey:key];
                  [episodes addObject:episode];
+                 
+                 if(episode.watched == NO)
+                 {
+                     int count = [[cnt objectForKey:key] intValue];
+                     count += 1;
+                     
+                     [cnt setObject:@(count) forKey:key];
+                 }
              }];
         }
         
         // SORT
+        error = nil;
         
         NSArray *sortedKeys = [[tmp allKeys] sortedArrayUsingSelector: @selector(compare:)];
         for(NSString *key in sortedKeys){
-            [self.scheme addObject:@{@"season": key, @"episodes": [tmp objectForKey:key]}];
-            
+            [self.scheme addObject:@{@"season": key, @"episodes": [tmp objectForKey:key], @"unwatched":[cnt objectForKey:key]}];
         }
         tmp = nil;
     }
@@ -195,9 +205,19 @@
     }
     else {
         self.watchedButton.image = [NSImage imageNamed:(self.selectedEpisode.watched ? @"Eye-Active" : @"Eye")];
+        long count = [self.scheme[self.seasonsTableView.selectedRow][@"unwatched"] integerValue];
         
+        NSMutableDictionary *info = [self.scheme[self.seasonsTableView.selectedRow] mutableCopy];
+        info[@"unwatched"] = @(self.selectedEpisode.watched ? count-1 : count+1);
+        self.scheme[self.seasonsTableView.selectedRow] = info;
+        
+        // Episode
         NSTableCellView *selectedCell = [self.episodesTableView viewAtColumn:self.episodesTableView.selectedColumn row:self.episodesTableView.selectedRow makeIfNecessary:NO];
         selectedCell.imageView.image = (self.selectedEpisode.watched ? [NSImage imageNamed:@"Eye"] : nil);
+        
+        // Season
+        NSTableCellView *selectedSeason = [self.seasonsTableView viewAtColumn:self.seasonsTableView.selectedColumn row:self.seasonsTableView.selectedRow makeIfNecessary:NO];
+        selectedSeason.textField.attributedStringValue = [self seasonCellTitle:self.seasonsTableView.selectedRow];
     }
 }
 
@@ -206,6 +226,14 @@
     TVEpisode *episode = self.scheme[self.seasonsTableView.selectedRow][@"episodes"][self.episodesTableView.clickedRow];
     NSURL *url = [NSURL URLWithString:episode.path];
     [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[url]];
+}
+
+-(IBAction)playLocally:(id)sender
+{
+    TVEpisode *episode = self.scheme[self.seasonsTableView.selectedRow][@"episodes"][self.episodesTableView.clickedRow];
+    NSURL *url = [NSURL URLWithString:episode.path];
+    
+    [[NSWorkspace sharedWorkspace] openFile:url.path];
 }
 
 #pragma mark - Episodes Menu
@@ -218,6 +246,32 @@
     else {
         [[menu itemAtIndex:0] setHidden:NO];
     }
+}
+
+-(NSAttributedString *)seasonCellTitle:(NSInteger)row
+{
+    NSString *count = [NSString stringWithFormat:@" / %ld ep. %ld new", [self.scheme[row][@"episodes"] count], [self.scheme[row][@"unwatched"] integerValue]];
+    NSString *sname = [NSString stringWithFormat:@"Season %@", self.scheme[row][@"season"]];
+    
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", sname, count]];
+    
+    [string addAttribute:NSForegroundColorAttributeName value:[NSColor whiteColor] range:NSMakeRange(0, sname.length)];
+    [string addAttribute:NSForegroundColorAttributeName value:[NSColor grayColor] range:NSMakeRange(sname.length, count.length)];
+    [string addAttribute:NSFontAttributeName value:[NSFont systemFontOfSize:10] range:NSMakeRange(sname.length, count.length)];
+    
+    return string;
+}
+
+-(NSAttributedString *)episodeCellTitle:(TVEpisode *)episode
+{
+    NSString *numbr = [NSString stringWithFormat:@"%02d. ", episode.episode.intValue];
+    NSString *sname = [NSString stringWithFormat:@"%@", episode.original_name];
+    
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", numbr, sname]];
+    [string addAttribute:NSForegroundColorAttributeName value:[NSColor grayColor] range:NSMakeRange(0, numbr.length)];
+    [string addAttribute:NSForegroundColorAttributeName value:[NSColor whiteColor] range:NSMakeRange(numbr.length, sname.length)];
+    
+    return string;
 }
 
 #pragma mark - TableViews
@@ -242,46 +296,18 @@
 {
     if([[tableColumn identifier] isEqualToString:@"seasonNameColumn"])
     {
-        NSString *count = [NSString stringWithFormat:@" / %ld episodes", [self.scheme[row][@"episodes"] count]];
-        NSString *sname = [NSString stringWithFormat:@"Season %@", self.scheme[row][@"season"]];
-        
-        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", sname, count]];
-        [string addAttribute:NSForegroundColorAttributeName value:[NSColor whiteColor] range:NSMakeRange(0, sname.length)];
-        [string addAttribute:NSForegroundColorAttributeName value:[NSColor grayColor] range:NSMakeRange(sname.length,count.length)];
-        [string addAttribute:NSFontAttributeName value:[NSFont systemFontOfSize:10] range:NSMakeRange(sname.length,count.length)];
-        
         NSTableCellView *cell = [tableView makeViewWithIdentifier:@"seasonNameCell" owner:self];
-        cell.textField.attributedStringValue = string;
+        cell.textField.attributedStringValue = [self seasonCellTitle:row];
         return cell;
     }
     else if([[tableColumn identifier] isEqualToString:@"episodeNameColumn"])
     {
         NSArray *episodes = self.scheme[self.seasonsTableView.selectedRow][@"episodes"];
-        
-        if(episodes[row] == nil)
-        {
-            NSLog(@"SEASON: %ld EPI: %ld", self.seasonsTableView.selectedRow, row+1);
-            return nil;
-        }
-        
         TVEpisode *episode = episodes[row];
-        
-        NSString *numbr = [NSString stringWithFormat:@"%02d. ", episode.episode.intValue];
-        NSString *sname = [NSString stringWithFormat:@"%@", episode.original_name];
-        
-        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", numbr, sname]];
-        [string addAttribute:NSForegroundColorAttributeName value:[NSColor grayColor] range:NSMakeRange(0, numbr.length)];
-        [string addAttribute:NSForegroundColorAttributeName value:[NSColor whiteColor] range:NSMakeRange(numbr.length, sname.length)];
-        
+
         NSTableCellView *cell = [tableView makeViewWithIdentifier:@"episodeNameCell" owner:self];
-        cell.textField.attributedStringValue = string;
-        
-        if(episode.watched){
-            cell.imageView.image = [NSImage imageNamed:@"Eye"];
-        }
-        else {
-            cell.imageView.image = nil;
-        }
+        cell.textField.attributedStringValue = [self episodeCellTitle:episode];
+        cell.imageView.image = (episode.watched ? [NSImage imageNamed:@"Eye"] : nil);
         
         return cell;
     }
@@ -303,12 +329,25 @@
     return rowView;
 }
 
+-(void)tableViewSelectionIsChanging:(NSNotification *)notification
+{
+    NSTableView *tableView = [notification object];
+    
+    if(tableView.selectedRow < 0){
+        [tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+    }
+}
+
 -(void)tableViewSelectionDidChange:(NSNotification *)notification
 {
     NSTableView *tableView = [notification object];
     
-    if([tableView.identifier isEqualToString:@"seasonsTableView"]){
+    if([tableView.identifier isEqualToString:@"seasonsTableView"])
+    {
         [self.episodesTableView reloadData];
+        [self.episodesTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+        
+        [self tableViewSelectionDidChange:[NSNotification notificationWithName:nil object:self.episodesTableView userInfo:nil]];
     }
     else if([tableView.identifier isEqualToString:@"episodesTableView"])
     {

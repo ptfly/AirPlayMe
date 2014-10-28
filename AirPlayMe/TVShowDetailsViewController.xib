@@ -407,6 +407,12 @@ Air Date: 22 September 2014</string>
                         <action selector="showInFinder:" target="-2" id="31U-dw-0Is"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Play Using Default Application" id="OSH-ro-qdm">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="playLocally:" target="-2" id="aGM-Ka-uDY"/>
+                    </connections>
+                </menuItem>
             </items>
             <connections>
                 <outlet property="delegate" destination="-2" id="3Gn-pj-i2i"/>

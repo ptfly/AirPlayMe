@@ -71,7 +71,7 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
                     [self.context deleteObject:movie];
                 }
             }
-            else if([entityName isEqualToString:@"Movie"])
+            else if([entityName isEqualToString:@"TVEpisode"])
             {
                 TVEpisode *episode = (TVEpisode *)object;
                 NSURL *url = [NSURL URLWithString:episode.path];
@@ -141,8 +141,9 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
             if(UTTypeConformsTo(fileUTI, kUTTypeMovie))
             {
                 NSString *file = [[theURL absoluteString] lastPathComponent];
-                
-                if([self movieItemExists:theURL] == NO && [file isMatch:[Rx rx:@"sample" ignoreCase:YES]] == NO){
+                NSString *dir = [[theURL absoluteString] stringByDeletingLastPathComponent];
+
+                if([dir isMatch:[Rx rx:@"sample" ignoreCase:YES]] == NO && [file isMatch:[Rx rx:@"sample" ignoreCase:YES]] == NO && [self movieItemExists:theURL] == NO){
                     [self addMovieItem:theURL];
                 }
             }
@@ -194,8 +195,9 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
             if(UTTypeConformsTo(fileUTI, kUTTypeMovie))
             {
                 NSString *file = [[theURL absoluteString] lastPathComponent];
+                NSString *dir = [[theURL absoluteString] stringByDeletingLastPathComponent];
                 
-                if([self episodeItemExists:theURL] == NO && [file isMatch:[Rx rx:@"sample" ignoreCase:YES]] == NO){
+                if([dir isMatch:[Rx rx:@"sample" ignoreCase:YES]] == NO && [file isMatch:[Rx rx:@"sample" ignoreCase:YES]] == NO && [self episodeItemExists:theURL] == NO){
                     [self addTVEpisodeItem:theURL];
                 }
             }
@@ -608,7 +610,9 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
              NSMutableDictionary *data = [response mutableCopy];
              
              if(data){
-                 data[@"still"] = [NSString stringWithFormat:@"%@w500%@", self.tmdbConfig[@"base_url"], data[@"still_path"]];
+                 if([Utils isNilOrEmpty:data[@"still_path"]] == NO){
+                     data[@"still"] = [NSString stringWithFormat:@"%@w500%@", self.tmdbConfig[@"base_url"], data[@"still_path"]];
+                 }
                  callbackBlock(data, success);
              }
              else {
@@ -793,14 +797,14 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
 
 -(TVEpisode *)updateTVEpisodeItem:(NSDictionary *)tmdbData forEpisode:(TVEpisode *)record
 {
-    record.tmdbID = tmdbData[@"id"];
-    record.original_name = tmdbData[@"name"];
-    record.still_path = tmdbData[@"still_path"];
+    record.tmdbID = (tmdbData[@"id"] ? tmdbData[@"id"] : 0);
+    record.original_name = [Utils stringValue:tmdbData[@"name"]];
+    record.still_path = [Utils stringValue:tmdbData[@"still_path"]];
     record.air_date = [[YLMoment momentWithDateAsString:tmdbData[@"air_date"]] date];
-    record.vote_average = tmdbData[@"vote_average"];
-    record.vote_count = tmdbData[@"vote_count"];
-    record.overview = tmdbData[@"overview"];
-    record.still = [NSData dataWithContentsOfURL:[NSURL URLWithString:tmdbData[@"still"]]];
+    record.vote_average = (tmdbData[@"vote_average"] ? tmdbData[@"vote_average"] : 0);
+    record.vote_count = (tmdbData[@"vote_count"] ? tmdbData[@"vote_count"] : 0);
+    record.overview = [Utils stringValue:tmdbData[@"overview"]];
+    record.still = (tmdbData[@"still"] ? [NSData dataWithContentsOfURL:[NSURL URLWithString:tmdbData[@"still"]]] : nil);
     
     NSError *error;
     [self.context save:&error];

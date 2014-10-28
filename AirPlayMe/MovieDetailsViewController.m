@@ -36,7 +36,7 @@
 @end
 
 @implementation MovieDetailsViewController
-@synthesize movie;
+@synthesize movie = _movie, tmdbID;
 
 -(void)viewDidLoad
 {
@@ -45,39 +45,64 @@
     AppDelegate *delegate = [[NSApplication sharedApplication] delegate];
     self.context = delegate.managedObjectContext;
     
-    NSString *title = [Utils isNilOrEmpty:movie.original_title] == NO ? movie.original_title : movie.title;
-    NSString *overview = [Utils isNilOrEmpty:movie.overview] == NO ? movie.overview : @"N/A";
+    NSString *title = [Utils isNilOrEmpty:self.movie.original_title] == NO ? self.movie.original_title : self.movie.title;
+    NSString *overview = [Utils isNilOrEmpty:self.movie.overview] == NO ? self.movie.overview : @"N/A";
     
     self.movieTitleLabel.stringValue = title;
     self.movieDescriptionLabel.stringValue = overview;
-    self.posterImageView.image = [[NSImage alloc] initWithData:movie.poster];
-    self.backDropView.image = [[NSImage alloc] initWithData:movie.backdrop];
+    self.posterImageView.image = [[NSImage alloc] initWithData:self.movie.poster];
+    self.backDropView.image = [[NSImage alloc] initWithData:self.movie.backdrop];
     self.watchedIcon.image = [NSImage imageNamed:(self.movie.watched ? @"Eye-Active" : @"Eye")];
     
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
     [numberFormatter setCurrencySymbol:@""];
     
-    self.tagLine.stringValue  = [Utils stringValue:movie.tagline];
+    self.tagLine.stringValue  = [Utils stringValue:self.movie.tagline];
     
-    if([Utils isNilOrEmpty:movie.tagline]){
+    if([Utils isNilOrEmpty:self.movie.tagline]){
         self.tagLineHeight.constant = 0;
         self.tagLineTopSpace.constant = 0;
     }
     
-    self.infoBox1.stringValue = [NSString stringWithFormat:@"Votes: %d\nRating: %.02f/10", movie.vote_count.intValue, movie.vote_average.floatValue];
-    self.infoBox2.stringValue = [NSString stringWithFormat:@"Status: %@\nReleased: %@", [Utils stringValue:movie.status], [[YLMoment momentWithDate:movie.release_date] format:@"dd MMMM YYYY"]];
-    self.infoBox3.stringValue = [NSString stringWithFormat:@"Runtime: %@\nPopularity: %.02f", [self timeFormatted:movie.runtime.intValue*60], movie.popularity.floatValue];
-    self.infoBox4.stringValue = [NSString stringWithFormat:@"Adult: %@\nBudget: %@", (movie.adult.boolValue == YES ? @"Yes" : @"No"), (movie.budget.intValue == 0 ? @"N/A" : [numberFormatter stringFromNumber:movie.budget])];
+    self.infoBox1.stringValue = [NSString stringWithFormat:@"Votes: %d\nRating: %.02f/10", self.movie.vote_count.intValue, self.movie.vote_average.floatValue];
+    self.infoBox2.stringValue = [NSString stringWithFormat:@"Status: %@\nReleased: %@", [Utils stringValue:self.movie.status], [[YLMoment momentWithDate:self.movie.release_date] format:@"dd MMMM YYYY"]];
+    self.infoBox3.stringValue = [NSString stringWithFormat:@"Runtime: %@\nPopularity: %.02f", [self timeFormatted:self.movie.runtime.intValue*60], self.movie.popularity.floatValue];
+    self.infoBox4.stringValue = [NSString stringWithFormat:@"Adult: %@\nBudget: %@", (self.movie.adult.boolValue == YES ? @"Yes" : @"No"), (self.movie.budget.intValue == 0 ? @"N/A" : [numberFormatter stringFromNumber:self.movie.budget])];
     
     self.ratingIndicator.backgroundColor  = [NSColor clearColor];
     self.ratingIndicator.starImage = [NSImage imageNamed:@"Star-Empty"];
     self.ratingIndicator.starHighlightedImage = [NSImage imageNamed:@"Star-Full"];
     self.ratingIndicator.maxRating = 5;
     self.ratingIndicator.horizontalMargin = 0;
-    self.ratingIndicator.rating= movie.vote_average.floatValue/2;
+    self.ratingIndicator.rating= self.movie.vote_average.floatValue/2;
     self.ratingIndicator.displayMode=EDStarRatingDisplayAccurate;
     [self.ratingIndicator setNeedsDisplay];
+}
+
+-(Movie *)movie
+{
+    if(_movie == nil)
+    {
+        [self.context reset];
+        
+        NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Movie"];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"tmdbID = %@", self.tmdbID]];
+        [request setFetchLimit:1];
+        
+        NSError *error;
+        NSArray *data = [self.context executeFetchRequest:request error:&error];
+        
+        if(error){
+            [Utils showError:error.localizedDescription];
+            _movie = nil;
+        }
+        else {
+            _movie = [data firstObject];
+        }
+    }
+    
+    return _movie;
 }
 
 -(NSString *)timeFormatted:(int)totalSeconds

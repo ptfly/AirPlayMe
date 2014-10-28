@@ -15,5 +15,6 @@
 @property (weak) IBOutlet NSTextField *nameField;
 @property (weak) IBOutlet PosterView *imageView;
 @property (weak) IBOutlet NSTextField *yearField;
+@property (weak) IBOutlet NSTextField *infoField;
 
 @end
