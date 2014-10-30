@@ -91,17 +91,30 @@
         [_request setReturnsObjectsAsFaults:NO];
     }
     
-    if(self.filter != FilterAll && _type == BrowseMovies)
+    // FILTERS
+    if(_type == BrowseMovies)
     {
         if(self.filter == FilterNew){
-            [_request setPredicate:[NSPredicate predicateWithFormat:@"watched = NO"]];
+            [_request setPredicate:[NSPredicate predicateWithFormat:@"watched == NO"]];
         }
         else if(self.filter == FilterWatched){
-            [_request setPredicate:[NSPredicate predicateWithFormat:@"watched = YES"]];
+            [_request setPredicate:[NSPredicate predicateWithFormat:@"watched == YES"]];
+        }
+        else {
+            [_request setPredicate:nil];
         }
     }
-    else {
-        [_request setPredicate:nil];
+    else if(_type == BrowseTVShows)
+    {
+        if(self.filter == FilterNew){
+            [_request setPredicate:[NSPredicate predicateWithFormat:@"episodes.@count > 0 AND (ANY episodes.watched == NO)"]];
+        }
+        else if(self.filter == FilterWatched){
+            [_request setPredicate:[NSPredicate predicateWithFormat:@"episodes.@count > 0 AND (ANY episodes.watched == YES)"]];
+        }
+        else {
+            [_request setPredicate:[NSPredicate predicateWithFormat:@"episodes.@count > 0"]];
+        }
     }
     
     return _request;

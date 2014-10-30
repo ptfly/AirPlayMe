@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "Config.h"
 #import "Movie.h"
+#import "EDStarRating.h"
 
 @interface MovieDetailsViewController : NSViewController
 

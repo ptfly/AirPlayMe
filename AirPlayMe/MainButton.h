@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface MainButton : NSButton
+@property (strong, nonatomic) NSColor *activeColor;
 
 -(void)setActive;
 -(void)setInactive;

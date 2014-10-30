@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "TVShow.h"
 #import "TVEpisode.h"
+#import "EDStarRating.h"
 
 @interface TVShowDetailsViewController : NSViewController
 

@@ -70,16 +70,6 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gfL-0B-KJx">
-                    <rect key="frame" x="140" y="255" width="130" height="70"/>
-                    <buttonCell key="cell" type="inline" bezelStyle="inline" image="Play" imagePosition="only" alignment="center" alternateImage="Play-Active" imageScaling="proportionallyDown" inset="2" id="xNl-7I-OX1">
-                        <behavior key="behavior" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystemBold"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="playMovie:" target="-2" id="Eo8-o0-q5q"/>
-                    </connections>
-                </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="crh-Kq-TAq" customClass="ShadowTextField">
                     <rect key="frame" x="611" y="429" width="106" height="34"/>
                     <constraints>
@@ -161,21 +151,37 @@ Released: 23 September 2014</string>
                         <constraint firstAttribute="height" constant="20" id="m2U-TW-2kh"/>
                     </constraints>
                     <gestureRecognizers>
-                        <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" id="bYA-Zq-sjb" userLabel="set As Watched">
+                        <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" id="R6u-q6-Pzu">
                             <connections>
-                                <action selector="setAsWatched:" target="-2" id="0tk-HF-Mgd"/>
+                                <action selector="setAsWatched:" target="-2" id="ahj-HR-q9w"/>
                             </connections>
                         </clickGestureRecognizer>
                     </gestureRecognizers>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Eye" id="uOA-d7-de1"/>
                 </imageView>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="ahE-jA-7XW">
+                    <rect key="frame" x="170" y="255" width="70" height="70"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="SmS-OW-d74"/>
+                        <constraint firstAttribute="height" constant="70" id="Vqu-ip-KCM"/>
+                    </constraints>
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="Play" imagePosition="overlaps" alignment="center" alternateImage="Play-Active" imageScaling="proportionallyUpOrDown" inset="2" id="ru7-br-BHX">
+                        <behavior key="behavior" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="playMovie:" target="-2" id="e9h-hm-XxZ"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="tRF-ci-SV8" secondAttribute="trailing" constant="20" id="0SY-67-ham"/>
                 <constraint firstAttribute="bottom" secondItem="bov-Tt-0qn" secondAttribute="bottom" constant="30" id="3Qv-qF-3RT"/>
                 <constraint firstItem="wIj-tW-qWn" firstAttribute="top" secondItem="BpX-be-F21" secondAttribute="bottom" constant="28" id="5Wj-qO-7hn"/>
+                <constraint firstItem="ahE-jA-7XW" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="255" id="7af-f2-hCs"/>
                 <constraint firstItem="14C-yv-Vx6" firstAttribute="top" secondItem="BpX-be-F21" secondAttribute="bottom" constant="28" id="8vW-B7-g8L"/>
                 <constraint firstItem="05i-gF-EqZ" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="30" id="B77-nr-s0Y"/>
+                <constraint firstItem="ahE-jA-7XW" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="170" id="BBj-S5-rWf"/>
                 <constraint firstItem="14C-yv-Vx6" firstAttribute="leading" secondItem="wIj-tW-qWn" secondAttribute="trailing" constant="24" id="DMi-IS-olY"/>
                 <constraint firstItem="crh-Kq-TAq" firstAttribute="top" secondItem="BpX-be-F21" secondAttribute="bottom" constant="28" id="I6S-6J-hRi"/>
                 <constraint firstItem="TsF-cb-cCx" firstAttribute="top" secondItem="BpX-be-F21" secondAttribute="bottom" constant="28" id="IDR-kj-OZu"/>
@@ -189,6 +195,7 @@ Released: 23 September 2014</string>
                 <constraint firstItem="7Ys-p9-Mib" firstAttribute="leading" secondItem="05i-gF-EqZ" secondAttribute="trailing" constant="38" id="iWf-PC-GMe"/>
                 <constraint firstAttribute="trailing" secondItem="7Ys-p9-Mib" secondAttribute="trailing" constant="20" id="ivC-OH-bxO"/>
                 <constraint firstItem="a3f-uy-wOr" firstAttribute="leading" secondItem="05i-gF-EqZ" secondAttribute="trailing" constant="38" id="jUx-lK-zoH"/>
+                <constraint firstAttribute="bottom" secondItem="ahE-jA-7XW" secondAttribute="bottom" constant="255" id="kK5-oK-5ru"/>
                 <constraint firstItem="7Ys-p9-Mib" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="30" id="krz-Pl-xDS"/>
                 <constraint firstAttribute="trailing" secondItem="BpX-be-F21" secondAttribute="trailing" constant="20" id="lhd-lH-ng5"/>
                 <constraint firstItem="BpX-be-F21" firstAttribute="leading" secondItem="05i-gF-EqZ" secondAttribute="trailing" constant="38" id="sHR-l9-ghH"/>
@@ -197,7 +204,7 @@ Released: 23 September 2014</string>
                 <constraint firstItem="wIj-tW-qWn" firstAttribute="leading" secondItem="crh-Kq-TAq" secondAttribute="trailing" constant="20" id="wQP-DV-ach"/>
                 <constraint firstItem="05i-gF-EqZ" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="30" id="z3s-bl-iOl"/>
             </constraints>
-            <point key="canvasLocation" x="367" y="169"/>
+            <point key="canvasLocation" x="307" y="199"/>
         </customView>
     </objects>
     <resources>

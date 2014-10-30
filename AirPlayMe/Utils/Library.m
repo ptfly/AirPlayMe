@@ -42,10 +42,10 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
     return sharedTmdbInstance;
 }
 
--(void)notifyScanComplete
+-(void)notifyScanComplete:(NSString *)type
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationScanComplete object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationScanComplete object:type];
     });
 }
 
@@ -261,7 +261,7 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
     
     if([Utils isNilOrEmpty:file]){
         if(parseFailed) return nil;
-        return [self parseMovieName:[NSURL URLWithString:[[url absoluteString] stringByDeletingLastPathComponent]] standardParseFailed:YES];
+        return [self parseEpisodeName:[NSURL URLWithString:[[url absoluteString] stringByDeletingLastPathComponent]] standardParseFailed:YES];
     }
     
     NSString *seasonId = @"";
@@ -334,13 +334,13 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
                 scanned++;
                 
                 if(scanned >= records.count){
-                    [self notifyScanComplete];
+                    [self notifyScanComplete:@"Movie"];
                 }
             }];
         }];
     }
     else {
-        [self notifyScanComplete];
+        [self notifyScanComplete:@"Movie"];
     }
 }
 
@@ -364,6 +364,8 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
               {
                   if(success)
                   {
+                      scanned++;
+                      
                       TVShow *series = [self addTVShowItem:response forEpisode:episode];
                       
                       if(series && [Utils isNilOrEmpty:series.overview])
@@ -378,21 +380,20 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
                           }];
                       }
                       
-                      [self tmdbGetEpisodeInfo:series.tmdbID season:episode.season episode:episode.episode callback:^(NSDictionary *response, BOOL success){
+                      [self tmdbGetEpisodeInfo:series.tmdbID season:episode.season episode:episode.episode callback:^(NSDictionary *response, BOOL success)
+                      {
+                          if(scanned >= records.count){
+                              [self notifyScanComplete:@"TVEpisode"];
+                          }
+                          
                           [self updateTVEpisodeItem:response forEpisode:episode];
                       }];
-                      
-                      scanned++;
-                      
-                      if(scanned >= records.count){
-                          [self notifyScanComplete];
-                      }
                   }
               }];
          }];
     }
     else {
-        [self notifyScanComplete];
+        [self notifyScanComplete:@"TVEpisode"];
     }
 }
 

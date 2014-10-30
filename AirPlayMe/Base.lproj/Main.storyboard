@@ -21,7 +21,11 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                            <connections>
+                                                <segue destination="pl4-P3-492" kind="show" id="Kdh-Iq-Ykk"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Hide AirPlayMe" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
@@ -47,11 +51,17 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
                                     <items>
-                                        <menuItem title="Minimize" keyEquivalent="m" id="OY7-WF-poV">
+                                        <menuItem title="Movies" tag="1" keyEquivalent="1" id="9tM-0H-iML">
                                             <connections>
-                                                <action selector="performMiniaturize:" target="Ady-hI-5gd" id="VwT-WD-YPe"/>
+                                                <action selector="switchBrowser:" target="Voe-Tx-rLC" id="k4a-lr-rKe"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="TV Shows" tag="2" keyEquivalent="2" id="mhB-7f-arg">
+                                            <connections>
+                                                <action selector="switchBrowser:" target="Voe-Tx-rLC" id="oJc-qP-9AI"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="K25-os-D8y"/>
                                         <menuItem title="Zoom" id="R4o-n2-Eq4">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -77,14 +87,14 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-783" y="-702"/>
+            <point key="canvasLocation" x="1075" y="-794"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" customClass="WindowController" sceneMemberID="viewController">
-                    <window key="window" title="AirPlayMe" allowsToolTipsWhenApplicationIsInactive="NO" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
+                <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
+                    <window key="window" title="AirPlayMe" allowsToolTipsWhenApplicationIsInactive="NO" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="AirPlayMe" animationBehavior="default" id="IQv-IB-iLA">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
                         <rect key="contentRect" x="0.0" y="0.0" width="1280" height="680"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -97,7 +107,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="41" y="-361"/>
+            <point key="canvasLocation" x="89" y="-401"/>
         </scene>
         <!--Master View Controller-->
         <scene sceneID="CO0-hZ-OSj">
@@ -136,71 +146,23 @@
                                             <constraint firstAttribute="width" constant="90" id="0Iz-rR-Nnm"/>
                                             <constraint firstAttribute="height" constant="18" id="OXO-GJ-1hG"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="inline" title="Movies" bezelStyle="inline" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Om8-lO-4Tp">
+                                        <buttonCell key="cell" type="bevel" title="Movies" bezelStyle="rounded" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Om8-lO-4Tp">
                                             <behavior key="behavior" lightByContents="YES"/>
-                                            <font key="font" metaFont="systemBold" size="14"/>
+                                            <font key="font" size="14" name="HelveticaNeue-Bold"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="toggleViewController:" target="Jvr-Z4-KH8" id="0Ca-75-TYO"/>
                                         </connections>
                                     </button>
-                                    <button focusRingType="none" verticalHuggingPriority="750" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="cd6-xs-Qcj" customClass="MainButton">
-                                        <rect key="frame" x="1008" y="20" width="90" height="18"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="90" id="OJ3-2l-imq"/>
-                                            <constraint firstAttribute="height" constant="18" id="lYq-C5-ZnM"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="inline" title="Settings" bezelStyle="inline" imagePosition="overlaps" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Ut5-vM-Ah2">
-                                            <behavior key="behavior" lightByContents="YES"/>
-                                            <font key="font" metaFont="systemBold" size="14"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="toggleViewController:" target="Jvr-Z4-KH8" id="BbL-wM-I18"/>
-                                        </connections>
-                                    </button>
-                                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="JKh-ck-D4x">
-                                        <rect key="frame" x="847" y="19" width="16" height="16"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="16" id="KOp-Mj-HA5"/>
-                                            <constraint firstAttribute="height" constant="16" id="Q3u-eH-q2L"/>
-                                        </constraints>
-                                    </progressIndicator>
-                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UY1-Cf-Cli">
-                                        <rect key="frame" x="868" y="14" width="135" height="26"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="130" id="nZ4-C3-XzW"/>
-                                            <constraint firstAttribute="height" constant="21" id="xap-Y2-P7k"/>
-                                        </constraints>
-                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" arrowPosition="noArrow" autoenablesItems="NO" id="0wa-bi-8JS">
-                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu"/>
-                                            <menu key="menu" autoenablesItems="NO" id="xnc-S3-Wee">
-                                                <items>
-                                                    <menuItem title="Update Library" enabled="NO" id="mhv-8x-tU5">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Movies" tag="1" id="EQN-3h-SWu">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="TV Shows" tag="2" id="Wke-wu-blc">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
-                                        </popUpButtonCell>
-                                        <connections>
-                                            <action selector="scanDirectory:" target="Jvr-Z4-KH8" id="IHA-1B-Ump"/>
-                                        </connections>
-                                    </popUpButton>
                                     <button focusRingType="none" verticalHuggingPriority="750" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="1Gs-sB-xc6" customClass="MainButton">
                                         <rect key="frame" x="118" y="20" width="90" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="18" id="vz9-Ro-AZV"/>
                                             <constraint firstAttribute="width" constant="90" id="xnZ-DZ-iyo"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="inline" title="TV Shows" bezelStyle="inline" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="7dx-k6-dJs">
-                                            <behavior key="behavior" lightByContents="YES"/>
-                                            <font key="font" metaFont="systemBold" size="14"/>
+                                        <buttonCell key="cell" type="bevel" title="TV Shows" bezelStyle="rounded" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="7dx-k6-dJs">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" size="14" name="HelveticaNeue-Bold"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="toggleViewController:" target="Jvr-Z4-KH8" id="Xt4-Mi-WBM"/>
@@ -208,11 +170,8 @@
                                     </button>
                                     <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3oh-xC-23x">
                                         <rect key="frame" x="457" y="16" width="188" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="184" id="r6X-fE-cpu"/>
-                                        </constraints>
                                         <segmentedCell key="cell" controlSize="small" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="w3K-bP-2Rq">
-                                            <font key="font" metaFont="system" size="10"/>
+                                            <font key="font" metaFont="smallSystem"/>
                                             <segments>
                                                 <segment label="All" width="60" selected="YES"/>
                                                 <segment label="New" width="60" tag="1"/>
@@ -223,21 +182,66 @@
                                             <action selector="applyFilter:" target="Jvr-Z4-KH8" id="rrK-fk-i3l"/>
                                         </connections>
                                     </segmentedControl>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="4z7-sf-Xnr" customClass="CustomButton">
+                                        <rect key="frame" x="976" y="20" width="96" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="FAP-nl-NkD"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="bevel" title="Update Library" bezelStyle="rounded" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="1RV-7f-2Ce">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="self.titleColor">
+                                                <color key="value" red="0.75686274509803919" green="0.75686274509803919" blue="0.75686274509803919" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="toggleScannerMenu:" target="Jvr-Z4-KH8" id="akM-CD-SWX"/>
+                                        </connections>
+                                    </button>
+                                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="JKh-ck-D4x">
+                                        <rect key="frame" x="956" y="20" width="16" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="16" id="Dq9-ic-6r6"/>
+                                            <constraint firstAttribute="width" constant="16" id="Zrt-us-1dc"/>
+                                        </constraints>
+                                    </progressIndicator>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="yn0-PY-Y1s" customClass="CustomButton">
+                                        <rect key="frame" x="235" y="18" width="68" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="5aZ-sM-oUh"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="bevel" title="Playlist: 0" bezelStyle="regularSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="jR8-zk-9UC">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" size="14" name="HelveticaNeue-Bold"/>
+                                        </buttonCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="self.titleColor">
+                                                <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="showPlaylist:" target="Jvr-Z4-KH8" id="TrW-ea-6LH"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="STh-Y5-feG" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="0ff-s6-qim"/>
+                                    <constraint firstAttribute="trailing" secondItem="4z7-sf-Xnr" secondAttribute="trailing" constant="30" id="2Cp-qZ-fSC"/>
                                     <constraint firstAttribute="height" constant="56" id="5Kz-cd-Q21"/>
-                                    <constraint firstItem="UY1-Cf-Cli" firstAttribute="leading" secondItem="JKh-ck-D4x" secondAttribute="trailing" constant="7" id="BdI-K7-F4K"/>
-                                    <constraint firstAttribute="trailing" secondItem="cd6-xs-Qcj" secondAttribute="trailing" constant="4" id="Edg-2V-86c"/>
+                                    <constraint firstItem="4z7-sf-Xnr" firstAttribute="leading" secondItem="JKh-ck-D4x" secondAttribute="trailing" constant="4" id="5sC-SN-qiq"/>
+                                    <constraint firstAttribute="bottom" secondItem="yn0-PY-Y1s" secondAttribute="bottom" constant="18" id="8qv-tK-riW"/>
+                                    <constraint firstItem="yn0-PY-Y1s" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="17" id="A10-Xs-Luc"/>
                                     <constraint firstItem="1Gs-sB-xc6" firstAttribute="leading" secondItem="STh-Y5-feG" secondAttribute="trailing" constant="8" id="KFZ-5t-AJA"/>
+                                    <constraint firstItem="JKh-ck-D4x" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="20" id="Nlp-Rs-LjE"/>
                                     <constraint firstItem="STh-Y5-feG" firstAttribute="leading" secondItem="pT7-QB-sXU" secondAttribute="leading" constant="20" id="V8V-n8-0TO"/>
-                                    <constraint firstItem="UY1-Cf-Cli" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="Vrm-1V-I0O"/>
                                     <constraint firstItem="1Gs-sB-xc6" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="b0r-v1-QFl"/>
-                                    <constraint firstItem="JKh-ck-D4x" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="21" id="fbe-zf-YKP"/>
+                                    <constraint firstItem="4z7-sf-Xnr" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="fTy-8g-woW"/>
                                     <constraint firstAttribute="bottom" secondItem="3oh-xC-23x" secondAttribute="bottom" constant="18" id="ir3-iK-2Rf"/>
                                     <constraint firstItem="3oh-xC-23x" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="20" id="n3a-gN-6CN"/>
-                                    <constraint firstItem="cd6-xs-Qcj" firstAttribute="leading" secondItem="UY1-Cf-Cli" secondAttribute="trailing" constant="8" id="pij-fA-FM4"/>
-                                    <constraint firstItem="cd6-xs-Qcj" firstAttribute="top" secondItem="pT7-QB-sXU" secondAttribute="top" constant="18" id="wLX-x4-AFW"/>
+                                    <constraint firstAttribute="bottom" secondItem="4z7-sf-Xnr" secondAttribute="bottom" constant="20" id="ouF-YD-adU"/>
+                                    <constraint firstItem="yn0-PY-Y1s" firstAttribute="leading" secondItem="1Gs-sB-xc6" secondAttribute="trailing" constant="27" id="spa-0w-nsy"/>
                                     <constraint firstAttribute="centerX" secondItem="3oh-xC-23x" secondAttribute="centerX" id="yJ3-uZ-m9n"/>
                                 </constraints>
                             </customView>
@@ -255,14 +259,15 @@
                     <connections>
                         <outlet property="filterControl" destination="3oh-xC-23x" id="u2I-nd-TWb"/>
                         <outlet property="headerView" destination="pT7-QB-sXU" id="NSu-Vr-aGN"/>
+                        <outlet property="playlistButton" destination="yn0-PY-Y1s" id="52c-2J-Zhs"/>
                         <outlet property="progressIndicator" destination="JKh-ck-D4x" id="vYo-qY-FTb"/>
-                        <outlet property="scanLibraryButton" destination="UY1-Cf-Cli" id="0tu-7R-RyT"/>
+                        <outlet property="scanButton" destination="4z7-sf-Xnr" id="RmN-fX-ElD"/>
                         <outlet property="scrollView" destination="8eu-V8-ZRD" id="0oY-Dx-QoC"/>
                     </connections>
                 </viewController>
                 <customObject id="mf1-pg-Zc0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="41" y="250"/>
+            <point key="canvasLocation" x="-31" y="251"/>
         </scene>
         <!--Browser View Controller-->
         <scene sceneID="fb8-Sl-i85">
@@ -316,76 +321,140 @@
             </objects>
             <point key="canvasLocation" x="-239" y="578"/>
         </scene>
+        <!--Window Controller-->
+        <scene sceneID="2Oz-dQ-Sef">
+            <objects>
+                <windowController id="pl4-P3-492" sceneMemberID="viewController">
+                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="M2r-hu-OPo">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+                        <rect key="contentRect" x="196" y="240" width="480" height="130"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+                        <value key="minSize" type="size" width="480" height="130"/>
+                        <value key="maxSize" type="size" width="480" height="130"/>
+                    </window>
+                    <connections>
+                        <segue destination="tU1-Mz-4wH" kind="relationship" relationship="window.shadowedContentViewController" id="BbL-4a-4ze"/>
+                    </connections>
+                </windowController>
+                <customObject id="kAt-Wg-QXU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1075" y="-308.5"/>
+        </scene>
         <!--Settings View Controller-->
         <scene sceneID="FDo-G4-iIE">
             <objects>
                 <viewController storyboardIdentifier="settingViewController" id="tU1-Mz-4wH" customClass="SettingsViewController" sceneMemberID="viewController">
-                    <view key="view" id="9gg-gu-iFl" customClass="FlippedView">
-                        <rect key="frame" x="0.0" y="0.0" width="528" height="300"/>
+                    <view key="view" id="9gg-gu-iFl">
+                        <rect key="frame" x="0.0" y="0.0" width="485" height="130"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WTe-3U-Zwd">
-                                <rect key="frame" x="18" y="263" width="85" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Movies Path:" id="C5j-8p-hwM">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U8k-Zg-mq4">
-                                <rect key="frame" x="208" y="262" width="292" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="nfe-aQ-EeM">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="selectedMenuItemColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6nU-f9-d9v" customClass="MainButton">
-                                <rect key="frame" x="126" y="260" width="76" height="19"/>
-                                <buttonCell key="cell" type="roundRect" title="Browse..." bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OVU-mX-QD6">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="cellTitle"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="selectMoviesPath:" target="tU1-Mz-4wH" id="c2p-Qk-vrm"/>
-                                </connections>
-                            </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="khp-Vz-a7U">
-                                <rect key="frame" x="18" y="224" width="102" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="TV Shows Path:" id="znz-nQ-Mir">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tov-sw-F21">
-                                <rect key="frame" x="208" y="224" width="292" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="3ZU-KX-aVg">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="selectedMenuItemColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zrD-YI-dl7" customClass="MainButton">
-                                <rect key="frame" x="126" y="221" width="76" height="19"/>
-                                <buttonCell key="cell" type="roundRect" title="Browse..." bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0jM-Yh-LH2">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="cellTitle"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="selectTvShowsPath:" target="tU1-Mz-4wH" id="oyw-ML-xQg"/>
-                                </connections>
-                            </button>
+                            <box autoresizesSubviews="NO" title="TV Shows:" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="4DY-f5-FQ0">
+                                <rect key="frame" x="17" y="18" width="451" height="43"/>
+                                <view key="contentView">
+                                    <rect key="frame" x="1" y="1" width="449" height="27"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OQP-Tg-0lU">
+                                            <rect key="frame" x="8" y="7" width="354" height="17"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="17" id="DPE-oR-iDb"/>
+                                            </constraints>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="3mB-5J-RjK">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="selectedMenuItemColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KQG-Wv-GDX">
+                                            <rect key="frame" x="363" y="-1" width="88" height="29"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="76" id="YnX-tm-pwb"/>
+                                                <constraint firstAttribute="height" constant="18" id="ujm-Vn-T7x"/>
+                                            </constraints>
+                                            <buttonCell key="cell" type="push" title="Browse..." bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="gav-gT-XQB">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="selectTvShowsPath:" target="tU1-Mz-4wH" id="ciW-25-lza"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="OQP-Tg-0lU" secondAttribute="bottom" constant="4" id="2eb-Em-Es7"/>
+                                    <constraint firstAttribute="bottom" secondItem="KQG-Wv-GDX" secondAttribute="bottom" constant="3" id="VLt-eR-z3J"/>
+                                    <constraint firstItem="KQG-Wv-GDX" firstAttribute="leading" secondItem="OQP-Tg-0lU" secondAttribute="trailing" constant="9" id="cpa-Ym-oJP"/>
+                                    <constraint firstItem="OQP-Tg-0lU" firstAttribute="leading" secondItem="4DY-f5-FQ0" secondAttribute="leading" constant="8" id="dt4-qQ-JsW"/>
+                                    <constraint firstAttribute="height" constant="39" id="qFD-nP-KPB"/>
+                                    <constraint firstAttribute="trailing" secondItem="KQG-Wv-GDX" secondAttribute="trailing" constant="2" id="rhy-H2-NWR"/>
+                                </constraints>
+                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </box>
+                            <box autoresizesSubviews="NO" title="Movies:" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="Mf9-u1-ytG">
+                                <rect key="frame" x="17" y="70" width="451" height="43"/>
+                                <view key="contentView">
+                                    <rect key="frame" x="1" y="1" width="449" height="27"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="U8k-Zg-mq4">
+                                            <rect key="frame" x="8" y="7" width="354" height="17"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="17" id="NOP-V5-ubo"/>
+                                            </constraints>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="nfe-aQ-EeM">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="selectedMenuItemColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6nU-f9-d9v">
+                                            <rect key="frame" x="363" y="-1" width="88" height="29"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="18" id="UIF-ND-dyy"/>
+                                                <constraint firstAttribute="width" constant="76" id="WOs-Be-LKq"/>
+                                            </constraints>
+                                            <buttonCell key="cell" type="push" title="Browse..." bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="OVU-mX-QD6">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="selectMoviesPath:" target="tU1-Mz-4wH" id="c2p-Qk-vrm"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="U8k-Zg-mq4" firstAttribute="leading" secondItem="Mf9-u1-ytG" secondAttribute="leading" constant="8" id="FXP-g7-dFF"/>
+                                    <constraint firstAttribute="bottom" secondItem="6nU-f9-d9v" secondAttribute="bottom" constant="3" id="T2A-8E-IHA"/>
+                                    <constraint firstAttribute="trailing" secondItem="6nU-f9-d9v" secondAttribute="trailing" constant="2" id="UTZ-G5-xqq"/>
+                                    <constraint firstAttribute="height" constant="39" id="j1m-g9-qz6"/>
+                                    <constraint firstItem="6nU-f9-d9v" firstAttribute="leading" secondItem="U8k-Zg-mq4" secondAttribute="trailing" constant="9" id="sDO-o9-2jM"/>
+                                    <constraint firstAttribute="bottom" secondItem="U8k-Zg-mq4" secondAttribute="bottom" constant="4" id="too-65-A9y"/>
+                                </constraints>
+                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </box>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="4DY-f5-FQ0" secondAttribute="bottom" constant="22" id="D69-Im-sLC"/>
+                            <constraint firstItem="Mf9-u1-ytG" firstAttribute="leading" secondItem="9gg-gu-iFl" secondAttribute="leading" constant="20" id="Ftc-5l-fbI"/>
+                            <constraint firstItem="4DY-f5-FQ0" firstAttribute="top" secondItem="Mf9-u1-ytG" secondAttribute="bottom" constant="13" id="aUg-a4-Egb"/>
+                            <constraint firstAttribute="trailing" secondItem="Mf9-u1-ytG" secondAttribute="trailing" constant="20" id="jGx-HE-rEi"/>
+                            <constraint firstItem="4DY-f5-FQ0" firstAttribute="leading" secondItem="9gg-gu-iFl" secondAttribute="leading" constant="20" id="qeu-MF-VGy"/>
+                            <constraint firstAttribute="trailing" secondItem="4DY-f5-FQ0" secondAttribute="trailing" constant="20" id="t85-5F-DJi"/>
+                            <constraint firstItem="Mf9-u1-ytG" firstAttribute="width" secondItem="4DY-f5-FQ0" secondAttribute="width" id="v5V-i6-LaQ"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="moviesPathLabel" destination="U8k-Zg-mq4" id="qxr-Xa-QdF"/>
-                        <outlet property="tvShowsPathLabel" destination="Tov-sw-F21" id="xeJ-D3-2kf"/>
+                        <outlet property="tvShowsPathLabel" destination="OQP-Tg-0lU" id="4CG-vR-crm"/>
                     </connections>
                 </viewController>
                 <customObject id="DZf-Ba-enK" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="328" y="578"/>
+            <point key="canvasLocation" x="1075.5" y="-48"/>
         </scene>
     </scenes>
 </document>

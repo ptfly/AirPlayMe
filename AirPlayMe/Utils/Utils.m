@@ -7,12 +7,55 @@
 //
 
 #import "Utils.h"
+#import "Config.h"
 
 @implementation Utils
 
++(void)addToPlaylist:(NSString *)path
+{
+    NSMutableArray *list = [[[NSUserDefaults standardUserDefaults] objectForKey:kPlaylistStorageKey] mutableCopy];
+    if(!list) list = [NSMutableArray new];
+    
+    [list addObject:path];
+    
+    NSArray *unique = [list valueForKeyPath:@"@distinctUnionOfObjects.self"];
+    NSArray *sorted = [unique sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:sorted forKey:kPlaylistStorageKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(void)removeFromPlaylist:(NSString *)path
+{
+    NSMutableArray *list = [[[NSUserDefaults standardUserDefaults] objectForKey:kPlaylistStorageKey] mutableCopy];
+    
+    [list removeObject:path];
+    [[NSUserDefaults standardUserDefaults] setObject:list forKey:kPlaylistStorageKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(NSArray *)getPlayListItems
+{
+    NSMutableArray *list = [[[NSUserDefaults standardUserDefaults] objectForKey:kPlaylistStorageKey] mutableCopy];
+    if(!list) list = [NSMutableArray new];
+    
+    return list;
+}
+
++(void)clearPlaylist
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kPlaylistStorageKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 +(NSString *)stringValue:(NSString *)string
 {
-    return [Utils isNilOrEmpty:string] ? @"" : string;
+    return [Utils isNilOrEmpty:string] ? @"" : [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
++(NSString *)stringValue:(NSString *)string fallBack:(NSString *)fallBack
+{
+    return [Utils isNilOrEmpty:string] ? fallBack : [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 +(CGFloat)heightForString:(NSString *)myString font:(NSFont *)myFont containerWidth:(CGFloat)myWidth
@@ -138,7 +181,5 @@
     
     return composedImage;
 }
-
-
 
 @end

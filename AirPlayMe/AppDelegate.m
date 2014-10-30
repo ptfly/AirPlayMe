@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Config.h"
 
 @interface AppDelegate ()
 
@@ -20,7 +21,8 @@
 {
 }
 
--(void)applicationWillTerminate:(NSNotification *)aNotification {
+-(void)applicationWillTerminate:(NSNotification *)aNotification
+{
     
 }
 
@@ -29,12 +31,10 @@
     return YES;
 }
 
--(void)play:(NSString *)fileUrl
+-(IBAction)switchBrowser:(NSMenuItem *)sender
 {
-    NSLog(@"%@", fileUrl);
-    [[NSWorkspace sharedWorkspace] openFile:fileUrl withApplication:@"Beamer"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationApplyBrowseMode object:@(sender.tag)];
 }
-
 
 #pragma mark - Core Data stack
 

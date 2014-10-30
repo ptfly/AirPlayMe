@@ -153,9 +153,10 @@ Episodes: 82</string>
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qQ7-Mn-ous">
-                                    <rect key="frame" x="18" y="220" width="65" height="34"/>
+                                    <rect key="frame" x="18" y="220" width="112" height="34"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="34" id="Lp3-o0-QFO"/>
+                                        <constraint firstAttribute="width" constant="108" id="h87-iQ-wi5"/>
                                     </constraints>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="HVZ-KG-e8h">
                                         <font key="font" metaFont="cellTitle"/>
@@ -166,7 +167,7 @@ Episode: 4</string>
                                     </textFieldCell>
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DgI-9m-mPv">
-                                    <rect key="frame" x="122" y="220" width="259" height="34"/>
+                                    <rect key="frame" x="148" y="220" width="233" height="34"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="34" id="0CP-7j-1Uu"/>
                                     </constraints>
@@ -185,9 +186,9 @@ Air Date: 22 September 2014</string>
                                         <constraint firstAttribute="height" constant="17" id="uQm-tl-O58"/>
                                     </constraints>
                                     <gestureRecognizers>
-                                        <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" id="C8s-5Q-kJ0">
+                                        <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" id="aQN-E4-1MB">
                                             <connections>
-                                                <action selector="setAsWatched:" target="-2" id="eoh-CQ-wNd"/>
+                                                <action selector="setAsWatched:" target="-2" id="lbF-TS-Wzm"/>
                                             </connections>
                                         </clickGestureRecognizer>
                                     </gestureRecognizers>
@@ -206,7 +207,7 @@ Air Date: 22 September 2014</string>
                                 <constraint firstItem="eA9-cd-8Op" firstAttribute="top" secondItem="jNY-8n-YTE" secondAttribute="top" constant="23" id="VDI-rp-DbG"/>
                                 <constraint firstItem="eA8-cW-sJ9" firstAttribute="top" secondItem="jNY-8n-YTE" secondAttribute="top" constant="18" id="gvD-Gg-aUA"/>
                                 <constraint firstItem="eNN-Wa-fC2" firstAttribute="leading" secondItem="jNY-8n-YTE" secondAttribute="leading" constant="20" id="mAv-Ph-R7c"/>
-                                <constraint firstItem="DgI-9m-mPv" firstAttribute="leading" secondItem="qQ7-Mn-ous" secondAttribute="trailing" constant="43" id="rUk-zS-W69"/>
+                                <constraint firstItem="DgI-9m-mPv" firstAttribute="leading" secondItem="qQ7-Mn-ous" secondAttribute="trailing" constant="22" id="rUk-zS-W69"/>
                                 <constraint firstItem="eA8-cW-sJ9" firstAttribute="leading" secondItem="jNY-8n-YTE" secondAttribute="leading" constant="20" id="zxU-XX-O2W"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
@@ -401,6 +402,13 @@ Air Date: 22 September 2014</string>
         </customView>
         <menu autoenablesItems="NO" id="gbP-9w-yay">
             <items>
+                <menuItem title="Add to Playlist" id="sKg-rM-Fpq">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addToPlaylist:" target="-2" id="b60-f5-Jil"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="IPd-cY-7qS"/>
                 <menuItem title="Show in Finder" id="pnV-u3-MHB">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

@@ -56,7 +56,7 @@
 {
     if(largeView) return;
     
-    self.layer.borderColor = rgba(45,117,223,1).CGColor;
+    self.layer.borderColor = TINT_COLOR.CGColor;
 //    self.alphaValue = 0.5;
     [self setNeedsDisplay];
 }

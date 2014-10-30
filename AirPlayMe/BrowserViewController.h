@@ -11,7 +11,6 @@
 typedef enum : NSUInteger {
     BrowseMovies = 0,
     BrowseTVShows,
-    BrowseTVEpisodes,
 } BrowseType;
 
 typedef enum : NSUInteger {

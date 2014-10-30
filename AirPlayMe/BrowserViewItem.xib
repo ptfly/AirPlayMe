@@ -36,9 +36,9 @@
                         <constraint firstAttribute="width" constant="160" id="V7I-tR-6OA"/>
                     </constraints>
                     <gestureRecognizers>
-                        <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" id="xro-ub-AUt" userLabel="Single Click">
+                        <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" id="1Cg-dF-maw">
                             <connections>
-                                <action selector="singleClick:" target="-2" id="vt9-jC-E9F"/>
+                                <action selector="openDetails:" target="-2" id="Ghi-nI-iuk"/>
                             </connections>
                         </clickGestureRecognizer>
                     </gestureRecognizers>
@@ -52,9 +52,9 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="eDy-cC-35d"/>
                     </constraints>
-                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="left" title="Label" id="dOP-G9-Xuf">
+                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="left" title="Label" usesSingleLineMode="YES" id="dOP-G9-Xuf">
                         <font key="font" size="15" name="HelveticaNeue"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
@@ -129,10 +129,17 @@
         <userDefaultsController representsSharedInstance="YES" id="aOQ-1o-sjT"/>
         <menu id="nM2-m4-d2a">
             <items>
-                <menuItem title="Show in Finder" id="17q-iR-PuU">
+                <menuItem title="Add to Playlist" id="17q-iR-PuU">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="showInFinder:" target="-2" id="0lc-16-e6H"/>
+                        <action selector="addToPlaylist:" target="-2" id="Hbv-EJ-rQo"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="tuV-KR-DGD"/>
+                <menuItem title="Show in Finder" id="Lqm-zi-AHn">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showInFinder:" target="-2" id="rsz-RV-4yo"/>
                     </connections>
                 </menuItem>
                 <menuItem title="Delete from Library" id="kpr-VP-xuu">

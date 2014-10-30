@@ -12,7 +12,14 @@
 
 @interface Utils : NSObject
 
++(void)addToPlaylist:(NSString *)path;
++(void)removeFromPlaylist:(NSString *)path;
++(NSArray *)getPlayListItems;
++(void)clearPlaylist;
+
 +(NSString *)stringValue:(NSString *)string;
++(NSString *)stringValue:(NSString *)string fallBack:(NSString *)fallBack;
+
 +(CGFloat)heightForString:(NSString *)myString font:(NSFont *)myFont containerWidth:(CGFloat)myWidth;
 +(NSString *)uuid;
 +(NSString *)timeIntervalFromDate:(NSDate *)dateStart toDate:(NSDate *)dateEnd;

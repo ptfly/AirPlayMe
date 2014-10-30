@@ -90,7 +90,36 @@
     [self.episodesTableView setDoubleAction:@selector(play:)];
     [self.episodesTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scanCompleted:) name:kNotificationScanComplete object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.context];
+}
+
+-(void)scanCompleted:(NSNotification *)notification
+{
+    if([notification.object isEqualTo:@"TVEpisode"] == NO) return;
+    
+    long selectedSeason  = self.seasonsTableView.selectedRow;
+    long selectedEpisode = self.episodesTableView.selectedRow;
+    
+    self.scheme = nil;
+    
+    [self.seasonsTableView reloadData];
+    [self selectTableRow:self.seasonsTableView row:selectedSeason];
+    
+    [self.episodesTableView reloadData];
+    [self selectTableRow:self.episodesTableView row:selectedEpisode];
+}
+
+-(void)selectTableRow:(NSTableView *)tableView row:(NSInteger)row
+{
+    if(row < 0) return;
+    
+    if((tableView.numberOfRows-1) >= row){
+        [tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+    }
+    else {
+        [self selectTableRow:tableView row:row-1];
+    }
 }
 
 -(void)contextDidChange:(NSNotification *)notification
@@ -167,8 +196,8 @@
         self.episodeDetailsView.image = nil;
     }
     
-    self.episodeTitle.stringValue = [Utils stringValue:self.selectedEpisode.original_name];
-    self.episodeOverview.stringValue = [Utils stringValue:self.selectedEpisode.overview];
+    self.episodeTitle.stringValue = [Utils stringValue:self.selectedEpisode.original_name fallBack:[NSString stringWithFormat:@"Episode %ld", self.selectedEpisode.episode.integerValue]];
+    self.episodeOverview.stringValue = [Utils stringValue:self.selectedEpisode.overview fallBack:@"No information retrieved."];
     self.episodeInfoBox1.stringValue = [NSString stringWithFormat:@"Season: %d\nEpisode: %d", self.selectedEpisode.season.intValue, self.selectedEpisode.episode.intValue];
     self.episodeInfoBox2.stringValue = [NSString stringWithFormat:@"Rating: %d/%.02f\nAir Date: %@", self.selectedEpisode.vote_count.intValue, self.selectedEpisode.vote_average.floatValue, [[YLMoment momentWithDate:self.selectedEpisode.air_date] format:@"d MMMM YYYY"]];
     
@@ -221,6 +250,14 @@
     }
 }
 
+-(IBAction)addToPlaylist:(id)sender
+{
+    TVEpisode *episode = self.scheme[self.seasonsTableView.selectedRow][@"episodes"][self.episodesTableView.clickedRow];
+    [Utils addToPlaylist:episode.path];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPlaylistItemAdded object:episode];
+}
+
 -(IBAction)showInFinder:(id)sender
 {
     TVEpisode *episode = self.scheme[self.seasonsTableView.selectedRow][@"episodes"][self.episodesTableView.clickedRow];
@@ -265,7 +302,7 @@
 -(NSAttributedString *)episodeCellTitle:(TVEpisode *)episode
 {
     NSString *numbr = [NSString stringWithFormat:@"%02d. ", episode.episode.intValue];
-    NSString *sname = [NSString stringWithFormat:@"%@", episode.original_name];
+    NSString *sname = [NSString stringWithFormat:@"%@", [Utils stringValue:episode.original_name fallBack:@"Episode"]];
     
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", numbr, sname]];
     [string addAttribute:NSForegroundColorAttributeName value:[NSColor grayColor] range:NSMakeRange(0, numbr.length)];

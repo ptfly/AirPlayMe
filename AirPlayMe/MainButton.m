@@ -14,38 +14,25 @@
 @end
 
 @implementation MainButton
+@synthesize activeColor;
 
--(id)initWithCoder:(NSCoder *)coder
+-(void)drawRect:(NSRect)dirtyRect
 {
-    self = [super initWithCoder:coder];
-    
-    if(self)
-    {
-        [self setButtonType:NSOnOffButton];
-        [self updateButtonView];
-    }
-    
-    return self;
-}
-
-- (void)drawRect:(NSRect)dirtyRect
-{
-    [super drawRect:dirtyRect];
     [self updateButtonView];
+    [super drawRect:dirtyRect];
 }
 
 -(void)updateButtonView
 {
-    NSColor *color = rgba(255,255,255,0.8);
-    
+    NSColor *color = rgba(255,255,255,1);
+
     if(self.state == NSOnState){
-        color = rgba(45,117,223,1);
+        color = (self.activeColor ? self.activeColor : TINT_COLOR);
     }
     
-    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithAttributedString:[self attributedTitle]];
-    long len = [attrTitle length];
+    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedTitle];
     
-    NSRange range = NSMakeRange(0, len);
+    NSRange range = NSMakeRange(0, attrTitle.length);
     [attrTitle addAttribute:NSForegroundColorAttributeName value:color range:range];
     [attrTitle fixAttributesInRange:range];
     

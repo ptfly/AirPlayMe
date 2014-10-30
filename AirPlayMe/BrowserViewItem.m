@@ -36,7 +36,7 @@
     [self.view addTrackingArea:area];
 }
 
--(IBAction)singleClick:(id)sender
+-(IBAction)openDetails:(id)sender
 {
     if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"TVShow"])
     {
@@ -111,6 +111,14 @@
     self.playButton.hidden = YES;
 }
 
+-(IBAction)addToPlaylist:(id)sender
+{
+    Movie *movie = (Movie *) self.representedObject;
+    
+    [Utils addToPlaylist:movie.path];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPlaylistItemAdded object:movie];
+}
+
 -(IBAction)showInFinder:(id)sender
 {
     Movie *movie = (Movie *) self.representedObject;
@@ -144,12 +152,16 @@
         [[menu itemAtIndex:1] setHidden:NO];
         [[menu itemAtIndex:2] setHidden:NO];
         [[menu itemAtIndex:3] setHidden:NO];
+        [[menu itemAtIndex:4] setHidden:NO];
+        [[menu itemAtIndex:5] setHidden:NO];
     }
     else if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"TVShow"]){
         [[menu itemAtIndex:0] setHidden:YES];
-        [[menu itemAtIndex:1] setHidden:NO];
+        [[menu itemAtIndex:1] setHidden:YES];
         [[menu itemAtIndex:2] setHidden:YES];
-        [[menu itemAtIndex:3] setHidden:YES];
+        [[menu itemAtIndex:3] setHidden:NO];
+        [[menu itemAtIndex:4] setHidden:YES];
+        [[menu itemAtIndex:5] setHidden:YES];
     }
 }
 

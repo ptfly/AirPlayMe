@@ -8,6 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+typedef enum : NSUInteger {
+    BrowseControllerMovies = 1,
+    BrowseControllerTVShows,
+    BrowseControllerPlaylist,
+} BrowseControllerMode;
+
 @interface MasterViewController : NSViewController
 
 @end
