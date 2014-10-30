@@ -26,8 +26,7 @@
 @end
 
 @implementation BrowserViewController
-@synthesize context, items, filter;
-@synthesize type = _type;
+@synthesize context, items, filter, type;
 @synthesize sortDescriptors = _sortDescriptors;
 @synthesize request = _request;
 
@@ -38,9 +37,7 @@
     AppDelegate *appDelegate = [[NSApplication sharedApplication] delegate];
     
     self.context = appDelegate.managedObjectContext;
-    
     self.collectionView.itemPrototype = [BrowserViewItem new];
-    self.collectionView.content = self.arrayController.content;
     
     [self loadItems:nil];
     
@@ -61,29 +58,18 @@
     self.items = [self.context executeFetchRequest:self.request error:&error];
     
     if(error){
-        NSLog(@"%@", error.localizedDescription);
+        [Utils showError:error.localizedDescription];
     }
-    else {
-        if(notification){
-            self.collectionView.content = self.arrayController.content;
-        }
-    }
-}
-
--(void)viewWillAppear
-{
-    [super viewWillAppear];
-    [self.collectionView setContent:self.arrayController.content];
 }
 
 -(NSFetchRequest *)request
 {
     if(_request == nil)
     {
-        if(_type == BrowseMovies){
+        if(self.type == BrowseMovies){
             _request = [[NSFetchRequest alloc] initWithEntityName:@"Movie"];
         }
-        else if(_type == BrowseTVShows){
+        else if(self.type == BrowseTVShows){
             _request = [[NSFetchRequest alloc] initWithEntityName:@"TVShow"];
         }
         
@@ -92,7 +78,7 @@
     }
     
     // FILTERS
-    if(_type == BrowseMovies)
+    if(self.type == BrowseMovies)
     {
         if(self.filter == FilterNew){
             [_request setPredicate:[NSPredicate predicateWithFormat:@"watched == NO"]];
@@ -104,7 +90,7 @@
             [_request setPredicate:nil];
         }
     }
-    else if(_type == BrowseTVShows)
+    else if(self.type == BrowseTVShows)
     {
         if(self.filter == FilterNew){
             [_request setPredicate:[NSPredicate predicateWithFormat:@"episodes.@count > 0 AND (ANY episodes.watched == NO)"]];

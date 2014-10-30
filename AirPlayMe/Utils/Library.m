@@ -44,6 +44,8 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
 
 -(void)notifyScanComplete:(NSString *)type
 {
+    [self.context save:nil];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationScanComplete object:type];
     });
@@ -97,12 +99,25 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
             [self.context deleteObject:show];
         }];
     }
-    
-    [self.context save:nil];
 }
 
 -(void)scanMoviesLibrary
 {
+    if(!self.tmdbConfig)
+    {
+        [self getTMDBConfig:^(BOOL success)
+        {
+            if(success){
+                [self scanMoviesLibrary];
+            }
+            else {
+                [self notifyScanComplete:@"Movies"];
+            }
+        }];
+        
+        return;
+    }
+    
     NSURL *destination;
     
     NSString *path  = [[NSUserDefaults standardUserDefaults] objectForKey:kMoviesLibraryPathKey];
@@ -157,6 +172,21 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
 
 -(void)scanTVShowsLibrary
 {
+    if(!self.tmdbConfig)
+    {
+        [self getTMDBConfig:^(BOOL success)
+         {
+             if(success){
+                 [self scanTVShowsLibrary];
+             }
+             else {
+                 [self notifyScanComplete:@"TVEpisode"];
+             }
+         }];
+        
+        return;
+    }
+    
     NSURL *destination;
     
     NSString *path  = [[NSUserDefaults standardUserDefaults] objectForKey:kTVShowsLibraryPathKey];
@@ -324,17 +354,15 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
                                 updated.runtime  = response[@"runtime"];
                                 updated.tagline  = response[@"tagline"];
                                 updated.overview = response[@"overview"];
-                                
-                                [self.context save:nil];
+                            }
+                            
+                            scanned++;
+                            
+                            if(scanned >= records.count){
+                                [self notifyScanComplete:@"Movie"];
                             }
                         }];
                     }
-                }
-                
-                scanned++;
-                
-                if(scanned >= records.count){
-                    [self notifyScanComplete:@"Movie"];
                 }
             }];
         }];
@@ -375,7 +403,6 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
                               if(success)
                               {
                                   series.overview = response[@"overview"];
-                                  [self.context save:nil];
                               }
                           }];
                       }
@@ -413,15 +440,6 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
 
 -(void)tmdbSearchMovie:(NSString *)name year:(NSString *)year standardSearch:(BOOL)standardSearch callback:(void (^)(NSDictionary *response, BOOL success))callbackBlock
 {
-    if(!self.tmdbConfig)
-    {
-        [self getTMDBConfig:^(BOOL success){
-            if(success)[self tmdbSearchMovie:name year:year standardSearch:standardSearch callback:callbackBlock];
-        }];
-        
-        return;
-    }
-    
     NSMutableDictionary *params = [NSMutableDictionary new];
     
     params[@"api_key"]          = TMDB_API_KEY;
@@ -439,9 +457,11 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
          {
              NSMutableDictionary *data = [[response[@"results"] firstObject] mutableCopy];
              
-             if(data){
+             if(data)
+             {
                  data[@"poster"] = [NSString stringWithFormat:@"%@w500%@", self.tmdbConfig[@"base_url"], data[@"poster_path"]];
                  data[@"backdrop"] = [NSString stringWithFormat:@"%@w1280%@", self.tmdbConfig[@"base_url"], data[@"backdrop_path"]];
+                 
                  callbackBlock(data, success);
              }
              else {
@@ -456,15 +476,6 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
 
 -(void)tmdbSearchTVShow:(NSString *)name standardSearch:(BOOL)standardSearch callback:(void (^)(NSDictionary *response, BOOL success))callbackBlock
 {
-    if(!self.tmdbConfig)
-    {
-        [self getTMDBConfig:^(BOOL success){
-            if(success)[self tmdbSearchTVShow:name standardSearch:standardSearch callback:callbackBlock];
-        }];
-        
-        return;
-    }
-    
     NSMutableDictionary *params = [NSMutableDictionary new];
     
     params[@"api_key"]          = TMDB_API_KEY;
@@ -477,9 +488,11 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
          {
              NSMutableDictionary *data = [[response[@"results"] firstObject] mutableCopy];
              
-             if(data){
+             if(data)
+             {
                  data[@"poster"] = [NSString stringWithFormat:@"%@w500%@", self.tmdbConfig[@"base_url"], data[@"poster_path"]];
                  data[@"backdrop"] = [NSString stringWithFormat:@"%@w1280%@", self.tmdbConfig[@"base_url"], data[@"backdrop_path"]];
+                 
                  callbackBlock(data, success);
              }
              else {
@@ -494,15 +507,7 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
 
 -(void)tmdbGetMovieInfo:(NSNumber *)movieId callback:(void (^)(NSDictionary *response, BOOL success))callbackBlock
 {
-    if(!self.tmdbConfig)
-    {
-        [self getTMDBConfig:^(BOOL success){
-            if(success)[self tmdbGetMovieInfo:movieId callback:callbackBlock];
-        }];
-        
-        return;
-    }
-    
+
     NSString *url = [NSString stringWithFormat:@"%@/movie/%d", TMDB_API_URL, movieId.intValue];
     
     [Utils makeGetRequest:url parameters:@{@"api_key":TMDB_API_KEY} callback:^(id response, BOOL success)
@@ -526,15 +531,6 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
 
 -(void)tmdbGetTVShowInfo:(NSNumber *)seriesId callback:(void (^)(NSDictionary *response, BOOL success))callbackBlock
 {
-    if(!self.tmdbConfig)
-    {
-        [self getTMDBConfig:^(BOOL success){
-            if(success)[self tmdbGetTVShowInfo:seriesId callback:callbackBlock];
-        }];
-        
-        return;
-    }
-    
     NSString *url = [NSString stringWithFormat:@"%@/tv/%d", TMDB_API_URL, seriesId.intValue];
     
     [Utils makeGetRequest:url parameters:@{@"api_key":TMDB_API_KEY} callback:^(id response, BOOL success)
@@ -543,9 +539,11 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
          {
              NSMutableDictionary *data = [response mutableCopy];
              
-             if(data){
+             if(data)
+             {
                  data[@"poster"] = [NSString stringWithFormat:@"%@w500%@", self.tmdbConfig[@"base_url"], data[@"poster_path"]];
                  data[@"backdrop"] = [NSString stringWithFormat:@"%@w1280%@", self.tmdbConfig[@"base_url"], data[@"backdrop_path"]];
+                 
                  callbackBlock(data, success);
              }
              else {
@@ -560,15 +558,6 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
 
 -(void)tmdbGetTVSeasonInfo:(NSNumber *)seriesId season:(NSNumber *)season callback:(void (^)(NSDictionary *response, BOOL success))callbackBlock
 {
-    if(!self.tmdbConfig)
-    {
-        [self getTMDBConfig:^(BOOL success){
-            if(success)[self tmdbGetTVSeasonInfo:seriesId season:season callback:callbackBlock];
-        }];
-        
-        return;
-    }
-    
     NSString *url = [NSString stringWithFormat:@"%@/tv/%d/season/%d", TMDB_API_URL, seriesId.intValue, season.intValue];
     
     [Utils makeGetRequest:url parameters:@{@"api_key":TMDB_API_KEY} callback:^(id response, BOOL success)
@@ -577,7 +566,8 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
          {
              NSMutableDictionary *data = [response mutableCopy];
              
-             if(data){
+             if(data)
+             {
                  data[@"poster"] = [NSString stringWithFormat:@"%@w500%@", self.tmdbConfig[@"base_url"], data[@"postter_path"]];
                  callbackBlock(data, success);
              }
@@ -593,15 +583,6 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
 
 -(void)tmdbGetEpisodeInfo:(NSNumber *)seriesId season:(NSNumber *)season episode:(NSNumber *)episode callback:(void (^)(NSDictionary *response, BOOL success))callbackBlock
 {
-    if(!self.tmdbConfig)
-    {
-        [self getTMDBConfig:^(BOOL success){
-            if(success)[self tmdbGetEpisodeInfo:seriesId season:season episode:episode callback:callbackBlock];
-        }];
-        
-        return;
-    }
-    
     NSString *url = [NSString stringWithFormat:@"%@/tv/%d/season/%d/episode/%d", TMDB_API_URL, seriesId.intValue, season.intValue, episode.intValue];
     
     [Utils makeGetRequest:url parameters:@{@"api_key":TMDB_API_KEY} callback:^(id response, BOOL success)
@@ -610,7 +591,8 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
          {
              NSMutableDictionary *data = [response mutableCopy];
              
-             if(data){
+             if(data)
+             {
                  if([Utils isNilOrEmpty:data[@"still_path"]] == NO){
                      data[@"still"] = [NSString stringWithFormat:@"%@w500%@", self.tmdbConfig[@"base_url"], data[@"still_path"]];
                  }

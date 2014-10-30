@@ -287,6 +287,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="248" height="158"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="primaryBackgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <binding destination="Jb8-ph-63b" name="content" keyPath="arrangedObjects" id="B6S-hZ-XjO"/>
+                                            </connections>
                                         </collectionView>
                                     </subviews>
                                 </clipView>
@@ -315,7 +318,7 @@
                 <customObject id="svb-OB-mXl" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <arrayController mode="entity" entityName="Movie" id="Jb8-ph-63b">
                     <connections>
-                        <binding destination="9kB-bC-t4C" name="contentArray" keyPath="items" id="afh-CQ-xpX"/>
+                        <binding destination="9kB-bC-t4C" name="contentArray" keyPath="items" id="pd2-Q9-TK9"/>
                     </connections>
                 </arrayController>
             </objects>

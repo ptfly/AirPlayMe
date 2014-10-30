@@ -29,6 +29,7 @@
     AppDelegate *appDelegate = [[NSApplication sharedApplication] delegate];
     
     self.context = appDelegate.managedObjectContext;
+    
     self.playButton.hidden = YES;
     self.infoField.stringValue = @"";
     
@@ -60,9 +61,7 @@
 {
     [super setRepresentedObject:representedObject];
     
-    if(!representedObject) return;
-    
-    if([[[representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"TVShow"])
+    if([representedObject isKindOfClass:[TVShow class]])
     {
         TVShow *show = (TVShow *)representedObject;
         
@@ -79,7 +78,7 @@
         
         self.yearField.stringValue = [NSString stringWithFormat:@"%ld episodes, %ld new", show.episodes.count, unwatched];
     }
-    else if([[[representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"Movie"])
+    else if([representedObject isKindOfClass:[Movie class]])
     {
         Movie *movie = (Movie *)representedObject;
         
@@ -97,6 +96,9 @@
             self.yearField.stringValue = [[YLMoment momentWithDate:movie.release_date] format:@"YYYY"];
         }
     }
+    
+    self.nameField.toolTip = self.nameField.stringValue;
+    [self.view needsLayout];
 }
 
 -(void)mouseEntered:(NSEvent *)theEvent

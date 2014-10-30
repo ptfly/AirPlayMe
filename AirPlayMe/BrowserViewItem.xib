@@ -52,7 +52,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="eDy-cC-35d"/>
                     </constraints>
-                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="left" title="Label" usesSingleLineMode="YES" id="dOP-G9-Xuf">
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Label" usesSingleLineMode="YES" id="dOP-G9-Xuf">
                         <font key="font" size="15" name="HelveticaNeue"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
