@@ -134,6 +134,8 @@
 //    NSArray *insertedObjects = [[notification userInfo] objectForKey:NSInsertedObjectsKey];
 //    NSArray *deletedObjects = [[notification userInfo] objectForKey:NSDeletedObjectsKey];
 //    NSArray *updatedObjects = [[notification userInfo] objectForKey:NSUpdatedObjectsKey];
+    
+    [self loadItems:nil];
 }
 
 -(void)dealloc

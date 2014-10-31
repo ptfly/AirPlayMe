@@ -283,6 +283,7 @@
     
     [menu addItem:[NSMenuItem separatorItem]];
     [menu addItemWithTitle:@"Clear Playlist" action:@selector(clearPlaylist:) keyEquivalent:@""];
+    [menu addItemWithTitle:@"Set as Watched" action:@selector(setAsWatched:) keyEquivalent:@""];
     
     NSRect frame = [(NSButton *)sender frame];
     NSPoint menuOrigin = [[(NSButton *)sender superview] convertPoint:NSMakePoint(frame.origin.x, frame.origin.y+frame.size.height-30) toView:nil];
@@ -325,6 +326,40 @@
     }
     
     self.playlistButton.title = [NSString stringWithFormat:@"Playlist (%ld)", list.count];
+}
+
+-(void)setAsWatched:(NSMenuItem *)sender
+{
+    NSArray *list = [Utils getPlayListItems];
+    
+    if(list.count > 0)
+    {
+        NSMutableArray *allItems = [NSMutableArray new];
+        
+        NSFetchRequest *r1 = [[NSFetchRequest alloc] initWithEntityName:@"Movie"];
+        NSFetchRequest *r2 = [[NSFetchRequest alloc] initWithEntityName:@"TVEpisode"];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"path IN %@", list];
+        [r1 setPredicate:predicate];
+        [r2 setPredicate:predicate];
+    
+        [allItems addObjectsFromArray:[self.context executeFetchRequest:r1 error:nil]];
+        [allItems addObjectsFromArray:[self.context executeFetchRequest:r2 error:nil]];
+        
+        [allItems enumerateObjectsUsingBlock:^(id item, NSUInteger idx, BOOL *stop)
+        {
+             if([item isKindOfClass:[Movie class]]){
+                 Movie *movie = (Movie *)item;
+                 movie.watched = YES;
+             }
+             else if([item isKindOfClass:[TVEpisode class]]){
+                 TVEpisode *episode = (TVEpisode *)item;
+                 episode.watched = YES;
+             }
+        }];
+        
+        [self.context save:nil];
+    }
 }
 
 #pragma mark - Scanner & Filters
