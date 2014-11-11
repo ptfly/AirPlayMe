@@ -8,12 +8,12 @@ TMDB API access to retrieve movies/shows/episode information - https://www.themo
 ######CocoaPods:######
 `pod "AFNetworking", "~> 2.0"`
 
-![Movies Catalog](https://dl-web.dropbox.com/get/Public/AirPlayMe/s1.jpeg?_subject_uid=39096612&w=AAChNzzps1F91e9J7X9dMiBvo0wKueRbr3wdQqH566eWjA)
+![Movies Catalog](http://farm8.staticflickr.com/7553/15578373828_0b4ffee4be_b.jpg)
 
-![Playlist](https://dl-web.dropbox.com/get/Public/AirPlayMe/s2.jpeg?_subject_uid=39096612&w=AADxfngVreEX0binZ-G5OZbCUuyfpHRaN0OOkvV4bP004A)
+![Playlist](http://farm4.staticflickr.com/3941/15761921421_376f76fb72_b.jpg)
 
-![Movie Details](https://dl-web.dropbox.com/get/Public/AirPlayMe/s5.jpeg?_subject_uid=39096612&w=AAC_bkaH35fY7MZMFJsCJUE8iliD1PxDRowK3e9uZ_HL8Q)
+![Movie Details](http://farm8.staticflickr.com/7473/15763792255_7909749222_b.jpg)
 
-![TV Shows Catalog](https://dl-web.dropbox.com/get/Public/AirPlayMe/s3.jpeg?_subject_uid=39096612&w=AABOmOJYij-UQffpn2rI3D-_mtW4W2evifkuhQBknh60fg)
+![TV Shows Catalog](http://farm6.staticflickr.com/5608/15740090156_6480bd82a3_b.jpg)
 
-![TV Show Details](https://dl-web.dropbox.com/get/Public/AirPlayMe/s4.jpeg?_subject_uid=39096612&w=AAAbexTct7wwX7LhZW9TseV6Q4Jx7dfWUgGKzYYg91flGw)
+![TV Show Details](http://farm4.staticflickr.com/3940/15761921211_936912d198_b.jpg)
