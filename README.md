@@ -4,7 +4,7 @@ AirPlayMe
 ####Any contribution to make it better is more then welcome, also at some point the idea is to become a standalone app and play videos without Beamer.app.####
 
 #####Requirements#####
-![TMDB](https://www.themoviedb.org/) - TMDB API access to retrieve movies/shows/episode information.
+TMDB API access to retrieve movies/shows/episode information - https://www.themoviedb.org/
 ######CocoaPods:######
 `pod "AFNetworking", "~> 2.0"`
 
