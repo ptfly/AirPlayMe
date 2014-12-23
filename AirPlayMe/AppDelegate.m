@@ -36,6 +36,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationApplyBrowseMode object:@(sender.tag)];
 }
 
+-(IBAction)updateLibrary:(NSMenuItem *)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUpdateCurrentLibrary object:@(sender.tag)];
+}
+
 #pragma mark - Core Data stack
 
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;

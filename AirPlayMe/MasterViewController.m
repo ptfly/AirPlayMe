@@ -76,12 +76,25 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openTVShowDetails:) name:kNotificationOpenTVShowDetails object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scanCompleted:) name:kNotificationScanComplete object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(browseModeChanged:) name:kNotificationApplyBrowseMode object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLibrary:) name:kNotificationUpdateCurrentLibrary object:nil];
 }
 
 -(void)browseModeChanged:(NSNotification *)notification
 {
     long buttonTag = [notification.object integerValue];
     [self toggleViewController:[self.view viewWithTag:buttonTag]];
+}
+
+-(void)updateLibrary:(NSNotification *)notification
+{
+    BrowseControllerMode mode = [[[NSUserDefaults standardUserDefaults] objectForKey:kLastSectionKey] integerValue];
+    
+    if(mode == BrowseControllerTVShows){
+        [self scanTVShowsLibrary];
+    }
+    else {
+        [self scanMoviesLibrary];
+    }
 }
 
 -(IBAction)toggleViewController:(NSButton *)sender

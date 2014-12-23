@@ -129,10 +129,16 @@
         <userDefaultsController representsSharedInstance="YES" id="aOQ-1o-sjT"/>
         <menu id="nM2-m4-d2a">
             <items>
-                <menuItem title="Add to Playlist" id="17q-iR-PuU">
+                <menuItem title="Add to Playlist" id="e3D-Kz-utg">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="addToPlaylist:" target="-2" id="Hbv-EJ-rQo"/>
+                        <action selector="addToPlaylist:" target="-2" id="3vw-Fz-WEp"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Set as Watched" id="17q-iR-PuU">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="setAsWatched:" target="-2" id="Vke-SM-0ld"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="tuV-KR-DGD"/>

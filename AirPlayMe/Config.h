@@ -42,3 +42,4 @@
 
 #define kNotificationApplyBrowseMode        @"NotificationApplyBrowseMode"
 #define kNotificationApplyBrowseFilter      @"NotificationApplyBrowseFilter"
+#define kNotificationUpdateCurrentLibrary   @"NotificationUpdateCurrentLibrary"

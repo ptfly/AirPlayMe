@@ -110,7 +110,7 @@
     int minutes = (totalSeconds / 60) % 60;
     int hours = totalSeconds / 3600;
     
-    return [NSString stringWithFormat:@"%dh %02dm",hours, minutes];
+    return [NSString stringWithFormat:@"%dh %02dm", hours, minutes];
 }
 
 -(void)viewWillLayout

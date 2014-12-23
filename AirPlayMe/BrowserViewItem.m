@@ -126,6 +126,28 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPlaylistItemAdded object:movie];
 }
 
+-(IBAction)setAsWatched:(id)sender
+{
+    NSError *error;
+    Movie *movie = (Movie *) self.representedObject;
+    movie.watched = !movie.watched;
+    
+    self.watchedIcon.hidden = !movie.watched;
+    
+    if(movie.watched){
+        self.yearFieldPosition.constant = 35;
+    }
+    else {
+        self.yearFieldPosition.constant = 12;
+    }
+    
+    [self.context save:&error];
+    
+    if(error){
+        [Utils showError:error.localizedDescription];
+    }
+}
+
 -(IBAction)showInFinder:(id)sender
 {
     Movie *movie = (Movie *) self.representedObject;
@@ -154,21 +176,33 @@
 
 -(void)menuWillOpen:(NSMenu *)menu
 {
-    if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"Movie"]){
+    if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"Movie"])
+    {
+        Movie *movie = (Movie *)self.representedObject;
+        
+        if(movie.watched){
+            [[menu itemAtIndex:1] setTitle:@"Set as Unwatched"];
+        }
+        else {
+            [[menu itemAtIndex:1] setTitle:@"Set as Watched"];
+        }
+        
         [[menu itemAtIndex:0] setHidden:NO];
         [[menu itemAtIndex:1] setHidden:NO];
         [[menu itemAtIndex:2] setHidden:NO];
         [[menu itemAtIndex:3] setHidden:NO];
         [[menu itemAtIndex:4] setHidden:NO];
         [[menu itemAtIndex:5] setHidden:NO];
+        [[menu itemAtIndex:6] setHidden:NO];
     }
     else if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"TVShow"]){
         [[menu itemAtIndex:0] setHidden:YES];
         [[menu itemAtIndex:1] setHidden:YES];
         [[menu itemAtIndex:2] setHidden:YES];
-        [[menu itemAtIndex:3] setHidden:NO];
-        [[menu itemAtIndex:4] setHidden:YES];
+        [[menu itemAtIndex:3] setHidden:YES];
+        [[menu itemAtIndex:4] setHidden:NO];
         [[menu itemAtIndex:5] setHidden:YES];
+        [[menu itemAtIndex:6] setHidden:YES];
     }
 }
 
