@@ -37,8 +37,10 @@
     [self.view addTrackingArea:area];
 }
 
--(IBAction)openDetails:(id)sender
+-(IBAction)openDetails:(NSGestureRecognizer *)sender
 {
+    if(sender.state != NSGestureRecognizerStateEnded) return;
+    
     if([[[self.representedObject valueForKey:@"entity"] valueForKey:@"name"] isEqualToString:@"TVShow"])
     {
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOpenTVShowDetails object:self.representedObject];
@@ -90,8 +92,11 @@
             self.yearFieldPosition.constant = 35;
         }
         
-        if([movie.tmdbID intValue] > 0){
+        if(movie.poster){
             self.imageView.image = [[NSImage alloc] initWithData:movie.poster];
+        }
+        
+        if([movie.tmdbID intValue] > 0){
             self.nameField.stringValue = movie.original_title;
             self.yearField.stringValue = [[YLMoment momentWithDate:movie.release_date] format:@"YYYY"];
         }

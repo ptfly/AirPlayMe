@@ -9,8 +9,9 @@
 #import "Library.h"
 #import "AppDelegate.h"
 
-static NSString *releaseTypes  = @"(\\(|\\)|brrip|xvid|webrip|ac3|blueray|divx|pdtv|bdrip|uncut|hdrip|sample|720p|1080p|1080i|x264|dvdrip|dvd|h264|dts-hd|dts|ma5.1|avc|unrated|remux)";
-static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-VietHD|-WARHD|-PFa|-SPARKS|-DIMENSION|-PGM|-AMIABLE|SiMPLE|-GECKOS|-HiFi|-ChaoS|-VietHD|-iFT|-WiKi|-HDAccess";
+static int movieYearChecker     = 1950;
+static NSString *releaseTypes   = @"(\\(|\\)|brrip|xvid|flac|bluerip|webrip|ac3|blueray|bluray|divx|pdtv|bdrip|uncut|hdrip|sample|720p|1080p|1080i|x264|x265|dvdrip|dvd|h264|dts-hd|dts|ma5.1|5.1|avc|unrated|remux)";
+static NSString *releaseGroups  = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-VietHD|-WARHD|-PFa|-SPARKS|-DIMENSION|-PGM|-AMIABLE|SiMPLE|-GECKOS|-HiFi|-ChaoS|-VietHD|-iFT|-WiKi|-HDAccess|-LEGi0N";
 
 @interface Library ()
 
@@ -242,13 +243,16 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
 -(NSDictionary *)parseMovieName:(NSURL *)url standardParseFailed:(BOOL)parseFailed
 {
     NSString *file   = [[url absoluteString] lastPathComponent];
+    file = [file stringByRemovingPercentEncoding];
     file = [file stringByReplacingOccurrencesOfString:@"." withString:@" "];
     file = [file stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
-    Rx *cleanRX = [Rx rx:@"(.*?)[ |.]([\\d+]{4})" ignoreCase:YES];
+    Rx *cleanRX = [Rx rx:@"((.*?)[ |.]([\\d+]{4}))" ignoreCase:YES];
     if(parseFailed) cleanRX = [Rx rx:@".*" ignoreCase:YES];
     
     Rx *yearRX = [Rx rx:@"([\\d+]{4})" ignoreCase:YES];
+    
+    NSLog(@"%@", [file matches:cleanRX]);
     
     file = [[file matches:cleanRX] firstObject];
     
@@ -261,6 +265,7 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
     NSString *year = [[file matches:yearRX] firstObject];
     year = [year stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if([Utils isNilOrEmpty:year]) year = @"";
+    
     
     // Name parser
     NSString *name = [file stringByReplacingOccurrencesOfString:year withString:@""];
@@ -280,6 +285,7 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
 -(NSDictionary *)parseEpisodeName:(NSURL *)url standardParseFailed:(BOOL)parseFailed
 {
     NSString *file = [[url absoluteString] lastPathComponent];
+    file = [file stringByRemovingPercentEncoding];
     file = [file stringByReplacingOccurrencesOfString:@"." withString:@" "];
     file = [file stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
@@ -317,6 +323,25 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
     name = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     return @{@"name":name, @"season":season, @"episode":episode, @"parsed":@(!parseFailed)};
+}
+
+-(NSDictionary *)searchForLocalImages:(NSString *)path
+{
+    NSString *dir       = [path stringByDeletingLastPathComponent];
+    NSString *poster    = [dir stringByAppendingPathComponent:@"poster.jpg"];
+    NSString *backdrop  = [dir stringByAppendingPathComponent:@"backdrop.jpg"];
+
+    NSMutableDictionary *response = [NSMutableDictionary new];
+    
+    if([[NSFileManager defaultManager] fileExistsAtPath:[NSURL URLWithString:poster].path isDirectory:nil]){
+        [response setObject:[NSURL URLWithString:poster].path forKey:@"poster"];
+    }
+    
+    if([[NSFileManager defaultManager] fileExistsAtPath:[NSURL URLWithString:backdrop].path isDirectory:nil]){
+        [response setObject:[NSURL URLWithString:backdrop].path forKey:@"backdrop"];
+    }
+    
+    return response;
 }
 
 #pragma mark - TMDB
@@ -364,6 +389,26 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
                         }];
                     }
                 }
+                else {
+                    
+                    // Scan folder for images
+                    NSDictionary *images = [self searchForLocalImages:movie.path];
+                    
+                    // Update record
+                    if(images[@"poster"]){
+                        movie.poster = [NSData dataWithContentsOfFile:images[@"poster"]];
+                    }
+                    if(images[@"backdrop"]){
+                        movie.backdrop = [NSData dataWithContentsOfFile:images[@"backdrop"]];
+                    }
+                    
+                    // Update count
+                    scanned++;
+                    
+                    if(scanned >= records.count){
+                        [self notifyScanComplete:@"Movie"];
+                    }
+                }
             }];
         }];
     }
@@ -392,8 +437,6 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
               {
                   if(success)
                   {
-                      scanned++;
-                      
                       TVShow *series = [self addTVShowItem:response forEpisode:episode];
                       
                       if(series && [Utils isNilOrEmpty:series.overview])
@@ -409,12 +452,21 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
                       
                       [self tmdbGetEpisodeInfo:series.tmdbID season:episode.season episode:episode.episode callback:^(NSDictionary *response, BOOL success)
                       {
+                          scanned++;
+                          
                           if(scanned >= records.count){
                               [self notifyScanComplete:@"TVEpisode"];
                           }
                           
                           [self updateTVEpisodeItem:response forEpisode:episode];
                       }];
+                  }
+                  else {
+                      scanned++;
+                      
+                      if(scanned >= records.count){
+                          [self notifyScanComplete:@"TVEpisode"];
+                      }
                   }
               }];
          }];
@@ -447,12 +499,16 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
     params[@"search_type"]      = standardSearch ? @"phrase" : @"ngram";
     params[@"include_adult"]    = @"true";
     
-    if([Utils isNilOrEmpty:year] == NO){
+    if([Utils isNilOrEmpty:year] == NO && [year integerValue] > movieYearChecker){
         params[@"year"] = year;
     }
     
+//    NSLog(@"SEARCH %@", params);
+    
     [Utils makeGetRequest:[NSString stringWithFormat:@"%@/search/movie", TMDB_API_URL] parameters:params callback:^(id response, BOOL success)
     {
+//        NSLog(@"RESPONSE: %@, %d", response, success);
+        
          if(success)
          {
              NSMutableDictionary *data = [[response[@"results"] firstObject] mutableCopy];
@@ -671,7 +727,7 @@ static NSString *releaseGroups = @"-NESMEURED|-KILLERS|-HDMaNiAcS|-war|aac-cpg|-
     
     Movie *record   = [NSEntityDescription insertNewObjectForEntityForName:@"Movie" inManagedObjectContext:self.context];
     record.title    = data[@"title"];
-    record.year     = data[@"year"];
+    record.year     = ([data[@"year"] integerValue] > movieYearChecker ? data[@"year"] : @"");
     record.path     = url.absoluteString;
     record.parsed   = [data[@"parsed"] boolValue];
     

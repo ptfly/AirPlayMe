@@ -19,9 +19,9 @@
 @property (weak) IBOutlet NSTextField *movieTitleLabel;
 @property (weak) IBOutlet NSTextField *movieDescriptionLabel;
 @property (weak) IBOutlet NSTextField *tagLine;
-@property (strong) IBOutlet BackDropView *backDropView;
 
 @property (strong, nonatomic) NSManagedObjectContext *context;
+@property (strong) IBOutlet BackDropView *backDropView;
 
 @property (weak) IBOutlet NSLayoutConstraint *titleHeight;
 @property (weak) IBOutlet NSLayoutConstraint *descriptionHeight;

@@ -21,7 +21,7 @@
 #define TINT_COLOR rgba(27,131,251,1)
 
 #define TMDB_API_URL                        @"http://api.themoviedb.org/3"
-#define TMDB_API_KEY                        @"b8f652f4b231d6653c9146910628e547"
+#define TMDB_API_KEY                        @"b8f652f4b231d6653c9146910628e547" // Please do not use mine :)
 
 #define PLAYER_APP_NAME                     @"Beamer"
 #define PLAYER_BUNDLE_ID                    @"com.tupil.beamer"
