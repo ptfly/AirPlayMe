@@ -289,7 +289,6 @@
 {
     TVEpisode *episode = self.scheme[self.seasonsTableView.selectedRow][@"episodes"][self.episodesTableView.clickedRow];
     [self.context deleteObject:episode];
-    
     [self.context save:nil];
 }
 

@@ -315,6 +315,9 @@ Air Date: 22 September 2014</string>
                                                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QKn-Jg-EOt">
                                                                 <rect key="frame" x="343" y="12" width="22" height="11"/>
                                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Eye" id="bu2-8W-smI"/>
+                                                                <connections>
+                                                                    <action selector="setAsWatched:" target="-2" id="UP0-Wu-TIc"/>
+                                                                </connections>
                                                             </imageView>
                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dGU-gY-NRh">
                                                                 <rect key="frame" x="13" y="3" width="317" height="25"/>
