@@ -124,7 +124,19 @@
 
 -(void)contextDidChange:(NSNotification *)notification
 {
+    NSArray *addedObjects = [[notification userInfo] objectForKey:NSInsertedObjectsKey];
 //    NSArray *updatedObjects = [[notification userInfo] objectForKey:NSUpdatedObjectsKey];
+    NSArray *deletedObjects = [[notification userInfo] objectForKey:NSDeletedObjectsKey];
+    
+    [addedObjects enumerateObjectsUsingBlock:^(TVEpisode *episode, NSUInteger idx, BOOL *stop){
+        [self.scheme[self.seasonsTableView.selectedRow][@"episodes"] addObject:episode];
+    }];
+    
+    [deletedObjects enumerateObjectsUsingBlock:^(TVEpisode *episode, NSUInteger idx, BOOL *stop){
+        [self.scheme[self.seasonsTableView.selectedRow][@"episodes"] removeObject:episode];
+    }];
+    
+    [self.episodesTableView reloadData];
 }
 
 -(NSMutableArray *)scheme
@@ -273,15 +285,45 @@
     [[NSWorkspace sharedWorkspace] openFile:url.path];
 }
 
+-(IBAction)deleteFromLibrary:(id)sender
+{
+    TVEpisode *episode = self.scheme[self.seasonsTableView.selectedRow][@"episodes"][self.episodesTableView.clickedRow];
+    [self.context deleteObject:episode];
+    
+    [self.context save:nil];
+}
+
 #pragma mark - Episodes Menu
 
 -(void)menuWillOpen:(NSMenu *)menu
 {
-    if(self.seasonsTableView.selectedRow < 0 || self.episodesTableView.clickedRow < 0){
+    if(self.seasonsTableView.selectedRow < 0 || self.episodesTableView.clickedRow < 0)
+    {
         [[menu itemAtIndex:0] setHidden:YES];
+        [[menu itemAtIndex:1] setHidden:YES];
+        [[menu itemAtIndex:2] setHidden:YES];
+        [[menu itemAtIndex:3] setHidden:YES];
+        [[menu itemAtIndex:4] setHidden:YES];
+        [[menu itemAtIndex:5] setHidden:YES];
+        [[menu itemAtIndex:6] setHidden:YES];
     }
     else {
+        TVEpisode *episode = self.scheme[self.seasonsTableView.selectedRow][@"episodes"][self.episodesTableView.clickedRow];
+        
+        if(episode.watched){
+            [[menu itemAtIndex:1] setTitle:@"Set as Unwatched"];
+        }
+        else {
+            [[menu itemAtIndex:1] setTitle:@"Set as Watched"];
+        }
+        
         [[menu itemAtIndex:0] setHidden:NO];
+        [[menu itemAtIndex:1] setHidden:NO];
+        [[menu itemAtIndex:2] setHidden:NO];
+        [[menu itemAtIndex:3] setHidden:NO];
+        [[menu itemAtIndex:4] setHidden:NO];
+        [[menu itemAtIndex:5] setHidden:NO];
+        [[menu itemAtIndex:6] setHidden:NO];
     }
 }
 

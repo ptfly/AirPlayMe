@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TVShowDetailsViewController">
@@ -402,10 +402,16 @@ Air Date: 22 September 2014</string>
         </customView>
         <menu autoenablesItems="NO" id="gbP-9w-yay">
             <items>
-                <menuItem title="Add to Playlist" id="sKg-rM-Fpq">
+                <menuItem title="Add to Playlist" id="nah-3y-Q62">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="addToPlaylist:" target="-2" id="b60-f5-Jil"/>
+                        <action selector="addToPlaylist:" target="-2" id="0CB-08-PoH"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Set as Watched" id="sKg-rM-Fpq">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="setAsWatched:" target="-2" id="qI2-3Q-E49"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="IPd-cY-7qS"/>
@@ -415,6 +421,13 @@ Air Date: 22 September 2014</string>
                         <action selector="showInFinder:" target="-2" id="31U-dw-0Is"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Delete from Library" id="NFO-yn-flk">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="deleteFromLibrary:" target="-2" id="jF7-IH-b2J"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="RWw-ha-06d"/>
                 <menuItem title="Play Using Default Application" id="OSH-ro-qdm">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
